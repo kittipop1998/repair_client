@@ -8,7 +8,10 @@
                 รายละเอียดการแจ้งซ่อม
             </p>
         </div>
-        </div>
+
+
+
+    </div>
 
 </template>
 
@@ -19,5 +22,4 @@
 </script>
 
 <style scoped>
-
 </style>
