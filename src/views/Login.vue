@@ -38,7 +38,9 @@
                         </v-card-text>
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn color="black" dark @click="$router.push({name : 'Repair'})">Login</v-btn>
+                            <v-btn color="black" dark @click="$router.push({name : 'Repair'})">Loginนิสิต</v-btn>
+                            <v-btn color="black" dark @click="$router.push({name : 'Repair_M'})">Loginผู้จัดการหอ</v-btn>
+                            <v-btn color="black" dark @click="$router.push({name : ''})">Loginเจ้าหน้าที่</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-col>

@@ -7,7 +7,7 @@
                         dense
                         dark
                 >
-                    <v-toolbar-title>แจ้งซ่อมหอพัก</v-toolbar-title>
+                    <v-toolbar-title>แจ้งซ่อมพัสดุ/อุปกรณ์หอพัก</v-toolbar-title>
 
                     <v-spacer></v-spacer>
 

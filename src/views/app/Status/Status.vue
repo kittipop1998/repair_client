@@ -59,6 +59,12 @@
                                             <v-text-field v-model="editedItem.date1" label="วันที่อนุมัติรายการ"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
+                                            <v-text-field label="รายละเอียด">
+                                                <v-btn class="font-weight-black-right">
+                                                    <v-icon dark >mdi-calendar-edit</v-icon>
+                                                </v-btn> </v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4">
                                             <v-text-field v-model="editedItem.date2" label="วันที่สิ้นสุด"></v-text-field>
                                         </v-col>
                                     </v-row>
@@ -89,9 +95,20 @@
                     mdi-delete
                 </v-icon>
             </template>
-            <template v-slot:no-data>
-                <v-btn color="primary" @click="initialize">Reset</v-btn>
+            <template v-slot:item.detail="{ item }">
+                <v-icon
+                        x-large
+                        color="cyan accent-3"
+                        class="mr-2"
+                        @click="detailItem(item)"
+                >
+                    mdi-calendar-edit
+
+                </v-icon>
+
+
             </template>
+
         </v-data-table>
     </div>
 </template>
@@ -112,7 +129,7 @@
                 { text: 'วันที่แจ้งซ่อม', value: 'date' },
                 { text: 'วันที่อนุมัติรายการ', value: 'date1' },
                 { text: 'วันที่สิ้นสุด', value: 'date2' },
-                { text: 'รายละเอียด', value: '' },
+                { text: 'รายละเอียด', value: 'detail', sortable: false},
                 { text: 'แก้ไข/ลบ', value: 'actions', sortable: false },
             ],
             desserts: [],
@@ -125,6 +142,7 @@
                 date: 0,
                 date1: 0,
                 date2: 0,
+
             },
             defaultItem: {
                 name: '',
@@ -134,6 +152,7 @@
                 date: 0,
                 date1: 0,
                 date2: 0,
+
             },
         }),
 

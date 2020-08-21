@@ -22,22 +22,49 @@
                         dense
                         solo
                 ></v-text-field>
-                <v-text-field
-                        label="กรุณาเลือกหอพัก"
-                        single-line
-                        dense
+                <v-select
+                        :items="items1"
+                        label="หอพัก"
+                        placeholder="กรุณาเลือกหอพัก"
                         solo
-                ></v-text-field>
+                ></v-select>
                 <v-text-field
                         label="หมายเลขห้อง"
                         single-line
                         dense
                         solo
                 ></v-text-field>
+                <v-menu
+                        ref="menu"
+                        v-model="menu"
+                        :close-on-content-click="false"
+                        :return-value.sync="date"
+                        transition="scale-transition"
+                        offset-y
+                        min-width="290px"
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                                v-model="date"
+                                label="ระบุวันที่แจ้งซ่อม"
+                                prepend-icon=""
+                                readonly
+                                v-bind="attrs"
+                                v-on="on"
+                                dense
+                                solo
+                        ></v-text-field>
+                    </template>
+                    <v-date-picker v-model="date" no-title scrollable>
+                        <v-spacer></v-spacer>
+                        <v-btn text color="ิblack" @click="menu = false">Cancel</v-btn>
+                        <v-btn text color="black" @click="$refs.menu.save(date)">OK</v-btn>
+                    </v-date-picker>
+                </v-menu>
                 <v-select
                         :items="items"
                         label="ประเภท"
-                        placeholder="ระบุ"
+                        placeholder="ระบุประเภท"
                         solo
                 ></v-select>
                 <v-textarea
@@ -65,13 +92,27 @@
     export default {
         name: "Repair",
         data: () => ({
-            items: ['ไฟฟ้า', 'ประปา', 'เฟอร์นิเจอร์'],
+            items: ['ระบุประเภท', 'ไฟฟ้า', 'ประปา', 'เฟอร์นิเจอร์'],
+            items1: ['กรุณาเลือกหอพัก', 'UP DORM 1 (ห้องปรับอากาศ)', 'UP DORM 2 (ห้องพัดลม)',
+            'UP DORM 3 (ห้องพัดลม)', 'UP DORM 4 (ห้องพัดลม)', 'UP DORM 5 (ห้องพัดลม)',
+            'UP DORM 6 (ห้องพัดลม)', 'UP DORM 7 (ห้องพัดลม)', 'UP DORM 8 (ห้องพัดลม)',
+            'UP DORM 9 (ห้องพัดลม)', 'UP DORM 10 (ห้องปรับอากาศ)', 'UP DORM 11 (ห้องปรับอากาศ)',
+            'UP DORM 12 (ห้องปรับอากาศ)', 'UP DORM 13 (ห้องปรับอากาศ)', 'UP DORM 14 (ห้องพัดลม)',
+            'UP DORM 15 (ห้องพัดลม)', 'UP DORM 16 (ห้องพัดลม)', 'UP DORM 17 (ห้องพัดลม)',
+            'UP DORM 18 (ห้องพัดลม)', 'UP DORM 19 (ห้องพัดลม)', 'UP DORM 20 (ห้องพัดลม)',
+            'UP DORM 21 (ห้องพัดลม)', 'UP DORM 22 (ห้องพัดลม)', 'UP DORM 23 (ห้องพัดลม)',
+            'UP DORM 24 (ห้องพัดลม)', 'UP DORM 25 (ห้องปรับอากาศ)', 'UP DORM 26 (ห้องปรับอากาศ)',
+            'UP DORM 27 (ห้องปรับอากาศ)', 'UP DORM 28 (ห้องปรับอากาศ)', 'UP DORM 29 (ห้องปรับอากาศ)',
+            'UP DORM 30 (ห้องปรับอากาศ)', 'UP DORM 31 (ห้องปรับอากาศ)', 'UP DORM 32 (ห้องปรับอากาศ)'],
+        }),
+        data1: () => ({
+            date: new Date().toISOString().substr(0, 10),
+            menu: false,
+
         }),
 
     }
-
 </script>
 
 <style scoped>
-
 </style>

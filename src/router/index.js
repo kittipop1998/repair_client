@@ -6,7 +6,7 @@ import Recommend from '@/views/Recommend'
 import Contact from '@/views/Contact'
 import Template from "../views/Template";
 import app from "./app";
-
+import manager from "./manager";
 
 Vue.use(Router)
 export default new Router({
@@ -35,7 +35,9 @@ export default new Router({
                     name: "Contact",
                     component: Contact
                 },
-                app
+                app,
+                manager
+
 
 
             ]

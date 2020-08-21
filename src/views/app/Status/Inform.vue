@@ -9,12 +9,12 @@
             </p>
         </div>
         <div class="text-center">
-            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="router.push({name : 'All'})">ทั้งหมด</v-btn>
+            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Status'})">ทั้งหมด</v-btn>
             <v-btn rounded color="black" class="mr-1" dark >แจ้งซ่อม</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark>กำลังดำเนินการ</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark>รอวัสดุ</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark>เสร็จสิ้น</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark>ยกเลิกคำร้อง</v-btn>
+            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Progress'})">กำลังดำเนินการ</v-btn>
+            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Wait'})">รอวัสดุ</v-btn>
+            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Completed'})">เสร็จสิ้น</v-btn>
+            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Cancel'})">ยกเลิกคำร้อง</v-btn>
         </div> <br>
         <v-data-table
                 :headers="headers"
@@ -59,6 +59,12 @@
                                             <v-text-field v-model="editedItem.date1" label="วันที่อนุมัติรายการ"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
+                                            <v-text-field label="รายละเอียด">
+                                                <v-btn class="font-weight-black-right">
+                                                    <v-icon dark >mdi-calendar-edit</v-icon>
+                                                </v-btn> </v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4">
                                             <v-text-field v-model="editedItem.date2" label="วันที่สิ้นสุด"></v-text-field>
                                         </v-col>
                                     </v-row>
@@ -89,8 +95,18 @@
                     mdi-delete
                 </v-icon>
             </template>
-            <template v-slot:no-data>
-                <v-btn color="primary" @click="initialize">Reset</v-btn>
+            <template v-slot:item.detail="{ item }">
+                <v-icon
+                        x-large
+                        color="cyan accent-3"
+                        class="mr-2"
+                        @click="detailItem(item)"
+                >
+                    mdi-calendar-edit
+
+                </v-icon>
+
+
             </template>
         </v-data-table>
     </div>
@@ -112,7 +128,7 @@
                 { text: 'วันที่แจ้งซ่อม', value: 'date' },
                 { text: 'วันที่อนุมัติรายการ', value: 'date1' },
                 { text: 'วันที่สิ้นสุด', value: 'date2' },
-                { text: 'รายละเอียด', value: '' },
+                { text: 'รายละเอียด', value: 'detail', sortable: false},
                 { text: 'แก้ไข/ลบ', value: 'actions', sortable: false },
             ],
             desserts: [],
@@ -165,15 +181,7 @@
                         date1: '',
                         date2: '',
                     },
-                    {
-                        name: 'แจ้งซ่อมประปา',
-                        id: 52144,
-                        data: 'นายพงษ์นรินทร์ แหลมแท้',
-                        status: 'เสร็จแล้ว',
-                        date: '05/01/2563',
-                        date1: '06/01/2563',
-                        date2: '06/01/2563',
-                    },
+
 
                 ]
             },

@@ -10,7 +10,32 @@ export default {
         {
             path: 'status',
             name: "Status",
-            component:  () => import('../views/app/Status')
+            component:  () => import('../views/app/Status/Status')
+        },
+        {
+            path: 'inform',
+            name: "Inform",
+            component:  () => import('../views/app/Status/Inform')
+        },
+        {
+            path: 'progress',
+            name: "Progress",
+            component:  () => import('../views/app/Status/Progress')
+        },
+        {
+            path: 'wait',
+            name: "Wait",
+            component:  () => import('../views/app/Status/Wait')
+        },
+        {
+            path: 'completed',
+            name: "Completed",
+            component:  () => import('../views/app/Status/Completed')
+        },
+        {
+            path: 'cancel',
+            name: "Cancel",
+            component:  () => import('../views/app/Status/Cancel')
         },
         {
             path: 'profile',
@@ -20,7 +45,12 @@ export default {
         {
             path: 'details',
             name: "Details",
-            component:  () => import('../views/app/Details')
+            component:  () => import('../views/app/Status/Details')
+        },
+        {
+            path: 'notification',
+            name: "Notification",
+            component:  () => import('../views/app/Status/Notification')
         },
     ]
 }
