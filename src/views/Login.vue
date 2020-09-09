@@ -40,7 +40,7 @@
                             <v-spacer></v-spacer>
                             <v-btn color="black" dark @click="$router.push({name : 'Repair'})">Loginนิสิต</v-btn>
                             <v-btn color="black" dark @click="$router.push({name : 'Repair_M'})">Loginผู้จัดการหอ</v-btn>
-                            <v-btn color="black" dark @click="$router.push({name : ''})">Loginเจ้าหน้าที่</v-btn>
+                            <v-btn color="black" dark @click="$router.push({name : 'Status_O'})">Loginเจ้าหน้าที่</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-col>
