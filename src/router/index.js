@@ -7,7 +7,10 @@ import Contact from '@/views/Contact'
 import Template from "../views/Template";
 import app from "./app";
 import manager from "./manager";
+<<<<<<< HEAD
 import officer from "./officer";
+=======
+>>>>>>> a1cd60effd289b6a21d07b842959481e673219a2
 
 Vue.use(Router)
 export default new Router({
@@ -37,8 +40,12 @@ export default new Router({
                     component: Contact
                 },
                 app,
+<<<<<<< HEAD
                 manager,
                 officer
+=======
+                manager
+>>>>>>> a1cd60effd289b6a21d07b842959481e673219a2
 
 
 
