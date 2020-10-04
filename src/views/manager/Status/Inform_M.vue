@@ -9,13 +9,23 @@
             </p>
         </div>
         <div class="text-center">
-            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Status_M'})">ทั้งหมด</v-btn>
-            <v-btn rounded color="black" class="mr-1" dark >แจ้งซ่อม</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Progress_M'})">กำลังดำเนินการ</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Wait_M'})">รอวัสดุ</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Completed_M'})">เสร็จสิ้น</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Cancel_M'})">ยกเลิกคำร้อง</v-btn>
-        </div> <br>
+            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Status_M'})">
+                ทั้งหมด
+            </v-btn>
+            <v-btn rounded color="black" class="mr-1" dark>แจ้งซ่อม</v-btn>
+            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Progress_M'})">
+                กำลังดำเนินการ
+            </v-btn>
+            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Wait_M'})">รอวัสดุ
+            </v-btn>
+            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Completed_M'})">
+                เสร็จสิ้น
+            </v-btn>
+            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Cancel_M'})">
+                ยกเลิกคำร้อง
+            </v-btn>
+        </div>
+        <br>
         <v-data-table
                 :headers="headers"
                 :items="desserts"
@@ -50,22 +60,27 @@
                                             <v-text-field v-model="editedItem.data" label="ข้อมูลนิสิต"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.status" label="สถานะการแจ้งซ่อม"></v-text-field>
+                                            <v-text-field v-model="editedItem.status"
+                                                          label="สถานะการแจ้งซ่อม"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.date" label="วันที่แจ้งซ่อม"></v-text-field>
+                                            <v-text-field v-model="editedItem.date"
+                                                          label="วันที่แจ้งซ่อม"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.date1" label="วันที่อนุมัติรายการ"></v-text-field>
+                                            <v-text-field v-model="editedItem.date1"
+                                                          label="วันที่อนุมัติรายการ"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
                                             <v-text-field label="รายละเอียด">
                                                 <v-btn class="font-weight-black-right">
-                                                    <v-icon dark >mdi-calendar-edit</v-icon>
-                                                </v-btn> </v-text-field>
+                                                    <v-icon dark>mdi-calendar-edit</v-icon>
+                                                </v-btn>
+                                            </v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.date2" label="วันที่สิ้นสุด"></v-text-field>
+                                            <v-text-field v-model="editedItem.date2"
+                                                          label="วันที่สิ้นสุด"></v-text-field>
                                         </v-col>
                                     </v-row>
                                 </v-container>
@@ -100,7 +115,7 @@
                         x-large
                         color="cyan accent-3"
                         class="mr-2"
-                        @click="detailItem(item)"
+                        dark @click="$router.push({name : 'Details_M2'})"
                 >
                     mdi-calendar-edit
 
@@ -124,14 +139,14 @@
                     sortable: false,
                     value: 'name',
                 },
-                { text: 'เลขที่คำร้อง', value: 'id' },
-                { text: 'ข้อมูลนิสิต', value: 'data' },
-                { text: 'สถานะการแจ้งซ่อม', value: 'status' },
-                { text: 'วันที่แจ้งซ่อม', value: 'date' },
-                { text: 'วันที่อนุมัติรายการ', value: 'date1' },
-                { text: 'วันที่สิ้นสุด', value: 'date2' },
-                { text: 'รายละเอียด', value: 'detail', sortable: false},
-                { text: 'แก้ไข/ลบ', value: 'actions', sortable: false },
+                {text: 'เลขที่คำร้อง', value: 'id'},
+                {text: 'ข้อมูลนิสิต', value: 'data'},
+                {text: 'สถานะการแจ้งซ่อม', value: 'status'},
+                {text: 'วันที่แจ้งซ่อม', value: 'date'},
+                {text: 'วันที่อนุมัติรายการ', value: 'date1'},
+                {text: 'วันที่สิ้นสุด', value: 'date2'},
+                {text: 'รายละเอียด', value: 'detail', sortable: false},
+                {text: 'แก้ไข/ลบ', value: 'actions', sortable: false},
             ],
             desserts: [],
             editedIndex: -1,
@@ -156,23 +171,23 @@
         }),
 
         computed: {
-            formTitle () {
+            formTitle() {
                 return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
             },
         },
 
         watch: {
-            dialog (val) {
+            dialog(val) {
                 val || this.close()
             },
         },
 
-        created () {
+        created() {
             this.initialize()
         },
 
         methods: {
-            initialize () {
+            initialize() {
                 this.desserts = [
                     {
                         name: 'แจ้งซ่อมไฟฟ้า',
@@ -188,18 +203,18 @@
                 ]
             },
 
-            editItem (item) {
+            editItem(item) {
                 this.editedIndex = this.desserts.indexOf(item)
                 this.editedItem = Object.assign({}, item)
                 this.dialog = true
             },
 
-            deleteItem (item) {
+            deleteItem(item) {
                 const index = this.desserts.indexOf(item)
                 confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
             },
 
-            close () {
+            close() {
                 this.dialog = false
                 this.$nextTick(() => {
                     this.editedItem = Object.assign({}, this.defaultItem)
@@ -207,7 +222,7 @@
                 })
             },
 
-            save () {
+            save() {
                 if (this.editedIndex > -1) {
                     Object.assign(this.desserts[this.editedIndex], this.editedItem)
                 } else {

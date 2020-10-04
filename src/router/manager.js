@@ -63,8 +63,16 @@ export default {
                 name: "Statistic",
                 component:  () => import('../views/manager/Statistic')
             },
-
-
+            {
+                path: 'details_m2',
+                name: "Details_M2",
+                component:  () => import('../views/manager/Status/Details_M2')
+            },
+            {
+                path: 'notification_m2',
+                name: "Notification_M2",
+                component:  () => import('../views/manager/Status/Notification_M2')
+            },
         ]
 
 

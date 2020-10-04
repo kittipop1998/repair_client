@@ -8,32 +8,35 @@
                 แจ้งซ่อม
             </p>
         </div>
-        <div class="d-flex justify-center" >
+        <div class="d-flex justify-center">
             <v-card width="500" elevation="0">
-                <v-text-field
-                        label="ชื่อ-สกุล"
-                        single-line
-                        dense
-                        solo
-                ></v-text-field>
-                <v-text-field
-                        label="คณะ"
-                        single-line
-                        dense
-                        solo
-                ></v-text-field>
+
+
                 <v-select
-                        :items="items1"
+                        v-model="domitory_sel"
+                        :items="domitory"
                         label="หอพัก"
                         placeholder="กรุณาเลือกหอพัก"
+                        item-text="nameDo"
                         solo
                 ></v-select>
-                <v-text-field
+
+                <v-select
+                        v-model="room_sel"
+                        :items="room"
                         label="หมายเลขห้อง"
                         single-line
+                        item-text="nameRo"
                         dense
                         solo
-                ></v-text-field>
+                >
+                    <template slot="selection" slot-scope="data">
+                        {{ data.item ?  data.item.room_type.nameTy : '' }} {{data.item ?  data.item.nameRo : '' }}
+                    </template>
+                    <template slot="item" slot-scope="data">
+                        {{ data.item ? data.item.room_type.nameTy :''}}  {{ data.item ? data.item.nameRo : '' }}
+                    </template>
+                </v-select>
                 <v-menu
                         ref="menu"
                         v-model="menu"
@@ -61,26 +64,60 @@
                         <v-btn text color="black" @click="$refs.menu.save(date)">OK</v-btn>
                     </v-date-picker>
                 </v-menu>
+<!--                <v-select-->
+<!--                        v-model="form.repair_type"-->
+<!--                        :items="form.repair_type_sel"-->
+<!--                        label="ประเภท"-->
+<!--                        placeholder="ระบุประเภท"-->
+<!--                        item-text="nameRe"-->
+<!--                        solo-->
+<!--                >-->
+<!--                    <template slot="selection" slot-scope="data">-->
+<!--                        {{ data.item ?  data.item.repair_type : '' }} {{data.item ?  data.item.nameRe : '' }}-->
+<!--                    </template>-->
+<!--                    <template slot="item" slot-scope="data">-->
+<!--                        {{ data.item ? data.item.repair_type :''}}  {{ data.item ? data.item.nameRo : '' }}-->
+<!--                    </template>-->
+<!--                </v-select>-->
                 <v-select
-                        :items="items"
+                        v-model="nameRe"
+                        :items="repair"
                         label="ประเภท"
-                        placeholder="ระบุประเภท"
+                        single-line
+                        item-text="nameRe"
+                        dense
                         solo
-                ></v-select>
+                >
+                    <template slot="selection" slot-scope="data">
+                        {{ data.item ?  data.item.repair_type : '' }} {{data.item ?  data.item.nameRe : '' }}
+                    </template>
+                    <template slot="item" slot-scope="data">
+                        {{ data.item ? data.item.repair_type :''}}  {{ data.item ? data.item.nameRe : '' }}
+                    </template>
+                </v-select>
                 <v-textarea
+                        v-model="form.desc"
                         solo
                         name="input-7-4"
                         label="รายละเอียดการซ่อม/ปัญหา"
                 ></v-textarea>
                 <v-text-field
+                        v-model="form.contact"
+                        item-text="contact"
                         label="หมายเลขโทรศัพท์ที่สามารถติดต่อได้"
                         single-line
+
                         dense
                         solo
                 ></v-text-field>
-                <v-file-input label="รูปภาพ/ถ้ามี" outlined dense></v-file-input>
+
+                <v-file-input
+                        label="รูปภาพ/ถ้ามี"
+                        v-model="form.image"
+                        outlined dense>
+                </v-file-input>
                 <div class="text-center">
-                    <v-btn color="black" dark @click="$router.push({name : 'Status'})">ส่งคำร้องการแจ้งซ่อม</v-btn>
+                    <v-btn color="black" dark @click="save">ส่งคำร้องการแจ้งซ่อม</v-btn>
                 </div>
 
             </v-card>
@@ -89,29 +126,73 @@
 </template>
 
 <script>
+    import Template from "../Template";
     export default {
         name: "Repair",
+        components: {Template},
         data: () => ({
-            items: ['ระบุประเภท', 'ไฟฟ้า', 'ประปา', 'เฟอร์นิเจอร์'],
-            items1: ['กรุณาเลือกหอพัก', 'UP DORM 1 (ห้องปรับอากาศ)', 'UP DORM 2 (ห้องพัดลม)',
-            'UP DORM 3 (ห้องพัดลม)', 'UP DORM 4 (ห้องพัดลม)', 'UP DORM 5 (ห้องพัดลม)',
-            'UP DORM 6 (ห้องพัดลม)', 'UP DORM 7 (ห้องพัดลม)', 'UP DORM 8 (ห้องพัดลม)',
-            'UP DORM 9 (ห้องพัดลม)', 'UP DORM 10 (ห้องปรับอากาศ)', 'UP DORM 11 (ห้องปรับอากาศ)',
-            'UP DORM 12 (ห้องปรับอากาศ)', 'UP DORM 13 (ห้องปรับอากาศ)', 'UP DORM 14 (ห้องพัดลม)',
-            'UP DORM 15 (ห้องพัดลม)', 'UP DORM 16 (ห้องพัดลม)', 'UP DORM 17 (ห้องพัดลม)',
-            'UP DORM 18 (ห้องพัดลม)', 'UP DORM 19 (ห้องพัดลม)', 'UP DORM 20 (ห้องพัดลม)',
-            'UP DORM 21 (ห้องพัดลม)', 'UP DORM 22 (ห้องพัดลม)', 'UP DORM 23 (ห้องพัดลม)',
-            'UP DORM 24 (ห้องพัดลม)', 'UP DORM 25 (ห้องปรับอากาศ)', 'UP DORM 26 (ห้องปรับอากาศ)',
-            'UP DORM 27 (ห้องปรับอากาศ)', 'UP DORM 28 (ห้องปรับอากาศ)', 'UP DORM 29 (ห้องปรับอากาศ)',
-            'UP DORM 30 (ห้องปรับอากาศ)', 'UP DORM 31 (ห้องปรับอากาศ)', 'UP DORM 32 (ห้องปรับอากาศ)'],
+            menu:null,
+            date:null,
+            domitory: null,
+            domitory_sel: null,
+            room_sel:null,
+            room: null,
+            nameRe: null,
+            repair: null,
+            // items:[
+            //     {
+            //         items: 'repair_type'
+            //     }
+            // ],
+            form: {
+                "contact": "",
+                "desc": "",
+                "created_date": null,
+                "status": null,
+                "image": null,
+                "user_profile": null,
+                // "repair_type": null,
+                // "repair_type_sel":null,
+            }
         }),
-        data1: () => ({
-            date: new Date().toISOString().substr(0, 10),
-            menu: false,
+        mounted() {
+            this.loadDormitory()
+            this.loadRoom()
+            this.loadRepair()
 
-        }),
+        },
+        methods: {
+            async loadDormitory() {
+                this.domitory = await this.$store.dispatch('getDomitory')
+                if (this.domitory) {
+                    // console.log(this.domitory)
+                }
+
+            },
+            async loadRoom() {
+                this.room = await this.$store.dispatch('getRoom')
+                if (this.room) {
+                    // console.log(this.room)
+                }
+            },
+            async loadRepair() {
+                this.repair = await this.$store.dispatch('getRepairType')
+                if (this.repair) {
+                    console.log(this.repair)
+                }
+
+
+            },
+            async save(){
+
+            }
+
+
+        }
 
     }
+
+
 </script>
 
 <style scoped>
