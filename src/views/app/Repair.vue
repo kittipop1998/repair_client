@@ -37,33 +37,10 @@
                         {{ data.item ? data.item.room_type.nameTy :''}}  {{ data.item ? data.item.nameRo : '' }}
                     </template>
                 </v-select>
-                <v-menu
-                        ref="menu"
-                        v-model="menu"
-                        :close-on-content-click="false"
-                        :return-value.sync="date"
-                        transition="scale-transition"
-                        offset-y
-                        min-width="290px"
-                >
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                                v-model="date"
-                                label="ระบุวันที่แจ้งซ่อม"
-                                prepend-icon=""
-                                readonly
-                                v-bind="attrs"
-                                v-on="on"
-                                dense
-                                solo
-                        ></v-text-field>
-                    </template>
-                    <v-date-picker v-model="date" no-title scrollable>
-                        <v-spacer></v-spacer>
-                        <v-btn text color="ิblack" @click="menu = false">Cancel</v-btn>
-                        <v-btn text color="black" @click="$refs.menu.save(date)">OK</v-btn>
-                    </v-date-picker>
-                </v-menu>
+                <Select_date
+                        @change="form.created_date = $event" >
+
+                </Select_date>
 <!--                <v-select-->
 <!--                        v-model="form.repair_type"-->
 <!--                        :items="form.repair_type_sel"-->
@@ -116,9 +93,11 @@
                         v-model="form.image"
                         outlined dense>
                 </v-file-input>
+
                 <div class="text-center">
                     <v-btn color="black" dark @click="save">ส่งคำร้องการแจ้งซ่อม</v-btn>
                 </div>
+
 
             </v-card>
         </div>
@@ -127,9 +106,10 @@
 
 <script>
     import Template from "../Template";
+    import Select_date from "../../components/Select_date";
     export default {
         name: "Repair",
-        components: {Template},
+        components: {Select_date, Template},
         data: () => ({
             menu:null,
             date:null,
@@ -148,7 +128,7 @@
                 "contact": "",
                 "desc": "",
                 "created_date": null,
-                "status": null,
+                "status": 1,
                 "image": null,
                 "user_profile": null,
                 // "repair_type": null,
@@ -184,6 +164,8 @@
 
             },
             async save(){
+
+                console.log(this.form)
 
             }
 

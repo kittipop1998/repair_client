@@ -5,7 +5,10 @@ import store from './store'
 import '@/assets/css/base.css'
 import vuetify from './plugins/vuetify';
 import Axios from 'axios'
+import moment from "moment";
 
+window.moment = moment()
+moment.locale("th")
 window.baseURL = 'http://127.0.0.1:8000/'
 window.axios = new Axios.create({
     baseURL: baseURL,
