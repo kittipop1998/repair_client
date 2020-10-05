@@ -50,6 +50,19 @@ export default new Vuex.Store({
 
       },
 
+      getUserprofile: async function () {
+          return await axios.get('api/Userprofile/')
+              .then((response) => {
+                  console.log(response.data)
+                  return response.data
+              }).catch((error) => {
+                  // context.dispatch("error/setError", error.response.data, {root: true});
+                  console(error,'error')
+                  return error
+              });
+
+      },
+
   },
     modules: {
         user: user,

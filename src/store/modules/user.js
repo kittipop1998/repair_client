@@ -31,7 +31,7 @@ export default {
             return data
         },
         getUser: async function (context, params) {
-            return await axios.get(`/rest-auth/user/`)
+            return await axios.get(`/rest-auth/user-profile/`)
                 .then((response) => {
                     context.commit('setUser', response.data)
                     return response.data
@@ -57,19 +57,17 @@ export default {
                 })
         },
 
-
-
-        // registerUser: async function (context, params) {
-        //     localStorage.clear()  // clear old access_token because it invalid token if send request with token
-        //     return await axios.post(`/rest-auth/registration/`, params)
-        //         .then((response) => {
-        //             return response.data
-        //         })
-        //         .catch((error) => {
-        //             console.error(error)
-        //             return null
-        //         })
-        // },
+        registerUser: async function (context, params) {
+            localStorage.clear()  // clear old access_token because it invalid token if send request with token
+            return await axios.post(`/rest-auth/registration/`, params)
+                .then((response) => {
+                    return response.data
+                })
+                .catch((error) => {
+                    console.error(error)
+                    return null
+                })
+        },
 
     }
 }

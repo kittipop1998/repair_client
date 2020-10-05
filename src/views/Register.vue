@@ -44,11 +44,29 @@
                   @click:append="show_password = !show_password"
                   @keypress.13="login"
 
-                  v-model="form.password"
+                  v-model="form.password1"
                   :rules="[rules.required]"
 
 
-                  :error-messages="error.password"
+                  :error-messages="error.password1"
+
+              ></v-text-field>
+
+              <v-text-field
+                  outlined
+                  rounded
+                  label="Password"
+                  prepend-icon="mdi-lock"
+                  type="show_password ? 'text' : 'password'"
+                  :append-icon="show_password ? 'mdi-eye': 'mdi-eye-off'"
+                  @click:append="show_password = !show_password"
+                  @keypress.13="login"
+
+                  v-model="form.password2"
+                  :rules="[rules.required]"
+
+
+                  :error-messages="error.password2"
 
               ></v-text-field>
 
@@ -95,18 +113,18 @@
             </v-btn>
           </v-card-actions>
 
-<!--          <v-card-actions class="container">-->
-<!--            <v-btn-->
-<!--                color="black"-->
-<!--                x-large-->
-<!--                rounded-->
-<!--                block-->
-<!--                dark-->
-<!--                @click="register"-->
-<!--            >-->
-<!--              Register-->
-<!--            </v-btn>-->
-<!--          </v-card-actions>-->
+          <!--          <v-card-actions class="container">-->
+          <!--            <v-btn-->
+          <!--                color="black"-->
+          <!--                x-large-->
+          <!--                rounded-->
+          <!--                block-->
+          <!--                dark-->
+          <!--                @click="register"-->
+          <!--            >-->
+          <!--              Register-->
+          <!--            </v-btn>-->
+          <!--          </v-card-actions>-->
 
 
           <!--                    <v-card-actions>-->
@@ -125,15 +143,16 @@ import Base from "@/components/share/Base";
 import PrimaryButton from "@/components/share/PrimaryButton";
 
 export default {
-  name: 'Login',
+  name: 'Register',
   extends: Base,
   component: {PrimaryButton},
   data() {
     return {
       show_password: false,
       form: {
-        username: 'student',
-        password: 'password_user'
+        username: '',
+        password1: '',
+        password2: '',
       },
       rules: {
         required: value => !!value || 'Required'
@@ -141,26 +160,11 @@ export default {
     }
   },
   methods: {
-    async login() {
+    async signup() {
       let data = await this.$store.dispatch('user/getUserToken', this.form)
       if (data) {
-        let user = await this.$store.dispatch('user/getUser')
-        console.log(user)
-        if (user.groups[0].name === "admin") {
-          await this.$router.push({name: '../Repair_Admin'})
-        }else if (user.groups[0].name === "student"){
-          await this.$router.push({name: 'Repair'})
-
-        }else if (user.groups[0].name === "manager"){
-          await this.$router.push({name: 'Repair_M'})
-
-        }
+        await this.$router.push({name: 'Repair'})
       }
-    },
-
-    async signup() {
-      let user = await this.$store.dispatch('user/registerUser', this.form)
-
     }
     // login() {
     //     if(this.input.username !== "username" && this.input.password !== "password") {
@@ -179,7 +183,7 @@ export default {
 
 </script>
 <style>
-#login {
+#signup {
   width: 500px;
   border: 1px solid #CCCCCC;
   background-color: #FFFFFF;
