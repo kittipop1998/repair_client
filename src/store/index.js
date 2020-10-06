@@ -13,7 +13,7 @@ export default new Vuex.Store({
   mutations: {
   },
   actions: {
-    getDomitory: async function () {
+    getDomitory: async function (context,params) {
       return await axios.get('api/Dormitorys/')
           .then((response) => {
             console.log(response.data)
@@ -25,7 +25,7 @@ export default new Vuex.Store({
           });
 
     },
-      getRoom: async function () {
+      getRoom: async function (context,params) {
           return await axios.get('api/Rooms/')
               .then((response) => {
                   console.log(response.data)
@@ -37,7 +37,7 @@ export default new Vuex.Store({
               });
 
       },
-      getRepairType: async function () {
+      getRepairType: async function (context,params) {
           return await axios.get('api/RepairType/')
               .then((response) => {
                   console.log(response.data)
@@ -49,6 +49,18 @@ export default new Vuex.Store({
               });
 
       },
+      saveRepair: async function (context,params){
+          return await axios.post('api/Repairs/', params)
+              .then((response) => {
+                  console.log(response.data)
+                  return response.data
+              }).catch((error) => {
+                  // context.dispatch("error/setError", error.response.data, {root: true});
+                  console(error,'error')
+                  return error
+              });
+
+      }
 
   },
     modules: {

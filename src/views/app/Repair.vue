@@ -13,7 +13,7 @@
 
 
                 <v-select
-                        v-model="domitory_sel"
+                        v-model="form.domitory_sel"
                         :items="domitory"
                         label="หอพัก"
                         placeholder="กรุณาเลือกหอพัก"
@@ -22,7 +22,7 @@
                 ></v-select>
 
                 <v-select
-                        v-model="room_sel"
+                        v-model="form.room_sel"
                         :items="room"
                         label="หมายเลขห้อง"
                         single-line
@@ -57,11 +57,12 @@
 <!--                    </template>-->
 <!--                </v-select>-->
                 <v-select
-                        v-model="nameRe"
+                        v-model="form.repair_type"
                         :items="repair"
                         label="ประเภท"
                         single-line
                         item-text="nameRe"
+                        item-value="id"
                         dense
                         solo
                 >
@@ -131,8 +132,11 @@
                 "status": 1,
                 "image": null,
                 "user_profile": null,
-                // "repair_type": null,
-                // "repair_type_sel":null,
+                "repair_type": null,
+                "domitory_sel": null,
+                "room_sel": null,
+                "room": null,
+
             }
         }),
         mounted() {
@@ -166,6 +170,10 @@
             async save(){
 
                 console.log(this.form)
+                let date = await this.$store.dispatch('saveRepair', this.form)
+                if(data){
+                    this.router.push({name: 'Status'})
+                }
 
             }
 
