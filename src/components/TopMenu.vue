@@ -14,7 +14,7 @@
           <v-btn text @click="$router.push({name : 'Home'})">หน้าแรก</v-btn>
           <v-btn text @click="$router.push({name : 'Recommend'})">แนะนำ</v-btn>
           <v-btn text @click="$router.push({name : 'Contact'})">ติดต่อ</v-btn>
-          <v-btn  text @click="$router.push({name : 'Login'})">เข้าสู่ระบบ</v-btn>
+          <v-btn text @click="$router.push({name : 'Login'})">เข้าสู่ระบบ</v-btn>
 
         </v-app-bar>
       </div>
@@ -23,10 +23,24 @@
 </template>
 
 <script>
-export default {
-  name: "TopMenu"
 
+import Template from "@/views/Template";
+export default {
+  name: "TopMenu",
+  components: {Template},
+  data: () => ({
+    drawer: false,
+  }),
+  methods: {
+    logout() {
+      this.$store.dispatch('user/logout')
+      this.$router.push({
+        name: 'Login'
+      })
+    }
+  }
 }
+
 </script>
 
 <style scoped>

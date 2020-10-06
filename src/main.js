@@ -14,6 +14,10 @@ window.axios = new Axios.create({
     baseURL: baseURL,
     timeout: 10000
 })
+if (localStorage.getItem('access_token')) {
+    axios.defaults.headers.common['Authorization'] = `Token ${localStorage.getItem('access_token')}`;
+}
+
 Vue.config.productionTip = false
 
 new Vue({
