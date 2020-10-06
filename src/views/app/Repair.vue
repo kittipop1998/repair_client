@@ -22,11 +22,12 @@
                 ></v-select>
 
                 <v-select
-                        v-model="form.room_sel"
+                        v-model="form.room"
                         :items="room"
                         label="หมายเลขห้อง"
                         single-line
                         item-text="nameRo"
+                        item-value="id"
                         dense
                         solo
                 >
@@ -108,6 +109,7 @@
 <script>
     import Template from "../Template";
     import Select_date from "../../components/Select_date";
+    import  {mapState} from 'vuex'
     export default {
         name: "Repair",
         components: {Select_date, Template},
@@ -139,11 +141,19 @@
 
             }
         }),
-        mounted() {
+        async mounted() {
             this.loadDormitory()
             this.loadRoom()
             this.loadRepair()
+            if(!this.user){
+                await this.$store.dispatch('user/getUser')
+            }
 
+        },
+        computed : {
+            ...mapState({
+                user : state => state.user.user
+            })
         },
         methods: {
             async loadDormitory() {
@@ -168,11 +178,12 @@
 
             },
             async save(){
-
-                console.log(this.form)
-                let date = await this.$store.dispatch('saveRepair', this.form)
+                console.log(this.form,'form')
+                console.log(this.user,'user')
+                this.form.user_profile = this.user.id
+                let data = await this.$store.dispatch('saveRepair', this.form)
                 if(data){
-                    this.router.push({name: 'Status'})
+                    this.$router.push({name: 'Status'})
                 }
 
             }
