@@ -117,11 +117,15 @@
             menu:null,
             date:null,
             domitory: null,
-            domitory_sel: null,
+            
             room_sel:null,
             room: null,
             nameRe: null,
             repair: null,
+            user_profile: null,
+
+
+
             // items:[
             //     {
             //         items: 'repair_type'
@@ -135,9 +139,10 @@
                 "image": null,
                 "user_profile": null,
                 "repair_type": null,
-                "domitory_sel": null,
-                "room_sel": null,
+                "domitory": null,
                 "room": null,
+                "room_type":null
+
 
             }
         }),
@@ -159,14 +164,14 @@
             async loadDormitory() {
                 this.domitory = await this.$store.dispatch('getDomitory')
                 if (this.domitory) {
-                    // console.log(this.domitory)
+                    console.log(this.domitory)
                 }
 
             },
             async loadRoom() {
                 this.room = await this.$store.dispatch('getRoom')
                 if (this.room) {
-                    // console.log(this.room)
+                    console.log(this.room)
                 }
             },
             async loadRepair() {

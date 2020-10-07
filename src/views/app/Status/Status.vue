@@ -32,14 +32,14 @@
         >
             <template v-slot:top>
                 <v-toolbar flat color="white">
-                    <v-toolbar-title>รายการแจ้งซ่อม</v-toolbar-title>
+                    <v-toolbar-title class="font-weight-black">รายการแจ้งซ่อม</v-toolbar-title>
                     <v-divider
                             class="mx-4"
                             inset
                             vertical
                     ></v-divider>
                     <v-spacer></v-spacer>
-                    <v-dialog v-model="dialog" max-width="500px">
+                    <v-dialog v-model="dialog" max-width="550px">
                         <v-card>
                             <v-card-title>
                                 <span class="headline">{{ formTitle }}</span>
@@ -48,37 +48,92 @@
                             <v-card-text>
                                 <v-container>
                                     <v-row>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.name" label="ใบคำร้อง"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.id" label="เลขที่คำร้อง"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.data" label="ข้อมูลนิสิต"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.status" label="สถานะการแจ้งซ่อม"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.date"
-                                                          label="วันที่แจ้งซ่อม"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.date1"
-                                                          label="วันที่อนุมัติรายการ"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field label="รายละเอียด">
-                                                <v-btn class="font-weight-black-right">
-                                                    <v-icon dark>mdi-calendar-edit</v-icon>
-                                                </v-btn>
-                                            </v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.date2"
-                                                          label="วันที่สิ้นสุด"></v-text-field>
-                                        </v-col>
+                                        <div>
+
+                                            <div class="d-flex justify-center">
+                                                <v-card width="500" elevation="0">
+
+
+                                                    <v-select
+                                                            v-model="editedItem.domitory_sel"
+                                                            :items="domitory"
+                                                            label="หอพัก"
+                                                            placeholder="กรุณาเลือกหอพัก"
+                                                            item-text="nameDo"
+                                                            solo
+                                                    ></v-select>
+
+                                                    <v-select
+                                                            v-model="editedItem.room"
+                                                            :items="room"
+                                                            label="หมายเลขห้อง"
+                                                            single-line
+                                                            item-text="nameRo"
+                                                            item-value="id"
+                                                            dense
+                                                            solo
+                                                    >
+                                                        <template slot="selection" slot-scope="data">
+                                                            {{ data.item ? data.item.room_type.nameTy : '' }}
+                                                            {{data.item ? data.item.nameRo : '' }}
+                                                        </template>
+                                                        <template slot="item" slot-scope="data">
+                                                            {{ data.item ? data.item.room_type.nameTy :''}} {{ data.item
+                                                            ? data.item.nameRo : '' }}
+                                                        </template>
+                                                    </v-select>
+                                                    <Select_date
+                                                            @change="editedItem.created_date = $event">
+
+                                                    </Select_date>
+
+
+                                                    <v-select
+                                                            v-model="editedItem.repair_type"
+                                                            :items="repair"
+                                                            label="ประเภท"
+                                                            single-line
+                                                            item-text="nameRe"
+                                                            item-value="id"
+                                                            dense
+                                                            solo
+                                                    >
+                                                        <template slot="selection" slot-scope="data">
+                                                            {{ data.item ? data.item.repair_type : '' }} {{data.item ?
+                                                            data.item.nameRe : '' }}
+                                                        </template>
+                                                        <template slot="item" slot-scope="data">
+                                                            {{ data.item ? data.item.repair_type :''}} {{ data.item ?
+                                                            data.item.nameRe : '' }}
+                                                        </template>
+                                                    </v-select>
+                                                    <v-textarea
+                                                            v-model="editedItem.desc"
+                                                            solo
+                                                            name="input-7-4"
+                                                            label="รายละเอียดการซ่อม/ปัญหา"
+                                                    ></v-textarea>
+                                                    <v-text-field
+                                                            v-model="editedItem.contact"
+                                                            item-text="contact"
+                                                            label="หมายเลขโทรศัพท์ที่สามารถติดต่อได้"
+                                                            single-line
+
+                                                            dense
+                                                            solo
+                                                    ></v-text-field>
+
+                                                    <v-file-input
+                                                            label="รูปภาพ/ถ้ามี"
+                                                            v-model="editedItem.image"
+                                                            outlined dense>
+                                                    </v-file-input>
+
+
+                                                </v-card>
+                                            </div>
+                                        </div>
+
                                     </v-row>
                                 </v-container>
                             </v-card-text>
@@ -92,6 +147,21 @@
                         </v-card>
                     </v-dialog>
                 </v-toolbar>
+            </template>
+            <template v-slot:item.status="{ item }">
+                <div v-if="item.status ==1">
+                    แจ้งซ่อม
+                </div>
+                <div v-else-if="item.status ==2">
+                    กำลังดำเนินงาน
+                </div>
+                <div v-else-if="item.status ==3">
+                    เสร็จสิ้น
+                </div>
+                <div v-else-if="item.status ==4">
+                    ยกเลิกคำร้อง
+                </div>
+
             </template>
             <template v-slot:item.actions="{ item }">
                 <v-icon
@@ -108,6 +178,20 @@
                     mdi-delete-outline
                 </v-icon>
             </template>
+
+            <template v-slot:item.room_data="{ item }">
+                {{item.room_data.dormitory.nameDo}}
+                {{ item.room_data.nameRo}}
+
+
+            </template>
+            <template v-slot:item.repairType_data="{ item }">
+                {{item.repairType_data.nameRe}}
+
+
+            </template>
+
+
             <template v-slot:item.detail="{ item }">
                 <v-icon
                         x-large
@@ -127,10 +211,22 @@
 </template>
 
 <script>
+    import Select_date from "../../../components/Select_date";
+
+
     export default {
+        components: {Select_date},
         name: "Status",
         data: () => ({
+                menu:null,
+                date:null,
+                domitory: null,
+                domitory_sel: null,
+                room_sel:null,
+                room: null,
+                nameRe: null,
                 repair: null,
+                user_profile: null,
                 data_table: null,
                 name: "",
                 status: null,
@@ -141,43 +237,46 @@
                         text: 'ประเภทของการแจ้งซ่อม',
                         align: 'start',
                         sortable: false,
-                        value: 'repair_type',
+                        value: 'repairType_data',
                     },
+                    {text: 'หมายเลขห้อง', value: 'room_data'},
                     {text: 'ข้อมูลนิสิต', value: ''},
                     {text: 'สถานะการแจ้งซ่อม', value: 'status'},
                     {text: 'วันที่แจ้งซ่อม', value: 'request_date'},
                     {text: 'วันที่อนุมัติรายการ', value: ''},
                     {text: 'วันที่สิ้นสุด', value: ''},
                     {text: 'รายละเอียด', value: ''},
-                    {text: 'แก้ไข/ลบ', value: ''}
+                    {text: 'แก้ไข/ลบ', value: 'actions', sortable: false}
 
                 ],
                 desserts: [],
                 editedIndex: -1,
                 editedItem: {
-                    name: '',
-                    id: 0,
-                    data: 0,
-                    status: 0,
-                    date: 0,
-                    date1: 0,
-                    date2: 0,
+                    domitory_sel: '',
+                    room: 0,
+                    created_date: 0,
+                    repair_type: 0,
+                    desc: 0,
+                    contact: 0,
+                    image: 0,
                 },
                 defaultItem: {
-                    name: '',
-                    id: 0,
-                    data: 0,
-                    status: 0,
-                    date: 0,
-                    date1: 0,
-                    date2: 0,
+                    domitory_sel: '',
+                    room: 0,
+                    created_date: 0,
+                    repair_type: 0,
+                    desc: 0,
+                    contact: 0,
+                    image: 0,
 
                 },
             }
         ),
         computed: {
             formTitle() {
-                return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+
+
+                return this.editedIndex === -1 ? 'แก้ไขข้อมูลการแจ้งซ่อม' : 'Edit Item'
             },
         },
         watch: {
@@ -186,16 +285,35 @@
             },
         },
         created() {
+            this.loadDormitory()
+            this.loadRoom()
             this.initialize()
             this.loadRepair()
+
         },
         methods: {
+            async loadDormitory() {
+                this.domitory = await this.$store.dispatch('getDomitory')
+                if (this.domitory) {
+                    console.log(this.domitory)
+                }
+                console.log(this.repair, 'rest')
+
+            },
+            async loadRoom() {
+                this.room = await this.$store.dispatch('getRoom')
+                if (this.room) {
+                    console.log(this.room)
+                }
+                console.log(this.repair, 'rest')
+            },
             async loadRepair() {
                 this.repair = await this.$store.dispatch('getRepairs')
                 if (this.repair) {
                     console.log(this.repair)
                 }
-                console.log(this.repair, 'rest')}
+                console.log(this.repair, 'rest')
+            }
             ,
             initialize() {
 
@@ -212,33 +330,11 @@
                         "domitory_sel": null,
                         "room_sel": null,
                         "room": null,
+                        "request_date": null,
+                        "actions": null
 
                     }
-                }
-
-
-
-
-                    // {
-                    //     name: 'แจ้งซ่อมไฟฟ้า',
-                    //     id: 56554,
-                    //     data: 'กิตติภพ มาตรศาลา',
-                    //     status: 'แจ้งซ่อม',
-                    //     date: '05/01/2563',
-                    //     date1: '',
-                    //     date2: '',
-                    // },
-                    // {
-                    //     name: 'แจ้งซ่อมประปา',
-                    //     id: 52144,
-                    //     data: 'นายพงษ์นรินทร์ แหลมแท้',
-                    //     status: 'เสร็จแล้ว',
-                    //     date: '05/01/2563',
-                    //     date1: '06/01/2563',
-                    //     date2: '06/01/2563',
-                    // },
-
-                ]
+                }]
             }
             ,
 
@@ -273,6 +369,7 @@
                 this.close()
             }
             ,
+
         }
         ,
     }

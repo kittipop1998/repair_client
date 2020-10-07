@@ -64,6 +64,7 @@ export default new Vuex.Store({
             formData.append('domitory_sel', params.domitory_sel)
             formData.append('room_sel', params.room_sel)
             formData.append('room', params.room)
+            formData.append('room_type', params.room_type)
 
 
             return await axios.post('api/Repairs/', formData, config)
