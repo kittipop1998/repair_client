@@ -23,11 +23,6 @@ export default {
             component:  () => import('../views/app/Status/Progress')
         },
         {
-            path: 'wait',
-            name: "Wait",
-            component:  () => import('../views/app/Status/Wait')
-        },
-        {
             path: 'completed',
             name: "Completed",
             component:  () => import('../views/app/Status/Completed')

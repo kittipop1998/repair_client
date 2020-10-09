@@ -13,7 +13,7 @@
 
 
                 <v-select
-                        v-model="domitory_sel"
+                        v-model="form.domitory_sel"
                         :items="domitory"
                         label="หอพัก"
                         placeholder="กรุณาเลือกหอพัก"
@@ -22,11 +22,12 @@
                 ></v-select>
 
                 <v-select
-                        v-model="room_sel"
+                        v-model="form.room"
                         :items="room"
                         label="หมายเลขห้อง"
                         single-line
                         item-text="nameRo"
+                        item-value="id"
                         dense
                         solo
                 >
@@ -57,11 +58,12 @@
 <!--                    </template>-->
 <!--                </v-select>-->
                 <v-select
-                        v-model="nameRe"
+                        v-model="form.repair_type"
                         :items="repair"
                         label="ประเภท"
                         single-line
                         item-text="nameRe"
+                        item-value="id"
                         dense
                         solo
                 >
@@ -107,6 +109,7 @@
 <script>
     import Template from "../Template";
     import Select_date from "../../components/Select_date";
+    import  {mapState} from 'vuex'
     export default {
         name: "Repair",
         components: {Select_date, Template},
@@ -114,11 +117,15 @@
             menu:null,
             date:null,
             domitory: null,
-            domitory_sel: null,
+            
             room_sel:null,
             room: null,
             nameRe: null,
             repair: null,
+            user_profile: null,
+
+
+
             // items:[
             //     {
             //         items: 'repair_type'
@@ -131,28 +138,40 @@
                 "status": 1,
                 "image": null,
                 "user_profile": null,
-                // "repair_type": null,
-                // "repair_type_sel":null,
+                "repair_type": null,
+                "domitory": null,
+                "room": null,
+                "room_type":null
+
+
             }
         }),
-        mounted() {
+        async mounted() {
             this.loadDormitory()
             this.loadRoom()
             this.loadRepair()
+            if(!this.user){
+                await this.$store.dispatch('user/getUser')
+            }
 
+        },
+        computed : {
+            ...mapState({
+                user : state => state.user.user
+            })
         },
         methods: {
             async loadDormitory() {
                 this.domitory = await this.$store.dispatch('getDomitory')
                 if (this.domitory) {
-                    // console.log(this.domitory)
+                    console.log(this.domitory)
                 }
 
             },
             async loadRoom() {
                 this.room = await this.$store.dispatch('getRoom')
                 if (this.room) {
-                    // console.log(this.room)
+                    console.log(this.room)
                 }
             },
             async loadRepair() {
@@ -164,8 +183,13 @@
 
             },
             async save(){
-
-                console.log(this.form)
+                console.log(this.form,'form')
+                console.log(this.user,'user')
+                this.form.user_profile = this.user.id
+                let data = await this.$store.dispatch('saveRepair', this.form)
+                if(data){
+                    this.$router.push({name: 'Status'})
+                }
 
             }
 
