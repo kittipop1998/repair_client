@@ -135,6 +135,7 @@ export default {
         username: 'student',
         password: 'password_user'
       },
+
       rules: {
         required: value => !!value || 'Required'
       }
@@ -147,10 +148,9 @@ export default {
         let user = await this.$store.dispatch('user/getUser')
         console.log(user)
         if (user.groups[0].name === "admin") {
-          await this.$router.push({name: '../Repair_Admin'})
+          await this.$router.push({name: 'Repair_Admin'})
         }else if (user.groups[0].name === "student"){
           await this.$router.push({name: 'Repair'})
-
         }else if (user.groups[0].name === "manager"){
           await this.$router.push({name: 'Repair_M'})
 
@@ -160,7 +160,7 @@ export default {
 
     async signup() {
       let user = await this.$store.dispatch('user/registerUser', this.form)
-
+      // let user = await this.$router.push({name: 'Register'})
     }
     // login() {
     //     if(this.input.username !== "username" && this.input.password !== "password") {
@@ -180,6 +180,14 @@ export default {
 </script>
 <style>
 #login {
+  width: 500px;
+  border: 1px solid #CCCCCC;
+  background-color: #FFFFFF;
+  margin: auto;
+  margin-top: 200px;
+  padding: 20px;
+}
+#signup {
   width: 500px;
   border: 1px solid #CCCCCC;
   background-color: #FFFFFF;

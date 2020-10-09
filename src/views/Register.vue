@@ -15,7 +15,7 @@
               dark
               flat
           >
-            <v-toolbar-title>Login</v-toolbar-title>
+            <v-toolbar-title>Register</v-toolbar-title>
             <v-spacer></v-spacer>
           </v-toolbar>
           <v-card-text>
@@ -42,7 +42,7 @@
                   type="show_password ? 'text' : 'password'"
                   :append-icon="show_password ? 'mdi-eye': 'mdi-eye-off'"
                   @click:append="show_password = !show_password"
-                  @keypress.13="login"
+                  @keypress.13="signup"
 
                   v-model="form.password1"
                   :rules="[rules.required]"
@@ -60,7 +60,7 @@
                   type="show_password ? 'text' : 'password'"
                   :append-icon="show_password ? 'mdi-eye': 'mdi-eye-off'"
                   @click:append="show_password = !show_password"
-                  @keypress.13="login"
+                  @keypress.13="signup"
 
                   v-model="form.password2"
                   :rules="[rules.required]"
@@ -70,20 +70,6 @@
 
               ></v-text-field>
 
-              <!--                          <v-text-field-->
-              <!--                              label="Login"-->
-              <!--                              name="login"-->
-              <!--                              prepend-icon="mdi-account"-->
-              <!--                              type="text"-->
-              <!--                          ></v-text-field>-->
-
-              <!--                          <v-text-field-->
-              <!--                              id="password"-->
-              <!--                              label="Password"-->
-              <!--                              name="password"-->
-              <!--                              prepend-icon="mdi-lock"-->
-              <!--                              type="password"-->
-              <!--                          ></v-text-field>-->
 
             </v-form>
           </v-card-text>
@@ -113,24 +99,7 @@
             </v-btn>
           </v-card-actions>
 
-          <!--          <v-card-actions class="container">-->
-          <!--            <v-btn-->
-          <!--                color="black"-->
-          <!--                x-large-->
-          <!--                rounded-->
-          <!--                block-->
-          <!--                dark-->
-          <!--                @click="register"-->
-          <!--            >-->
-          <!--              Register-->
-          <!--            </v-btn>-->
-          <!--          </v-card-actions>-->
 
-
-          <!--                    <v-card-actions>-->
-          <!--                        <v-spacer></v-spacer>-->
-          <!--                        <v-btn class="container" color="black" dark @click="$router.push({name : 'Repair'})">Login</v-btn>-->
-          <!--                    </v-card-actions>-->
         </v-card>
       </v-col>
     </v-row>
@@ -160,29 +129,26 @@ export default {
     }
   },
   methods: {
-    async signup() {
+    async login() {
       let data = await this.$store.dispatch('user/getUserToken', this.form)
       if (data) {
         await this.$router.push({name: 'Repair'})
       }
-    }
-    // login() {
-    //     if(this.input.username !== "username" && this.input.password !== "password") {
-    //         if(this.input.username === this.$parent.mockAccount.username && this.input.password === this.$parent.mockAccount.password) {
-    //             this.$emit("authenticated", true);
-    //             this.$router.replace({ name: "secure" });
-    //         } else {
-    //             console.log("The username and / or password is incorrect");
-    //         }
-    //     } else {
-    //         console.log("A username and password must be present");
-    //     }
-    // }
+    },
+
   }
 }
 
 </script>
 <style>
+#login {
+  width: 500px;
+  border: 1px solid #CCCCCC;
+  background-color: #FFFFFF;
+  margin: auto;
+  margin-top: 200px;
+  padding: 20px;
+}
 #signup {
   width: 500px;
   border: 1px solid #CCCCCC;
