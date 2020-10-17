@@ -105,11 +105,11 @@
 </template>
 
 <script>
-import Template from "../Template";
 import Select_date from "../../components/Select_date";
+import AdminTemplate from "@/views/admin/AdminTemplate";
 export default {
   name: "Repair_Admin",
-  components: {Select_date, Template},
+  components: {Select_date, AdminTemplate},
   data: () => ({
     menu:null,
     date:null,
