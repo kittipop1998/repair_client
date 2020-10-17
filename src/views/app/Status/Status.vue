@@ -2,7 +2,7 @@
     <div>
         <div class="text-center">
             <p class="display-1">
-                <v-icon x-large color="primary">
+                <v-icon x-large color="primary" class="text-center" @click="$router.push({name : 'Edit'})" >
                     mdi-clock-fast
                 </v-icon>
                 สถานะการแจ้งซ่อม
@@ -163,16 +163,21 @@
                 </div>
 
             </template>
+
             <template v-slot:item.actions="{ item }">
                 <v-icon
                         small
                         class="mr-2"
-                        @click="editItem(item)"
+                        v-icon x-large
+                        color="#FFEB3B"
+                        @click="$router.push({name : 'Edit',params : {id :item.id}})"
                 >
+
                     mdi-pencil
                 </v-icon>
                 <v-icon
                         small
+                        color="#F44336"
                         @click="deleteItem()"
                 >
                     mdi-delete-outline
@@ -192,19 +197,7 @@
             </template>
 
 
-            <template v-slot:item.detail="{ item }">
-                <v-icon
-                        x-large
-                        color="cyan accent-3"
-                        class="mr-2"
-                        @click="detailItem()"
-                >
-                    mdi-calendar-edit
 
-                </v-icon>
-
-
-            </template>
 
         </v-data-table>
     </div>
@@ -240,7 +233,7 @@
                         value: 'repairType_data',
                     },
                     {text: 'หมายเลขห้อง', value: 'room_data'},
-                    {text: 'ข้อมูลนิสิต', value: ''},
+                    // {text: 'ข้อมูลนิสิต', value: ''},
                     {text: 'สถานะการแจ้งซ่อม', value: 'status'},
                     {text: 'วันที่แจ้งซ่อม', value: 'request_date'},
                     {text: 'วันที่อนุมัติรายการ', value: ''},
@@ -313,8 +306,9 @@
                     console.log(this.repair)
                 }
                 console.log(this.repair, 'rest')
-            }
-            ,
+            },
+
+
             initialize() {
 
 
@@ -346,10 +340,10 @@
             ,
 
             deleteItem(item) {
-                const index = this.desserts.indexOf(item)
-                confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
-            }
-            ,
+                this.$store.dispatch('deleteRepair')
+                const index = this.repair.indexOf(item)
+                confirm('Are you sure you want to delete this item?') && this.repair.splice(index, 1)
+            },
 
             close() {
                 this.dialog = false
@@ -360,15 +354,7 @@
             }
             ,
 
-            save() {
-                if (this.editedIndex > -1) {
-                    Object.assign(this.desserts[this.editedIndex], this.editedItem)
-                } else {
-                    this.desserts.push(this.editedItem)
-                }
-                this.close()
-            }
-            ,
+
 
         }
         ,
