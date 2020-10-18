@@ -91,8 +91,20 @@ export default new Vuex.Store({
                 });
 
         },
-        getRepairs: async function () {
-            return await axios.get('api/Repairs/')
+        getRepairs: async function (context,params) {
+            return await axios.get('api/Repairs/',params={params})
+                .then((response) => {
+                    console.log(response.data)
+                    return response.data
+                }).catch((error) => {
+                    // context.dispatch("error/setError", error.response.data, {root: true});
+                    console(error, 'error')
+                    return error
+                });
+
+        },
+        getDetails: async function (context,params) {
+            return await axios.get('api/Repairs/',params={params})
                 .then((response) => {
                     console.log(response.data)
                     return response.data
@@ -144,8 +156,9 @@ export default new Vuex.Store({
                 });
 
         },
-        deleteRepair: async function () {
-            return await axios.delete('api/Repairs/')
+        deleteRepair: async function (context,id) {
+            console.log(id,'store')
+            return await axios.delete(`api/Repairs/${id}/`)
                 .then((response) => {
                     console.log(response.data)
                     return response.data

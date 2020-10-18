@@ -43,11 +43,6 @@ export default {
             component: () => import('../views/app/Status/Details')
         },
         {
-            path: 'notification',
-            name: "Notification",
-            component: () => import('../views/app/Status/Notification')
-        },
-        {
             path: ":id/edit",
             name: "Edit",
             component: () => import('../views/app/Status/Edit')

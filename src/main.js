@@ -6,7 +6,8 @@ import '@/assets/css/base.css'
 import vuetify from './plugins/vuetify';
 import Axios from 'axios'
 import moment from "moment";
-
+import VueSweetalert2 from 'vue-sweetalert2';
+Vue.use(VueSweetalert2);
 window.moment = moment()
 moment.locale("th")
 window.baseURL = 'http://127.0.0.1:8000/'
