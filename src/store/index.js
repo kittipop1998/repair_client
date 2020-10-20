@@ -103,18 +103,6 @@ export default new Vuex.Store({
                 });
 
         },
-        getDetails: async function (context,params) {
-            return await axios.get('api/Repairs/',params={params})
-                .then((response) => {
-                    console.log(response.data)
-                    return response.data
-                }).catch((error) => {
-                    // context.dispatch("error/setError", error.response.data, {root: true});
-                    console(error, 'error')
-                    return error
-                });
-
-        },
         getRepair: async function (context, id) {
             return await axios.get('api/Repairs/'+id+'/')
                 .then((response) => {
@@ -125,6 +113,9 @@ export default new Vuex.Store({
                     console(error, 'error')
                     return error
                 });
+
+
+
         },
         updateRepair: async function (context, params) {
             const config = {
