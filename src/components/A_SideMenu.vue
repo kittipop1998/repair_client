@@ -38,9 +38,9 @@ export default {
       items: [
         {title: 'แจ้งซ่อม', icon: 'mdi-file-document-edit-outline',to : {name : 'Repair_Admin'}},
         {title: 'สถานะการแจ้งซ่อม', icon: 'mdi-clock-fast',to : {name : 'Status'}},
-        {title: 'นิสิต', icon: 'mdi-account-hard-hat',to : {name : 'Student_Admin'}},
-        {title: 'ผู้จัดการหอพัก', icon: 'mdi-account-hard-hat',to : {name : 'Manager_Admin'}},
-        {title: 'จัดการช่าง', icon: 'mdi-account-hard-hat',to : {name : 'Technician_Admin'}},
+        // {title: 'นิสิต', icon: 'mdi-account-hard-hat',to : {name : 'Student_Admin'}},
+        // {title: 'ผู้จัดการหอพัก', icon: 'mdi-account-hard-hat',to : {name : 'Manager_Admin'}},
+        // {title: 'จัดการช่าง', icon: 'mdi-account-hard-hat',to : {name : 'Technician_Admin'}},
         {title: 'สถิติของการแจ้งซ่อม', icon: 'mdi-align-vertical-bottom',to : {name : 'Statistic'}},
         {title: 'ข้อมูลส่วนตัว', icon: 'mdi-alarm-bell',to : {name : 'Profile_Admin'}},
 

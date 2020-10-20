@@ -128,15 +128,15 @@ export default {
       }
     }
   },
-  methods: {
-    async login() {
-      let data = await this.$store.dispatch('user/getUserToken', this.form)
-      if (data) {
-        await this.$router.push({name: 'Repair'})
-      }
-    },
-
-  }
+  // methods: {
+  //   async login() {
+  //     let data = await this.$store.dispatch('user/getUserToken', this.form)
+  //     if (data) {
+  //       await this.$router.push({name: 'Repair'})
+  //     }
+  //   },
+  //
+  // }
 }
 
 </script>
