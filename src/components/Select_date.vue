@@ -18,6 +18,8 @@
                         single-line
                         v-bind="attrs"
                         v-on="on"
+                        @change="$emit('change',date)"
+
                 ></v-text-field>
             </template>
             <v-date-picker

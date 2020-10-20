@@ -36,7 +36,6 @@
         data() {
             return {
                 items: [
-                    {title: 'แจ้งซ่อม', icon: 'mdi-file-document-edit-outline',to : {name : 'Repair_M'}},
                     {title: 'สถานะการแจ้งซ่อม', icon: 'mdi-clock-fast',to : {name : 'Status_M'}},
                     {title: 'ข้อมูลส่วนตัว', icon: 'mdi-alarm-bell',to : {name : 'Profile_M'}},
                     {title: 'จัดการช่าง', icon: 'mdi-account-hard-hat',to : {name : 'Technician'}},

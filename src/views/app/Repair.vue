@@ -10,17 +10,6 @@
         </div>
         <div class="d-flex justify-center">
             <v-card width="500" elevation="0">
-
-
-                <v-select
-                        v-model="form.domitory_sel"
-                        :items="domitory"
-                        label="หอพัก"
-                        placeholder="กรุณาเลือกหอพัก"
-                        item-text="nameDo"
-                        solo
-                ></v-select>
-
                 <v-select
                         v-model="form.room"
                         :items="room"
@@ -32,15 +21,14 @@
                         solo
                 >
                     <template slot="selection" slot-scope="data">
-                        {{ data.item ?  data.item.room_type.nameTy : '' }} {{data.item ?  data.item.nameRo : '' }}
+                       หอ {{data.item ? data.item.dormitory.nameDo  : ''}}  {{ data.item ?  data.item.room_type.nameTy : '' }} {{data.item ?  data.item.nameRo : '' }}
                     </template>
                     <template slot="item" slot-scope="data">
-                        {{ data.item ? data.item.room_type.nameTy :''}}  {{ data.item ? data.item.nameRo : '' }}
+                        หอ {{data.item ? data.item.dormitory.nameDo  : ''}}  {{ data.item ? data.item.room_type.nameTy :''}}  {{ data.item ? data.item.nameRo : '' }}
                     </template>
                 </v-select>
                 <Select_date
                         @change="form.created_date = $event" >
-
                 </Select_date>
 <!--                <v-select-->
 <!--                        v-model="form.repair_type"-->
@@ -123,13 +111,6 @@
             repair: null,
             user_profile: null,
 
-
-
-            // items:[
-            //     {
-            //         items: 'repair_type'
-            //     }
-            // ],
             form: {
                 "contact": "",
                 "desc": "",
@@ -138,7 +119,6 @@
                 "image": null,
                 "user_profile": null,
                 "repair_type": null,
-                "domitory": null,
                 "room": null,
                 "room_type":null
 
@@ -146,7 +126,6 @@
             }
         }),
         async mounted() {
-            this.loadDormitory()
             this.loadRoom()
             this.loadRepair()
             if(!this.user){
@@ -160,13 +139,6 @@
             })
         },
         methods: {
-            async loadDormitory() {
-                this.domitory = await this.$store.dispatch('getDomitory')
-                if (this.domitory) {
-                    console.log(this.domitory)
-                }
-
-            },
             async loadRoom() {
                 this.room = await this.$store.dispatch('getRoom')
                 if (this.room) {

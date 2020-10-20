@@ -3,11 +3,7 @@ export default {
         path: '/app',
         component: () => import('../views/manager/ManagerTemplate'),
         children: [
-            {
-            path: '',
-            name: "Repair_M",
-            component:  () => import('../views/manager/Repair_M')
-            },
+
             {
                 path: 'status_m',
                 name: "Status_M",
