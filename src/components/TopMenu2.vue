@@ -1,0 +1,48 @@
+<template>
+  <div>
+    <template>
+      <div>
+        <v-app-bar
+            color="black"
+            dense
+            dark
+        >
+          <v-toolbar-title>แจ้งซ่อมพัสดุ/อุปกรณ์หอพัก</v-toolbar-title>
+
+          <v-spacer></v-spacer>
+
+          <v-btn text @click="$router.push({name : 'Home'})">หน้าแรก</v-btn>
+          <v-btn text @click="$router.push({name : 'Recommend'})">แนะนำ</v-btn>
+          <v-btn text @click="$router.push({name : 'Contact'})">ติดต่อ</v-btn>
+          <v-btn text @click="$router.push({name : 'Logout'})">ออกจากระบบ</v-btn>
+
+        </v-app-bar>
+      </div>
+    </template>
+  </div>
+</template>
+
+<script>
+
+import Template from "@/views/Template";
+export default {
+  name: "TopMenu2",
+  components: {Template},
+  data: () => ({
+    drawer: false,
+  }),
+  methods: {
+    logout() {
+      this.$store.dispatch('user/logout')
+      this.$router.push({
+        name: 'Logout'
+      })
+    }
+  }
+}
+
+</script>
+
+<style scoped>
+
+</style>

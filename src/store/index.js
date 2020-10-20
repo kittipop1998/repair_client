@@ -4,7 +4,7 @@ import user from "./modules/user";
 import success from "./modules/success";
 import spinner from "./modules/spinner";
 import error from "./modules/error";
-
+import userprofile from "@/store/modules/userprofile";
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -79,8 +79,8 @@ export default new Vuex.Store({
 
         },
 
-        getUserprofile: async function () {
-            return await axios.get('api/Userprofile/')
+        getRepairs: async function () {
+            return await axios.get('api/Repairs/')
                 .then((response) => {
                     console.log(response.data)
                     return response.data
@@ -91,8 +91,74 @@ export default new Vuex.Store({
                 });
 
         },
-        getRepairs: async function () {
-            return await axios.get('api/Repairs/')
+
+        getuserprofile: async function (context, params) {
+            const config = {
+                method: 'POST',
+                body: formData,
+            }
+            const formData = new FormData();
+            const uri = this.state.avatar
+            formData.append('image', params.image)
+            formData.append('nameUs', params.nameUs)
+            formData.append('yearUs', params.yearUs)
+            formData.append('department', params.department)
+            formData.append('branch', params.branch)
+            formData.append('user_profile', params.user_profile)
+            formData.append('repair_type', params.repair_type)
+            formData.append('domitory_sel', params.domitory_sel)
+            formData.append('room_sel', params.room_sel)
+            formData.append('room', params.room)
+            formData.append('room_type', params.room_type)
+
+            return await axios.get('api/user-profiles/', formData, config)
+                .then((response) => {
+                    console.log(response.data)
+                    return response.data
+                }).catch((error) => {
+                    // context.dispatch("error/setError", error.response.data, {root: true});
+                    console(error, 'error')
+                    return error
+                });
+
+        },
+
+        saveuserprofile: async function (context, params) {
+            const config = {
+                method: 'POST',
+                body: formData,
+            }
+            const formData = new FormData();
+            const uri = this.state.avatar
+            formData.append('image', params.image)
+            formData.append('nameUs', params.nameUs)
+            formData.append('yearUs', params.yearUs)
+            formData.append('department', params.department)
+            formData.append('branch', params.branch)
+            formData.append('user_profile', params.user_profile)
+            formData.append('repair_type', params.repair_type)
+            formData.append('domitory_sel', params.domitory_sel)
+            formData.append('room_sel', params.room_sel)
+            formData.append('room', params.room)
+            formData.append('room_type', params.room_type)
+
+
+            return await axios.post('api/user-profiles/', formData, config)
+                .then((response) => {
+                    console.log(response.data)
+                    return response.data
+                }).catch((error) => {
+                    // context.dispatch("error/setError", error.response.data, {root: true});
+                    console.log(error, 'error')
+                    return error
+                });
+
+        },
+
+
+
+        getuserprofiles: async function () {
+            return await axios.get('api/user-profiles/')
                 .then((response) => {
                     console.log(response.data)
                     return response.data

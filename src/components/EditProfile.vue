@@ -108,12 +108,8 @@
 
 
         <div class="text-center">
-          <v-btn color="black" dark @click="save">แก้ไข</v-btn>
+          <v-btn color="black" dark @click="save">บันทึก</v-btn>
         </div>
-        <br>
-<!--        <div class="text-center">-->
-<!--          <v-btn color="black" dark @click="save">บันทึก</v-btn>-->
-<!--        </div>-->
 
 
       </v-card>
@@ -124,11 +120,11 @@
 </template>
 
 <script>
-import Template from "../Template";
+import Template from "../views/Template";
 import {mapState} from 'vuex'
 
 export default {
-  name: "Profile",
+  name: "EditProfile",
   components: {Template},
   data: () => ({
 

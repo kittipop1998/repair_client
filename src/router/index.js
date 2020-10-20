@@ -6,6 +6,7 @@ import Recommend from '@/views/Recommend'
 import Contact from '@/views/Contact'
 import Template from "../views/Template";
 import app from "./app";
+import admin from "./admin"
 import manager from "./manager";
 import officer from "./officer";
 
@@ -38,8 +39,10 @@ export default new Router({
                     component: Contact
                 },
                 app,
+                admin,
                 manager,
                 officer,
+
 
 
             ]

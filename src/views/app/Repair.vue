@@ -85,7 +85,6 @@
                         item-text="contact"
                         label="หมายเลขโทรศัพท์ที่สามารถติดต่อได้"
                         single-line
-
                         dense
                         solo
                 ></v-text-field>
@@ -117,7 +116,7 @@
             menu:null,
             date:null,
             domitory: null,
-            
+
             room_sel:null,
             room: null,
             nameRe: null,
