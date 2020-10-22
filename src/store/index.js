@@ -93,26 +93,26 @@ export default new Vuex.Store({
 
         },
 
-        getUserprofile: async function (context, params) {
+        getUserprofiles: async function (context, params) {
             const config = {
                 method: 'POST',
                 body: formData,
             }
             const formData = new FormData();
-            const uri = this.state.avatar
-            formData.append('image', params.image)
-            formData.append('nameUs', params.nameUs)
-            formData.append('yearUs', params.yearUs)
+            if (typeof (params.image) === 'object') {
+                formData.append('image', params.image)
+            }
+            formData.append('nameStudent', params.nameStudent)
+            formData.append('student_id', params.student_id)
             formData.append('department', params.department)
             formData.append('branch', params.branch)
-            formData.append('user_profile', params.user_profile)
-            formData.append('repair_type', params.repair_type)
-            formData.append('domitory_sel', params.domitory_sel)
-            formData.append('room_sel', params.room_sel)
-            formData.append('room', params.room)
+            formData.append('nameRo', params.nameRo)
             formData.append('room_type', params.room_type)
+            formData.append('domitory', params.domitory)
+            formData.append('contact', params.contact)
+            formData.append('face_book', params.face_book)
 
-            return await axios.get('api/user-profiles/', formData, config)
+            return await axios.get('api/user-profile/', formData, config)
                 .then((response) => {
                     console.log(response.data)
                     return response.data
@@ -125,8 +125,8 @@ export default new Vuex.Store({
         },
 
 
-        getUserprofiles: async function () {
-            return await axios.get('api/user-profiles/')
+        getUserprofile: async function (context, id) {
+            return await axios.get('api/user-profile/' + id + '/')
                 .then((response) => {
                     console.log(response.data)
                     return response.data
@@ -138,38 +138,84 @@ export default new Vuex.Store({
 
         },
 
-        SaveUserprofile: async function (context, params) {
+
+
+        updateUserprofile: async function (context, params) {
             const config = {
-                method: 'POST',
+                method: 'PUT',
                 body: formData,
             }
             const formData = new FormData();
-            const uri = this.state.avatar
-            formData.append('image', params.image)
-            formData.append('nameUs', params.nameUs)
-            formData.append('yearUs', params.yearUs)
+            if (typeof (params.image) === 'object') {
+                formData.append('image', params.image)
+            }
+            formData.append('nameStudent', params.nameStudent)
+            formData.append('student_id', params.student_id)
             formData.append('department', params.department)
             formData.append('branch', params.branch)
-            formData.append('user_profile', params.user_profile)
             formData.append('repair_type', params.repair_type)
             formData.append('domitory_sel', params.domitory_sel)
-            formData.append('room_sel', params.room_sel)
-            formData.append('room', params.room)
+            formData.append('nameRo', params.nameRo)
             formData.append('room_type', params.room_type)
+            formData.append('face_book', params.face_book)
 
 
-            return await axios.post('api/user-profiles/', formData, config)
+            return await axios.put(`api/user-profile/${params.id}/`, formData, config)
                 .then((response) => {
-                    console.log(response.data)
                     return response.data
                 }).catch((error) => {
-                    // context.dispatch("error/setError", error.response.data, {root: true});
                     console.log(error, 'error')
                     return error
                 });
 
         },
 
+        // getUserprofileDetails: async function (context, params) {
+        //     return await axios.get('api/user-profile/', params = {params})
+        //
+        //         .then((response) => {
+        //             console.log(response.data)
+        //             return response.data
+        //         }).catch((error) => {
+        //             // context.dispatch("error/setError", error.response.data, {root: true});
+        //             console(error, 'error')
+        //             return error
+        //         });
+        //
+        // },
+
+        // SaveUserprofile: async function (context, params) {
+        //     const config = {
+        //         method: 'POST',
+        //         body: formData,
+        //     }
+        //     const formData = new FormData();
+        //     const uri = this.state.avatar
+        //     formData.append('image', params.image)
+        //     formData.append('nameUs', params.nameUs)
+        //     formData.append('yearUs', params.yearUs)
+        //     formData.append('department', params.department)
+        //     formData.append('branch', params.branch)
+        //     formData.append('user_profile', params.user_profile)
+        //     formData.append('repair_type', params.repair_type)
+        //     formData.append('domitory_sel', params.domitory_sel)
+        //     formData.append('room_sel', params.room_sel)
+        //     formData.append('nameRo', params.nameRo)
+        //     formData.append('room_type', params.room_type)
+        //
+        //
+        //     return await axios.post('api/user-profiles/', formData, config)
+        //         .then((response) => {
+        //             console.log(response.data)
+        //             return response.data
+        //         }).catch((error) => {
+        //             // context.dispatch("error/setError", error.response.data, {root: true});
+        //             console.log(error, 'error')
+        //             return error
+        //         });
+        //
+        // },
+        //
 
         getDetails: async function (context, params) {
             return await axios.get('api/Repairs/', params = {params})

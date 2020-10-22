@@ -1,227 +1,95 @@
 <template>
-  <v-container>
-    <div>
-      <div class="text-center">
-        <p class="display-1">
-          <v-icon x-large color="primary">
-            mdi-alarm-bell
-          </v-icon>
-          ข้อมูลส่วนตัว
-        </p>
-      </div>
+  <div>
+    <div class="text-center">
+      <p class="display-1">
+        <v-icon x-large color="primary">
+          mdi-text-box-search-outline
+        </v-icon>
+        ข้อมูลส่วนตัว
+      </p>
     </div>
-    <div class="d-flex justify-center">
-      <v-card width="500" elevation="0">
 
-        <v-file-input
-            :rules="image"
-            accept="image/png, image/jpeg, image/bmp"
-            placeholder="Pick an avatar"
-            prepend-icon="mdi-camera"
-            label="รูปภาพ"
-            v-model="form.image"
-            outlined
-            dense
-        ></v-file-input>
+    <v-btn class="font-weight-black-right" fab dark color="red" @click="$router.push({name:'EditProfile'})">
+      <v-icon dark >mdi-plus</v-icon>
+    </v-btn>
+    แก้ไข
+    <br/>
 
-        <v-text-field
-            v-model="form.nameUs"
-            item-text="nameUs"
-            label="ชื่อ-สกุล"
-            single-line
-            dense
-            solo
-        ></v-text-field>
+    <div class="d-flex justify-center" >
+      <v-card width="750" elevation="0"
+              v-if="userprofile"
+              :headers="headers"
+              :items="userprofile"
+              sort-by="calories"
+              class="elevation-1">
 
-        <v-text-field
-            v-model="form.yearUs"
-            item-text="yearUs"
-            label="ปีการศึกษา"
-            single-line
-            dense
-            solo
-        ></v-text-field>
+        <v-card class="mx-auto" >
+          <v-card-text >
+            <div class="font-weight-black" >
+              <div>
+                <p><span class="black--text">รูปภาพ:</span></p>
+                <v-img
+                    aspect-ratio="2"
+                    contain
+                    :src="goToPhoto()"
+                ></v-img>
+                <v-img
+                    max-height="150"
+                    max-width="250"
+                    v-model="userprofile.image"
+                    :src="goToPhoto()"
+                ></v-img>
+                <p><span class="black--text">ชื่อขสกุล:</span>  {{ userprofile.nameStudent}}</p>
+                <p><span class="black--text">รหัสนิสิต:</span>  {{ userprofile.student_id}}</p>
+                <p><span class="black--text">คณะ:</span>  {{ userprofile.department}}</p>
+                <p><span class="black--text">สาขา:</span>  {{ userprofile.branch}}</p>
+                <p><span class="black--text">หหมายเลข้องพัก:</span>  {{ userprofile.nameRo}}</p>
+                <p><span class="black--text">ประเภทห้อง:</span>  {{ userprofile.room_type}}</p>
+                <p><span class="black--text">หอพัก:</span>  {{ userprofile.dormitory}}</p>
+                <p><span class="black--text">เบอร์โทรศัพท์:</span>  {{ userprofile.contact}}</p>
+                <p><span class="black--text">Facebook:</span>  {{ userprofile.face_book}}</p>
 
-        <v-text-field
-            v-model="form.department"
-            item-text="department"
-            label="คณะ"
-            single-line
-            dense
-            solo
-        ></v-text-field>
-
-        <v-text-field
-            v-model="form.branch"
-            item-text="branch"
-            label="สาขา"
-            single-line
-            dense
-            solo
-        ></v-text-field>
-
-        <v-select
-            v-model="form.domitory_sel"
-            :items="domitory"
-            label="หอพัก"
-            placeholder="กรุณาเลือกหอพัก"
-            item-text="nameDo"
-            solo
-        ></v-select>
-
-        <v-select
-            v-model="form.room"
-            :items="room"
-            label="หมายเลขห้อง"
-            single-line
-            item-text="nameRo"
-            item-value="id"
-            dense
-            solo
-        >
-          <template slot="selection" slot-scope="data">
-            {{ data.item ? data.item.room_type.nameTy : '' }} {{ data.item ? data.item.nameRo : '' }}
-          </template>
-          <template slot="item" slot-scope="data">
-            {{ data.item ? data.item.room_type.nameTy : '' }} {{ data.item ? data.item.nameRo : '' }}
-          </template>
-        </v-select>
-
-
-        <v-text-field
-            v-model="form.facebook"
-            item-text="facebook"
-            label="Facebook"
-            single-line
-            dense
-            solo
-        ></v-text-field>
-
-        <v-text-field
-            v-model="form.phone"
-            item-text="phone"
-            label="หมายเลขโทรศัพท์ที่สามารถติดต่อได้"
-            single-line
-            dense
-            solo
-        ></v-text-field>
-
-
-        <div class="text-center">
-          <v-btn color="black" dark @click="save">แก้ไข</v-btn>
-        </div>
-        <br>
-<!--        <div class="text-center">-->
-<!--          <v-btn color="black" dark @click="save">บันทึก</v-btn>-->
-<!--        </div>-->
-
-
+              </div>
+            </div>
+          </v-card-text>
+        </v-card><br>
       </v-card>
     </div>
-  </v-container>
+
+  </div>
+
 
 
 </template>
-
 <script>
+
 import Template from "../Template";
-import {mapState} from 'vuex'
-
 export default {
+  components: { Template},
   name: "Profile",
-  components: {Template},
   data: () => ({
+        repair: null,
+        room:null,
+        userprofile:null,
+      }
+  ),
+  created() {
+    this.loadUserprofile()
 
-    menu: null,
-    image: [
-      value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
-    ],
-    nameUs: null,
-    yearUs: null,
-    department: null,
-    branch: null,
-    phone: null,
-    facebook: null,
-    domitory: null,
-    room_sel: null,
-    room: null,
-    userprofile: null,
-    user_profile: null,
-
-
-    form: {
-      "nameUs": "",
-      "yearUs": "",
-      "department": "",
-      "branch": "",
-      "phone": "",
-      "facebook": "",
-      "image": null,
-      "userprofile": null,
-      "user_profile": null,
-      "domitory": null,
-      "room": null,
-      "room_type": null,
-
-
-    }
-
-  }),
-  async mounted() {
-    this.loadDormitory()
-    this.loadRoom()
-    this.loadRepair()
-    if (!this.user) {
-      await this.$store.dispatch('user/getUser')
-    }
-
-  },
-  computed: {
-    ...mapState({
-      user: state => state.user.user
-    })
   },
   methods: {
-    async loadDormitory() {
-      this.domitory = await this.$store.dispatch('getDomitory')
-      if (this.domitory) {
-        console.log(this.domitory)
-      }
 
+    async loadUserprofile() {
+      let id = this.$route.params.id
+      this.userprofile = await this.$store.dispatch('getUserprofile', id)
     },
-    async loadRoom() {
-      this.room = await this.$store.dispatch('getRoom')
-      if (this.room) {
-        console.log(this.room)
-      }
+    goToPhoto(){
+      return this.userprofile.image
     },
-    async loadRepair() {
-      this.repair = await this.$store.dispatch('getRepairType')
-      if (this.repair) {
-        console.log(this.repair)
-      }
+  },
 
-
-    },
-    async save() {
-      console.log(this.form, 'form')
-      console.log(this.user, 'user')
-      this.form.user_profile = this.user.id
-      let data = await this.$store.dispatch('saveRepair', this.form)
-      if (data) {
-        this.$router.push({name: 'Status'})
-      }
-
-    }
-
-
-  }
 
 }
-
-
 </script>
-
 <style scoped>
 </style>
-

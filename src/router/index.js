@@ -8,7 +8,7 @@ import Template from "../views/Template";
 import app from "./app";
 import admin from "./admin"
 import manager from "./manager";
-import officer from "./officer";
+
 
 
 Vue.use(Router)
@@ -41,7 +41,7 @@ export default new Router({
                 app,
                 admin,
                 manager,
-                officer,
+
 
 
 

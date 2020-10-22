@@ -3,54 +3,54 @@ export default {
     component: () => import('../views/admin/AdminTemplate'),
     children: [
         {
-            path: '',
-            name: "Repair",
+            path: 'repair_admin',
+            name: "Repair_Admin",
             component:  () => import('../views/admin/Repair_Admin')
         },
         {
-            path: 'status',
-            name: "Status",
-            component:  () => import('../views/admin/Status/Status')
+            path: 'status_A',
+            name: "Status_A",
+            component:  () => import('../views/admin/Status/Status_A')
         },
         {
-            path: 'inform',
-            name: "Inform",
-            component:  () => import('../views/admin/Status/Inform')
+            path: 'inform_a',
+            name: "Inform_A",
+            component:  () => import('../views/admin/Status/Inform_A')
         },
         {
-            path: 'progress',
-            name: "Progress",
-            component:  () => import('../views/admin/Status/Progress')
+            path: 'progress_a',
+            name: "Progress_A",
+            component:  () => import('../views/admin/Status/Progress_A')
         },
         {
-            path: 'wait',
-            name: "Wait",
-            component:  () => import('../views/admin/Status/Wait')
+            path: 'wait_a',
+            name: "Wait_A",
+            component:  () => import('../views/admin/Status/Wait_A')
         },
         {
-            path: 'completed',
-            name: "Completed",
-            component:  () => import('../views/admin/Status/Complated')
+            path: 'completed_a',
+            name: "Complated_A",
+            component:  () => import('../views/admin/Status/Complated_A')
         },
         {
-            path: 'cancel',
-            name: "Cancel",
-            component:  () => import('../views/admin/Status/Cancel')
+            path: 'cancel_a',
+            name: "Cancel_A",
+            component:  () => import('../views/admin/Status/Cancel_A')
         },
         {
-            path: 'profile',
-            name: "Profile",
+            path: 'profile_a',
+            name: "Profile_Admin",
             component:  () => import('../views/admin/Profile_Admin')
         },
         {
-            path: 'details',
-            name: "Details",
-            component:  () => import('../views/admin/Status/Details')
+            path: 'details_a',
+            name: "Details_A",
+            component:  () => import('../views/admin/Status/Details_A')
         },
         {
-            path: 'notification',
-            name: "Notification",
-            component:  () => import('../views/admin/Status/Notification')
+            path: 'notification_a',
+            name: "Notification_A",
+            component:  () => import('../views/admin/Status/Notification_A')
         },
     ]
 }

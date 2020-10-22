@@ -104,7 +104,6 @@
             menu:null,
             date:null,
             domitory: null,
-
             room_sel:null,
             room: null,
             nameRe: null,
@@ -121,7 +120,6 @@
                 "repair_type": null,
                 "room": null,
                 "room_type":null
-
 
             }
         }),
