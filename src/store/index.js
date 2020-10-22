@@ -80,8 +80,8 @@ export default new Vuex.Store({
 
         },
 
-        getRepairs: async function () {
-            return await axios.get('api/Repairs/')
+        getRepairs: async function (context, params) {
+            return await axios.get('api/Repairs/', params={params})
                 .then((response) => {
                     console.log(response.data)
                     return response.data
@@ -230,6 +230,7 @@ export default new Vuex.Store({
                 });
 
         },
+
         getRepair: async function (context, id) {
             return await axios.get('api/Repairs/' + id + '/')
                 .then((response) => {
@@ -240,6 +241,9 @@ export default new Vuex.Store({
                     console(error, 'error')
                     return error
                 });
+
+
+
         },
         updateRepair: async function (context, params) {
             const config = {

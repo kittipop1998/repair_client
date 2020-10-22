@@ -55,14 +55,15 @@
                         outlined dense>
                 </v-file-input>
                 <v-img
-                        max-height="150"
-                        max-width="250"
+                        aspect-ratio="2"
+                        contain
                         v-model="repair.image"
                         :src="goToPhoto()"
                 ></v-img>
+                <br>
                 <div class="text-center">
-                    <v-btn color="black" dark @click="save">บันทึก</v-btn>
-                    <v-btn color="black" dark @click="save">ยกเลิก</v-btn>
+                    <v-btn class="mr-1" color="black" dark @click="save">บันทึก</v-btn>
+
                 </div>
 
 

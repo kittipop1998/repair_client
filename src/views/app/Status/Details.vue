@@ -24,11 +24,12 @@
               <p><span class="black--text">สาขา:</span></p>
               <p><span class="black--text">เบอร์โทร:</span>  {{repair.contact}}</p>
             </div>
+
           </v-card-text>
         </v-card><br>
         <p class="font-weight-black">ข้อมูลการแจ้งซ่อม</p>
         <v-card class="mx-auto" >
-          <v-card-text >
+          <v-card-text>
             <div class="font-weight-black" >
               <div>
                 <p><span class="black--text">หอพัก:</span>  {{repair.room_data.dormitory.nameDo}} {{repair.room_data.nameRo}} {{repair.room_data.room_type.nameTy}}</p>
@@ -48,7 +49,6 @@
                     :src="goToPhoto()"
                 ></v-img>
               </div>
-            </div>
           </v-card-text>
         </v-card><br>
       </v-card>

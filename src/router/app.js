@@ -38,7 +38,7 @@ export default {
             component: () => import('../views/app/Profile')
         },
         {
-            path: 'details',
+            path: ":id/details",
             name: "Details",
             component: () => import('../views/app/Status/Details')
         },

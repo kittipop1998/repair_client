@@ -34,11 +34,12 @@
                 </v-toolbar>
             </template>
             <template v-slot:item.status="{ item }">
-                <div v-if="item.status ==1" >แจ้งซ่อม</div>
-                <div v-else-if="item.status ==2">กำลังดำเนินงาน</div>
-                <div v-else-if="item.status ==3">เสร็จสิ้น</div>
-                <div v-else-if="item.status ==4">ยกเลิกคำร้อง</div>
+                <div v-if="item.status ==1" class="yellow--text" >แจ้งซ่อม</div>
+                <div v-else-if="item.status ==2" class="orange--text">กำลังดำเนินงาน</div>
+                <div v-else-if="item.status ==3" class="green--text">เสร็จสิ้น</div>
+                <div v-else-if="item.status ==4" class="red--text">ยกเลิกคำร้อง</div>
             </template>
+
 
 
             <template v-slot:item.actions="{ item }">
@@ -64,7 +65,7 @@
                         x-large
                         color="cyan accent-3"
                         class="mr-2"
-                        @click="$router.push({name : 'Details'})"
+                        @click="$router.push({name : 'Details',params : {id :item.id}})"
                 >
                     mdi-calendar-edit
 
