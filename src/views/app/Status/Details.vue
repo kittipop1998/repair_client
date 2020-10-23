@@ -49,6 +49,7 @@
                     :src="goToPhoto()"
                 ></v-img>
               </div>
+            </div>
           </v-card-text>
         </v-card><br>
       </v-card>

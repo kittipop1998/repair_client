@@ -82,6 +82,7 @@
               Login
             </v-btn>
           </v-card-actions>
+
           <v-card-actions class="container">
             <v-btn
                 color="black"
@@ -89,7 +90,7 @@
                 rounded
                 block
                 dark
-                @click="signup"
+                @click="$router.push({name:'Register'})"
             >
               Sign Up
             </v-btn>

@@ -16,6 +16,7 @@
     <br/>
 
     <div class="d-flex justify-center" >
+
       <v-card width="750" elevation="0"
               v-if="userprofile"
               :headers="headers"
@@ -23,7 +24,8 @@
               sort-by="calories"
               class="elevation-1">
 
-        <v-card class="mx-auto" >
+        <v-card class="mx-auto"
+        >
           <v-card-text >
             <div class="font-weight-black" >
               <div>
@@ -31,23 +33,15 @@
                 <v-img
                     aspect-ratio="2"
                     contain
-                    :src="goToPhoto()"
+                    :src="getImageUri(userprofile.userprofile.image)"
                 ></v-img>
-                <v-img
-                    max-height="150"
-                    max-width="250"
-                    v-model="userprofile.image"
-                    :src="goToPhoto()"
-                ></v-img>
-                <p><span class="black--text">ชื่อขสกุล:</span>  {{ userprofile.nameStudent}}</p>
-                <p><span class="black--text">รหัสนิสิต:</span>  {{ userprofile.student_id}}</p>
-                <p><span class="black--text">คณะ:</span>  {{ userprofile.department}}</p>
-                <p><span class="black--text">สาขา:</span>  {{ userprofile.branch}}</p>
-                <p><span class="black--text">หหมายเลข้องพัก:</span>  {{ userprofile.nameRo}}</p>
-                <p><span class="black--text">ประเภทห้อง:</span>  {{ userprofile.room_type}}</p>
-                <p><span class="black--text">หอพัก:</span>  {{ userprofile.dormitory}}</p>
-                <p><span class="black--text">เบอร์โทรศัพท์:</span>  {{ userprofile.contact}}</p>
-                <p><span class="black--text">Facebook:</span>  {{ userprofile.face_book}}</p>
+<!--                <p><span class="black&#45;&#45;text">รูปภาพ:</span>  {{ userprofile.userprofile.image}}</p>-->
+                <p><span class="black--text">ชื่อ-สกุล:</span>  {{ userprofile.userprofile.nameStudent}}</p>
+                <p><span class="black--text">รหัสนิสิต:</span>  {{ userprofile.userprofile.student_id}}</p>
+                <p><span class="black--text">คณะ:</span>  {{ userprofile.userprofile.department}}</p>
+                <p><span class="black--text">สาขา:</span>  {{ userprofile.userprofile.branch}}</p>
+                <p><span class="black--text">เบอร์โทรศัพท์:</span>  {{ userprofile.userprofile.contact}}</p>
+                <p><span class="black--text">Facebook:</span>  {{ userprofile.userprofile.face_book}}</p>
 
               </div>
             </div>
@@ -64,32 +58,44 @@
 <script>
 
 import Template from "../Template";
+// import Domitory from "@/components/Select_repair/Domitory";
+// import Repair_type from "@/components/Select_repair/Repair_type";
 export default {
   components: { Template},
   name: "Profile",
   data: () => ({
-        repair: null,
-        room:null,
+        // repair: null,
+        // room:null,
         userprofile:null,
       }
   ),
   created() {
-    this.loadUserprofile()
-
+    this.loadProfile()
+    // this.loadRoom()
+    // this.loadRepair()
   },
   methods: {
-
-    async loadUserprofile() {
+    // async loadRoom() {
+    //   this.room = await this.$store.dispatch('getRoom')
+    // },
+    // async loadRepair() {
+    //   let id = this.$route.params.id
+    //   this.repair = await this.$store.dispatch('getRepair', id)
+    // },
+    async loadProfile() {
       let id = this.$route.params.id
-      this.userprofile = await this.$store.dispatch('getUserprofile', id)
+      this.userprofile = await this.$store.dispatch('getUserprofile')
     },
-    goToPhoto(){
-      return this.userprofile.image
+    getImageUri(image) {
+      let uri = image ? image : ""
+      if (uri.startsWith("/media")) {
+        return baseURL + uri.substring(1)
+      } else {
+        return uri
+      }
     },
-  },
-
-
+  }
 }
 </script>
-<style scoped>
+<style>
 </style>
