@@ -107,7 +107,6 @@
                 "room": null,
                 "room_type":null,
 
-
             }
         }),
         async mounted() {

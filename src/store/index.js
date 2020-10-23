@@ -88,7 +88,7 @@ export default new Vuex.Store({
 
         },
 
-        getUserprofile: async function (context, params) {
+        getUserprofiles: async function (context, params) {
             const config = {
                 method: 'POST',
                 body: formData,
@@ -98,16 +98,20 @@ export default new Vuex.Store({
             formData.append('imageBe', params.imageBe)
             formData.append('nameUs', params.nameUs)
             formData.append('yearUs', params.yearUs)
+            if (typeof (params.image) === 'object') {
+                formData.append('image', params.image)
+            }
+            formData.append('nameStudent', params.nameStudent)
+            formData.append('student_id', params.student_id)
             formData.append('department', params.department)
             formData.append('branch', params.branch)
-            formData.append('user_profile', params.user_profile)
-            formData.append('repair_type', params.repair_type)
-            formData.append('domitory_sel', params.domitory_sel)
-            formData.append('room_sel', params.room_sel)
-            formData.append('room', params.room)
+            formData.append('nameRo', params.nameRo)
             formData.append('room_type', params.room_type)
+            formData.append('domitory', params.domitory)
+            formData.append('contact', params.contact)
+            formData.append('face_book', params.face_book)
 
-            return await axios.get('api/user-profiles/', formData, config)
+            return await axios.get('api/user-profile/', formData, config)
                 .then((response) => {
                     return response.data
                 }).catch((error) => {
@@ -119,8 +123,8 @@ export default new Vuex.Store({
         },
 
 
-        getUserprofiles: async function () {
-            return await axios.get('api/user-profiles/')
+        getUserprofile: async function (context) {
+            return await axios.get('rest-auth/user-profile/')
                 .then((response) => {
                     return response.data
                 }).catch((error) => {
@@ -131,9 +135,11 @@ export default new Vuex.Store({
 
         },
 
-        SaveUserprofile: async function (context, params) {
+
+
+        updateUserprofile: async function (context, params) {
             const config = {
-                method: 'POST',
+                method: 'PUT',
                 body: formData,
             }
             const formData = new FormData();
@@ -149,19 +155,25 @@ export default new Vuex.Store({
             formData.append('room_sel', params.room_sel)
             formData.append('room', params.room)
             formData.append('room_type', params.room_type)
+            if (typeof (params.userprofile.image) === 'object') {
+                formData.append('image', params.userprofile.image)
+            }
+            formData.append('nameStudent', params.userprofile.nameStudent)
+            formData.append('student_id', params.userprofile.student_id)
+            formData.append('department', params.userprofile.department)
+            formData.append('branch', params.userprofile.branch)
+            formData.append('contact', params.userprofile.contact)
+            formData.append('face_book', params.userprofile.face_book)
 
-
-            return await axios.post('api/user-profiles/', formData, config)
+            return await axios.put(`rest-auth/user-profile/`, formData, config)
                 .then((response) => {
                     return response.data
                 }).catch((error) => {
-                    // context.dispatch("error/setError", error.response.data, {root: true});
                     console.log(error, 'error')
                     return error
                 });
 
         },
-
 
         getDetails: async function (context, params) {
             return await axios.get('api/Repairs/', params = {params})

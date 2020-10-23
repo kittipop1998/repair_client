@@ -1,4 +1,4 @@
-const userprofile_api = 'api/user-profile/'
+const userprofile_api = 'api/UserProfiles/'
 export default {
     namespaced: true,
     state: {},

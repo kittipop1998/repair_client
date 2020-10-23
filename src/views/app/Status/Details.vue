@@ -1,14 +1,31 @@
 <template>
-        <div>
-            <div class="text-center">
-                <p class="display-1">
-                    <v-icon x-large color="primary">
-                        mdi-text-box-search-outline
-                    </v-icon>
-                    รายละเอียดการแจ้งซ่อม
-                </p>
+  <div>
+    <div class="text-center">
+      <p class="display-1">
+        <v-icon x-large color="primary">
+          mdi-text-box-search-outline
+        </v-icon>
+        รายละเอียดการแจ้งซ่อม
+      </p>
+    </div>
+    <div class="d-flex justify-center" >
+      <v-card width="750" elevation="0"
+              v-if="repair"
+              :headers="headers"
+              :items="repair"
+              sort-by="calories"
+              class="elevation-1">
+
+        <v-card class="mx-auto">
+          <v-card-text >
+            <div class="font-weight-black">
+              <p><span class="black--text">ชื่อ-สกุล:</span></p>
+              <p><span class="black--text">คณะ:</span></p>
+              <p><span class="black--text">สาขา:</span></p>
+              <p><span class="black--text">เบอร์โทร:</span>  {{repair.contact}}</p>
             </div>
 
+<<<<<<< HEAD
             <div class="d-flex justify-center" >
                 <v-card width="750" elevation="0"
                         v-if="repair"
@@ -59,16 +76,16 @@
 
                 </v-card>
 
+
             </div>
-
-
-        </div>
-
-
+          </v-card-text>
+        </v-card><br>
+      </v-card>
+    </div>
+  </div>
 
 
 </template>
-
 <script>
     import Select_date from "../../../components/Select_date";
     import Domitory from "../../../components/Select_repair/Domitory";
@@ -103,10 +120,7 @@
             },
         },
 
-
-
     }
 </script>
-
 <style scoped>
 </style>
