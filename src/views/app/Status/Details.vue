@@ -42,7 +42,7 @@
                                     <div v-if="repair.status ==1" class="yellow--text"><span class="black--text">สถานะการแจ้งซ่อม:</span> แจ้งซ่อม</div>
                                     <div v-else-if="repair.status ==2" class="orange--text"><span class="black--text">สถานะการแจ้งซ่อม:</span> กำลังดำเนินงาน</div>
                                     <div v-else-if="repair.status ==3" class="green--text"><span class="black--text">สถานะการแจ้งซ่อม:</span> เสร็จสิ้น</div>
-                                    <div v-else-if="repair.status ==4" class="red--text"><span class="black--text">สถานะการแจ้งซ่อม:</span> ยกเลิกคำร้อง</div><div v-else-if="repair.status ==4" class="red--text"><span class="black--text">สถานะการแจ้งซ่อม:</span> ยกเลิกคำร้อง</div>
+                                    <div v-else-if="repair.status ==4" class="red--text"><span class="black--text">สถานะการแจ้งซ่อม:</span> ยกเลิกคำร้อง</div>
                                 </template></p>
                                     <p><span class="black--text">วันที่:</span>  {{gettime(repair.created_date)}}</p>
                                     <p><span class="black--text">รูปภาพ:</span></p>
@@ -99,7 +99,7 @@
                 this.repair = await this.$store.dispatch('getRepair', id)
             },
             goToPhoto(){
-                return this.repair.image
+                return this.repair.imageBe
             },
         },
 
