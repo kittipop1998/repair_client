@@ -146,8 +146,7 @@ export default new Vuex.Store({
                 body: formData,
             }
             const formData = new FormData();
-
-
+            const uri = this.state.avatar
             if (typeof (params.userprofile.image) === 'object') {
                 formData.append('image', params.userprofile.image)
             }
@@ -168,6 +167,32 @@ export default new Vuex.Store({
 
         },
 
+        saveUserprofile: async function (context, params) {
+            const config = {
+                method: 'POST',
+                body: formData,
+            }
+            const formData = new FormData();
+            formData.append('image', params.userprofile.image)
+            formData.append('nameStudent', params.userprofile.nameStudent)
+            formData.append('student_id', params.userprofile.student_id)
+            formData.append('department', params.userprofile.department)
+            formData.append('branch', params.userprofile.branch)
+            formData.append('contact', params.userprofile.contact)
+            formData.append('face_book', params.userprofile.face_book)
+
+            return await axios.post('rest-auth/user-profile/', formData, config)
+                .then((response) => {
+                    console.log(response.data)
+                    return response.data
+                }).catch((error) => {
+                    // context.dispatch("error/setError", error.response.data, {root: true});
+                    console.log(error, 'error')
+                    return error
+                });
+
+        },
+
         // getUserprofileDetails: async function (context, params) {
         //     return await axios.get('api/user-profile/', params = {params})
         //
@@ -182,36 +207,10 @@ export default new Vuex.Store({
         //
         // },
 
-        // SaveUserprofile: async function (context, params) {
-        //     const config = {
-        //         method: 'POST',
-        //         body: formData,
-        //     }
-        //     const formData = new FormData();
-        //     const uri = this.state.avatar
-        //     formData.append('image', params.image)
-        //     formData.append('nameStudent', params.nameStudent)
-        //     formData.append('student_id', params.student_id)
-        //     formData.append('department', params.department)
-        //     formData.append('branch', params.branch)
-        //     formData.append('nameRo', params.nameRo)
-        //     formData.append('room_type', params.room_type)
-        //     formData.append('domitory', params.domitory)
-        //     formData.append('contact', params.contact)
-        //     formData.append('face_book', params.face_book)
-        //
-        //     return await axios.post('rest-auth/user-profile/', formData, config)
-        //         .then((response) => {
-        //             console.log(response.data)
-        //             return response.data
-        //         }).catch((error) => {
-        //             // context.dispatch("error/setError", error.response.data, {root: true});
-        //             console.log(error, 'error')
-        //             return error
-        //         });
-        //
-        // },
-        //
+
+
+
+
 
         getDetails: async function (context, params) {
             return await axios.get('api/Repairs/', params = {params})

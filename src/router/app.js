@@ -38,9 +38,14 @@ export default {
             component: () => import('../views/app/Profile')
         },
         {
-            path: "editprofile",
+            path: "id/editprofile",
             name: "EditProfile",
             component: () => import('../views/app/Profile/EditProfile')
+        },
+        {
+            path: "id/createprofile",
+            name: "CreateProfile",
+            component: () => import('../views/app/Profile/CreateProfile')
         },
         {
             path: ":id/details",

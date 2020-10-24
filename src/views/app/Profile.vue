@@ -9,7 +9,17 @@
       </p>
     </div>
 
-    <v-btn class="font-weight-black-right" fab dark color="red" @click="$router.push({name:'EditProfile'})">
+    <v-btn class="font-weight-black-right"
+           fab dark color="red"
+           @click="$router.push({name:'CreateProfile'})">
+      <v-icon dark >mdi-plus</v-icon>
+    </v-btn>
+    เพิ่มข้อมูลส่วนตัว
+    <br/>
+
+    <v-btn class="font-weight-black-right"
+           fab dark color="yellow"
+           @click="$router.push({name:'EditProfile'})">
       <v-icon dark >mdi-plus</v-icon>
     </v-btn>
     แก้ไข
@@ -19,7 +29,7 @@
 
       <v-card width="750" elevation="0"
               v-if="userprofile"
-              :headers="headers"
+
               :items="userprofile"
               sort-by="calories"
               class="elevation-1">

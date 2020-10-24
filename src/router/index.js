@@ -8,6 +8,7 @@ import Template from "../views/Template";
 import app from "./app";
 import admin from "./admin"
 import manager from "./manager";
+import Register from "@/views/Register";
 
 
 
@@ -23,11 +24,7 @@ export default new Router({
                     name: "Home",
                     component: Home,
                 },
-                {
-                    path: '/login',
-                    name: "Login",
-                    component: Login
-                },
+
                 {
                     path: '/recommend',
                     name: "Recommend",
@@ -38,6 +35,18 @@ export default new Router({
                     name: "Contact",
                     component: Contact
                 },
+                {
+                    path: '/login',
+                    name: "Login",
+                    component: Login
+                },
+
+                {
+                    path: '/Register',
+                    name: "Register",
+                    component: Register
+                },
+
                 app,
                 admin,
                 manager,

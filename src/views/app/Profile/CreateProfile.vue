@@ -5,22 +5,9 @@
         <v-icon x-large color="primary">
           mdi-file-document-edit-outline
         </v-icon>
-        แก้ไขข้อมูลส่วนตัว
+        เพิ่มข้อมูลส่วนตัว
       </p>
     </div>
-    <v-btn
-        class="ma-2"
-        color="black darken-2"
-        dark
-        @click="$router.push({name:'Profile'})"
-    >
-      <v-icon
-          dark
-          left
-      >
-        mdi-arrow-left
-      </v-icon>Back
-    </v-btn>
     <div class="d-flex justify-center">
 
       <v-card width="500" elevation="0">
@@ -28,18 +15,17 @@
         <v-img
             aspect-ratio="2"
             contain
-            :src="getImageUri(userprofile.userprofile.image)"
+            :src="getImageUri(form.image)"
         ></v-img>
-        <br/>
 
         <v-file-input
             label="รูปภาพ"
-            v-model="userprofile.userprofile.image"
+            v-model="form.image"
             outlined dense>
         </v-file-input>
 
         <v-text-field
-            v-model="userprofile.userprofile.nameStudent"
+            v-model="form.nameStudent"
             item-text="nameStudent"
             label="ชื่อ-สกุล"
             single-line
@@ -48,7 +34,7 @@
         ></v-text-field>
 
         <v-text-field
-            v-model="userprofile.userprofile.student_id"
+            v-model="form.student_id"
             item-text="student_id"
             label="รหัสนิสิต"
             single-line
@@ -57,7 +43,7 @@
         ></v-text-field>
 
         <v-text-field
-            v-model="userprofile.userprofile.department"
+            v-model="form.department"
             item-text="department"
             label="คณะ"
             single-line
@@ -66,7 +52,7 @@
         ></v-text-field>
 
         <v-text-field
-            v-model="userprofile.userprofile.branch"
+            v-model="form.branch"
             item-text="department"
             label="สาขา"
             single-line
@@ -100,7 +86,7 @@
 
 
         <v-text-field
-            v-model="userprofile.userprofile.contact"
+            v-model="form.contact"
             item-text="contact"
             label="เบอร์โทรศัพท์"
             single-line
@@ -109,7 +95,7 @@
         ></v-text-field>
 
         <v-text-field
-            v-model="userprofile.userprofile.face_book"
+            v-model="form.face_book"
             item-text="face_book"
             label="Facebook"
             single-line
@@ -131,29 +117,52 @@
 </template>
 <script>
 
-import userprofile from "@/store/modules/userprofile";
+import Template from "../../Template";
+import {mapState} from "vuex";
 
 export default {
-  name: "EditProfile",
+  // components: {Template},
+  name: "CreateProfile",
   data: () => ({
-        userprofile: null,
-      }
-  ),
-  created() {
+    userprofile: null,
+    image: null,
+    nameStudent: null,
+    student_id: null,
+    department: null,
+    branch: null,
+    contact: null,
+    face_book: null,
+
+    form: {
+      "userprofile": null,
+      "image": null,
+      "nameStudent": "",
+      "student_id": "",
+      "department": "",
+      "branch": "",
+      "contact": "",
+      "face_book": "",
+    }
+
+  }),
+  async mounted() {
     this.loadProfile()
+    if (!this.user) {
+      await this.$store.dispatch('user/getUser')
+    }
+  },
+  computed: {
+    ...mapState({
+      user: state => state.user.user
+    })
   },
   methods: {
-
     async loadProfile() {
       let id = this.$route.params.id
-      this.userprofile = await this.$store.dispatch('getUserprofile', id)
+      this.userprofile = await this.$store.dispatch('getUserprofile')
     },
     goToPhoto() {
       return this.userprofile.image
-    },
-
-    save() {
-      this.$store.dispatch('updateUserprofile', this.userprofile)
     },
     getImageUri(image) {
       let uri = image ? image : ""
@@ -163,6 +172,16 @@ export default {
         return uri
       }
     },
+    async save() {
+      console.log(this.form, 'form')
+      console.log(this.user, 'user')
+      this.form.user_profile = this.user.id
+      let data = await this.$store.dispatch('saveUserprofile', this.form)
+      if(data){
+        this.$router.push({name: 'Profile'})
+      }
+    },
+
   }
   ,
 }
