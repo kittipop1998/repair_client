@@ -30,21 +30,7 @@
                 <Select_date
                         @change="form.created_date = $event" >
                 </Select_date>
-<!--                <v-select-->
-<!--                        v-model="form.repair_type"-->
-<!--                        :items="form.repair_type_sel"-->
-<!--                        label="ประเภท"-->
-<!--                        placeholder="ระบุประเภท"-->
-<!--                        item-text="nameRe"-->
-<!--                        solo-->
-<!--                >-->
-<!--                    <template slot="selection" slot-scope="data">-->
-<!--                        {{ data.item ?  data.item.repair_type : '' }} {{data.item ?  data.item.nameRe : '' }}-->
-<!--                    </template>-->
-<!--                    <template slot="item" slot-scope="data">-->
-<!--                        {{ data.item ? data.item.repair_type :''}}  {{ data.item ? data.item.nameRo : '' }}-->
-<!--                    </template>-->
-<!--                </v-select>-->
+
                 <v-select
                         v-model="form.repair_type"
                         :items="repair"
@@ -79,7 +65,7 @@
 
                 <v-file-input
                         label="รูปภาพ/ถ้ามี"
-                        v-model="form.image"
+                        v-model="form.imageBe"
                         outlined dense>
                 </v-file-input>
 
@@ -115,17 +101,17 @@
                 "desc": "",
                 "created_date": null,
                 "status": 1,
-                "image": null,
+                "imageBe": null,
                 "user_profile": null,
                 "repair_type": null,
                 "room": null,
-                "room_type":null
+                "room_type":null,
 
             }
         }),
         async mounted() {
-            this.loadRoom()
-            this.loadRepair()
+            await this.loadRoom()
+            await this.loadRepair()
             if(!this.user){
                 await this.$store.dispatch('user/getUser')
             }

@@ -149,8 +149,9 @@ export default {
           await this.$router.push({name: 'Repair_Admin'})
         } else if (user.groups[0].name === "student") {
           await this.$router.push({name: 'Repair'})
-        } else if (user.groups[0].name === "manager") {
-          await this.$router.push({name: 'Repair_M'})
+        }else if (user.groups[0].name === "manager"){
+          await this.$router.push({name: 'Status_M'})
+
         }
       }
 

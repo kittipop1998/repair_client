@@ -3,12 +3,15 @@ export default {
     component: () => import('../views/admin/AdminTemplate'),
     children: [
         {
+
+
             path: 'repair_admin',
             name: "Repair_Admin",
             component:  () => import('../views/admin/Repair_Admin')
         },
         {
-            path: 'status_A',
+
+            path: 'status_a',
             name: "Status_A",
             component:  () => import('../views/admin/Status/Status_A')
         },

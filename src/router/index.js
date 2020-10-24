@@ -10,8 +10,6 @@ import admin from "./admin"
 import manager from "./manager";
 import Register from "@/views/Register";
 
-
-
 Vue.use(Router)
 export default new Router({
     routes: [
@@ -50,10 +48,6 @@ export default new Router({
                 app,
                 admin,
                 manager,
-
-
-
-
             ]
         },
 

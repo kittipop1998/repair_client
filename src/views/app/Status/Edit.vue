@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="repair">
         <div class="text-center">
             <p class="display-1">
                 <v-icon x-large color="primary">
@@ -51,13 +51,13 @@
 
                 <v-file-input
                         label="รูปภาพ/ถ้ามี"
-                        v-model="repair.image"
+                        v-model="repair.imageBe"
                         outlined dense>
                 </v-file-input>
                 <v-img
                         aspect-ratio="2"
                         contain
-                        v-model="repair.image"
+                        v-model="repair.imageBe"
                         :src="goToPhoto()"
                 ></v-img>
                 <br>
@@ -77,10 +77,10 @@
     import Repair_type from "../../../components/Select_repair/Repair_type";
     export default {
         components: {Repair_type, Domitory, Select_date},
-        name: "Status",
+        name: "Edit",
         data: () => ({
                 repair : null,
-                room : null,
+                room : '',
             }
         ),
         created() {
@@ -96,10 +96,11 @@
                 this.repair = await this.$store.dispatch('getRepair', id)
             },
             goToPhoto(){
-              return this.repair.image
+              return this.repair.imageBe
             },
-            save() {
+            async save() {
                 this.$store.dispatch('updateRepair',this.repair)
+                await this.loadRepair()
             },
 
         }
