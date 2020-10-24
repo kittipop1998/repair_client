@@ -21,6 +21,20 @@
           <v-card-text>
 
             <v-form>
+
+<!--              <v-text-field-->
+<!--                  outlined-->
+<!--                  rounded-->
+<!--                  label="Name"-->
+<!--                  prepend-icon="mdi-account"-->
+<!--                  type="text"-->
+<!--                  v-model="form.name"-->
+<!--                  :rules="[rules.required]"-->
+<!--                  :error-messages="error.name"-->
+
+
+<!--              ></v-text-field>-->
+
               <v-text-field
                   outlined
                   rounded
@@ -34,70 +48,81 @@
 
               ></v-text-field>
 
+
+              <v-text-field
+                  outlined
+                  rounded
+                  label="Email"
+                  prepend-icon="mdi-account"
+                  type="text"
+                  v-model="form.email"
+                  :rules="[rules.required]"
+                  :error-messages="error.email"
+
+
+              ></v-text-field>
+
+
+
+
               <v-text-field
                   outlined
                   rounded
                   label="Password"
-                  prepend-icon="mdi-lock"
-                  type="show_password ? 'text' : 'password'"
+                  :type="show_password ? 'text' : 'password1'"
+                  prepend-inner-icon="mdi-lock"
                   :append-icon="show_password ? 'mdi-eye': 'mdi-eye-off'"
                   @click:append="show_password = !show_password"
-                  @keypress.13="signup"
-
+                  @keypress.13="login"
                   v-model="form.password1"
                   :rules="[rules.required]"
-
-
                   :error-messages="error.password1"
-
               ></v-text-field>
 
               <v-text-field
                   outlined
                   rounded
-                  label="Password"
-                  prepend-icon="mdi-lock"
-                  type="show_password ? 'text' : 'password'"
+                  label="ConfirmPassword"
+                  :type="show_password ? 'text' : 'password2'"
+                  prepend-inner-icon="mdi-lock"
                   :append-icon="show_password ? 'mdi-eye': 'mdi-eye-off'"
                   @click:append="show_password = !show_password"
-                  @keypress.13="signup"
-
+                  @keypress.13="login"
                   v-model="form.password2"
                   :rules="[rules.required]"
-
-
                   :error-messages="error.password2"
-
               ></v-text-field>
 
 
             </v-form>
           </v-card-text>
 
-          <v-card-actions class="container">
-            <v-btn
-                color="black"
-                x-large
-                rounded
-                block
-                dark
-                @click="login"
-            >
-              Login
-            </v-btn>
-          </v-card-actions>
-          <v-card-actions class="container">
-            <v-btn
-                color="black"
-                x-large
-                rounded
-                block
-                dark
-                @click="signup"
-            >
-              Sign Up
-            </v-btn>
-          </v-card-actions>
+                    <v-card-actions class="container">
+                      <v-btn
+                          color="black"
+                          x-large
+                          rounded
+                          block
+                          dark
+                          @click="registerUser"
+
+                      >
+                        Register
+                      </v-btn>
+                    </v-card-actions>
+
+<!--          <v-card-actions class="container">-->
+<!--            <v-btn-->
+<!--                color="black"-->
+<!--                x-large-->
+<!--                rounded-->
+<!--                block-->
+<!--                dark-->
+<!--                @click="signup"-->
+<!--            >-->
+<!--              Register-->
+<!--            </v-btn>-->
+<!--          </v-card-actions>-->
 
 
         </v-card>
@@ -119,25 +144,37 @@ export default {
     return {
       show_password: false,
       form: {
-        username: '',
-        password1: '',
-        password2: '',
+        // name: '',
+        username: '6543210',
+        email: '6543210@up.ac.th',
+        password1: 'password_user',
+        password2: 'password_user',
       },
       rules: {
         required: value => !!value || 'Required'
       }
     }
   },
-  // methods: {
-  //   async login() {
-  //     let data = await this.$store.dispatch('user/getUserToken', this.form)
-  //     if (data) {
-  //       await this.$router.push({name: 'Repair'})
-  //     }
-  //   },
-  //
-  // }
+  methods: {
+    registerUser () {
+      this.$store.dispatch('user/registerUser', {
+        // name: this.name,
+        email: this.form.email,
+        username: this.form.username,
+        password1: this.form.password1,
+        password2: this.form.password2,
+      })
+        this.$router.push({name: 'Login'})
+    },
+    // async login() {
+    //       let data = await this.$store.dispatch('user/getUserToken', this.form)
+    //       if (data) {
+    //         await this.$router.push({name: 'Repair'})
+    //       }
+    //     },
+  }
 }
+
 
 </script>
 <style>
@@ -149,6 +186,7 @@ export default {
   margin-top: 200px;
   padding: 20px;
 }
+
 #signup {
   width: 500px;
   border: 1px solid #CCCCCC;
@@ -158,3 +196,5 @@ export default {
   padding: 20px;
 }
 </style>
+
+

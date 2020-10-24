@@ -10,7 +10,17 @@
       </p>
     </div>
 
-    <v-btn class="font-weight-black-right" fab dark color="red" @click="$router.push({name:'EditProfile'})">
+    <v-btn class="font-weight-black-right"
+           fab dark color="red"
+           @click="$router.push({name:'CreateProfile'})">
+      <v-icon dark >mdi-plus</v-icon>
+    </v-btn>
+    เพิ่มข้อมูลส่วนตัว
+    <br/>
+
+    <v-btn class="font-weight-black-right"
+           fab dark color="yellow"
+           @click="$router.push({name:'EditProfile'})">
       <v-icon dark >mdi-plus</v-icon>
     </v-btn>
     แก้ไข

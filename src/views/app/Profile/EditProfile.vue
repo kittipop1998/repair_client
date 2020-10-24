@@ -8,9 +8,23 @@
         แก้ไขข้อมูลส่วนตัว
       </p>
     </div>
+    <v-btn
+        class="ma-2"
+        color="black darken-2"
+        dark
+        @click="$router.push({name:'Profile'})"
+    >
+      <v-icon
+          dark
+          left
+      >
+        mdi-arrow-left
+      </v-icon>Back
+    </v-btn>
     <div class="d-flex justify-center">
 
       <v-card width="500" elevation="0">
+<<<<<<< HEAD
         <v-container class="text-center">
           <v-img
                   class="text-center grey lighten-5 rounded-circle d-inline-flex align-center justify-center ma-5"
@@ -20,6 +34,16 @@
                   :src="getImageUri(userprofile.userprofile.image)"
           ></v-img>
         </v-container>
+=======
+
+        <v-img
+            aspect-ratio="2"
+            contain
+            :src="getImageUri(userprofile.userprofile.image)"
+        ></v-img>
+        <br/>
+
+>>>>>>> 125cef50ef6c1a77f06d996321fb10f818c64b94
         <v-file-input
             label="รูปภาพ"
             v-model="userprofile.userprofile.image"
@@ -110,10 +134,11 @@ export default {
     async loadProfile() {
       let id = this.$route.params.id
       this.userprofile = await this.$store.dispatch('getUserprofile', id)
+
     },
-    // goToPhoto() {
-    //   return this.image
-    // },
+    goToPhoto() {
+      return this.userprofile.image
+    },
 
     async save() {
       this.$store.dispatch('updateUserprofile', this.userprofile)

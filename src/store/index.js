@@ -150,18 +150,7 @@ export default new Vuex.Store({
                 body: formData,
             }
             const formData = new FormData();
-            // const uri = this.state.avatar
-            // formData.append('imageBe', params.imageBe)
-            // formData.append('nameUs', params.nameUs)
-            // formData.append('yearUs', params.yearUs)
-            // formData.append('department', params.department)
-            // formData.append('branch', params.branch)
-            formData.append('user_profile', params.user_profile)
-            formData.append('repair_type', params.repair_type)
-            formData.append('domitory_sel', params.domitory_sel)
-            formData.append('room_sel', params.room_sel)
-            formData.append('room', params.room)
-            formData.append('room_type', params.room_type)
+            const uri = this.state.avatar
             if (typeof (params.userprofile.image) === 'object') {
                 formData.append('image', params.userprofile.image)
             }
@@ -181,6 +170,53 @@ export default new Vuex.Store({
                 });
 
         },
+
+
+        saveUserprofile: async function (context, params) {
+            const config = {
+                method: 'POST',
+                body: formData,
+            }
+            const formData = new FormData();
+            formData.append('image', params.userprofile.image)
+            formData.append('nameStudent', params.userprofile.nameStudent)
+            formData.append('student_id', params.userprofile.student_id)
+            formData.append('department', params.userprofile.department)
+            formData.append('branch', params.userprofile.branch)
+            formData.append('contact', params.userprofile.contact)
+            formData.append('face_book', params.userprofile.face_book)
+
+            return await axios.post('rest-auth/user-profile/', formData, config)
+                .then((response) => {
+                    console.log(response.data)
+                    return response.data
+                }).catch((error) => {
+                    // context.dispatch("error/setError", error.response.data, {root: true});
+                    console.log(error, 'error')
+                    return error
+                });
+
+        },
+
+        // getUserprofileDetails: async function (context, params) {
+        //     return await axios.get('api/user-profile/', params = {params})
+        //
+        //         .then((response) => {
+        //             console.log(response.data)
+        //             return response.data
+        //         }).catch((error) => {
+        //             // context.dispatch("error/setError", error.response.data, {root: true});
+        //             console(error, 'error')
+        //             return error
+        //         });
+        //
+        // },
+
+
+
+
+
+
 
         getDetails: async function (context, params) {
             return await axios.get('api/Repairs/', params = {params})

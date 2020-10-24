@@ -34,12 +34,14 @@
 
               ></v-text-field>
 
+
+
               <v-text-field
                   outlined
                   rounded
                   label="Password"
-                  prepend-icon="mdi-lock"
-                  type="show_password ? 'text' : 'password'"
+                  :type="show_password ? 'text' : 'password'"
+                  prepend-inner-icon="mdi-lock"
                   :append-icon="show_password ? 'mdi-eye': 'mdi-eye-off'"
                   @click:append="show_password = !show_password"
                   @keypress.13="login"
@@ -50,22 +52,8 @@
 
                   :error-messages="error.password"
 
+
               ></v-text-field>
-
-              <!--                          <v-text-field-->
-              <!--                              label="Login"-->
-              <!--                              name="login"-->
-              <!--                              prepend-icon="mdi-account"-->
-              <!--                              type="text"-->
-              <!--                          ></v-text-field>-->
-
-              <!--                          <v-text-field-->
-              <!--                              id="password"-->
-              <!--                              label="Password"-->
-              <!--                              name="password"-->
-              <!--                              prepend-icon="mdi-lock"-->
-              <!--                              type="password"-->
-              <!--                          ></v-text-field>-->
 
             </v-form>
           </v-card-text>
@@ -92,22 +80,22 @@
                 dark
                 @click="$router.push({name:'Register'})"
             >
-              Sign Up
+              Register
             </v-btn>
           </v-card-actions>
 
-<!--          <v-card-actions class="container">-->
-<!--            <v-btn-->
-<!--                color="black"-->
-<!--                x-large-->
-<!--                rounded-->
-<!--                block-->
-<!--                dark-->
-<!--                @click="register"-->
-<!--            >-->
-<!--              Register-->
-<!--            </v-btn>-->
-<!--          </v-card-actions>-->
+          <!--          <v-card-actions class="container">-->
+          <!--            <v-btn-->
+          <!--                color="black"-->
+          <!--                x-large-->
+          <!--                rounded-->
+          <!--                block-->
+          <!--                dark-->
+          <!--                @click="register"-->
+          <!--            >-->
+          <!--              Register-->
+          <!--            </v-btn>-->
+          <!--          </v-card-actions>-->
 
 
           <!--                    <v-card-actions>-->
@@ -132,13 +120,22 @@ export default {
   data() {
     return {
       show_password: false,
+
       form: {
         username: '60023180',
         password: 'password_user'
       },
 
       rules: {
-        required: value => !!value || 'Required'
+        username: [
+          v => !!v || "Username is required",
+          v => (v && v.length > 3) || "A username must be more than 3 characters long",
+          v => /^[a-z0-9_]+$/.test(v) || "A username can only contain letters and digits"
+        ],
+        password: [
+          v => !!v || "Password is required",
+          v => (v && v.length > 7) || "The password must be longer than 7 characters"
+        ]
       }
     }
   },
@@ -152,35 +149,40 @@ export default {
           this.$store.commit('setLoginText','Logout')
 
           await this.$router.push({name: 'Repair_Admin'})
+
         }else if (user.groups[0].name === "student"){
           this.$store.commit('setLoginText','Logout')
 
+        } else if (user.groups[0].name === "student") {
           await this.$router.push({name: 'Repair'})
+
         }else if (user.groups[0].name === "manager"){
           this.$store.commit('setLoginText','Logout')
 
           await this.$router.push({name: 'Status_M'})
         }
       }
-    },
 
-    async signup() {
-      let user = await this.$store.dispatch('user/registerUser', this.form)
-      // let user = await this.$router.push({name: 'Register'})
+
     }
-    // login() {
-    //     if(this.input.username !== "username" && this.input.password !== "password") {
-    //         if(this.input.username === this.$parent.mockAccount.username && this.input.password === this.$parent.mockAccount.password) {
-    //             this.$emit("authenticated", true);
-    //             this.$router.replace({ name: "secure" });
-    //         } else {
-    //             console.log("The username and / or password is incorrect");
-    //         }
-    //     } else {
-    //         console.log("A username and password must be present");
-    //     }
-    // }
+  },
+
+  async signup() {
+    let user = await this.$store.dispatch('user/registerUser', this.form)
+    // let user = await this.$router.push({name: 'Register'})
   }
+  // login() {
+  //     if(this.input.username !== "username" && this.input.password !== "password") {
+  //         if(this.input.username === this.$parent.mockAccount.username && this.input.password === this.$parent.mockAccount.password) {
+  //             this.$emit("authenticated", true);
+  //             this.$router.replace({ name: "secure" });
+  //         } else {
+  //             console.log("The username and / or password is incorrect");
+  //         }
+  //     } else {
+  //         console.log("A username and password must be present");
+  //     }
+  // }
 }
 
 </script>
@@ -193,6 +195,7 @@ export default {
   margin-top: 200px;
   padding: 20px;
 }
+
 #signup {
   width: 500px;
   border: 1px solid #CCCCCC;
