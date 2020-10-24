@@ -20,16 +20,6 @@ export default {
                 component:  () => import('../views/manager/Profile_M')
             },
             {
-                path: 'technician',
-                name: "Technician",
-                component:  () => import('../views/manager/Technician')
-            },
-            {
-                path: 'statistic',
-                name: "Statistic",
-                component:  () => import('../views/manager/Statistic')
-            },
-            {
                 path: 'notification_m2',
                 name: "Notification_M2",
                 component:  () => import('../views/manager/Status/Notification_M2')

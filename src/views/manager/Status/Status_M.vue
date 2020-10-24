@@ -87,21 +87,21 @@
                 },
                 repair: null,
                 headers: [
-                    {text: 'ลำดับที่', value: 'id'},
+                    {text: 'รหัสนิสิต', value: 'userprofile.student_id'},
+                    {text: 'ข้อมูลนิสิต', value: 'userprofile.nameStudent'},
+                    {text: 'หมายเลขห้อง', value: 'room_data'},
                     {
-                        text: 'ประเภทของการแจ้งซ่อม',
+                        text: 'ประเภท',
                         align: 'start',
                         sortable: false,
                         value: 'repairType_data',
                     },
-                    {text: 'หมายเลขห้อง', value: 'room_data'},
-                    {text: 'ข้อมูลนิสิต', value: ''},
-                    {text: 'สถานะการแจ้งซ่อม', value: 'status'},
+                    {text: 'สถานะ', value: 'status'},
                     {text: 'วันที่แจ้งซ่อม', value: 'created_date'},
                     {text: 'วันที่อนุมัติรายการ', value: 'approve_data'},
                     {text: 'วันที่สิ้นสุด', value: 'completed_data'},
                     {text: 'รายละเอียด', value: 'detail'},
-                    {text: 'แก้ไข/ลบ', value: 'actions', sortable: false}
+                    {text: 'อัพเดท/ลบ', value: 'actions', sortable: false}
 
                 ],
             }

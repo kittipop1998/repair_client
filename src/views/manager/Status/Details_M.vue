@@ -1,5 +1,4 @@
 <template>
-    <v-container>
     <div>
         <div class="text-center">
             <p class="display-1">
@@ -12,25 +11,27 @@
 
         <div class="d-flex justify-center" >
             <v-card width="750" elevation="0"
-                    v-if="repair"
-                    :items="repair"
                     sort-by="calories"
-                    class="elevation-1">
+                    class="elevation-1"
+                    v-if="repair">
 
-                <v-card class="mx-auto">
-                    <v-card-text >
+                <v-card class="mx-auto"
+
+                >
+                    <v-card-text  >
                         <div class="font-weight-black">
-                            <p><span class="black--text">ชื่อ-สกุล:</span></p>
-                            <p><span class="black--text">คณะ:</span></p>
-                            <p><span class="black--text">สาขา:</span></p>
-                            <p><span class="black--text">เบอร์โทร:</span>  {{repair.contact}}</p>
+                            <p><span class="black--text">รหัสนิสิต:</span> {{repair.userprofile.student_id}}</p>
+                            <p><span class="black--text">ชื่อ-สกุล:</span> {{repair.userprofile.nameStudent}}</p>
+                            <p><span class="black--text">คณะ: </span> {{repair.userprofile.department}}</p>
+                            <p><span class="black--text">สาขา:</span> {{repair.userprofile.branch}} </p>
+                            <p><span class="black--text" >เบอร์โทร:</span>  {{repair.contact}}</p>
                         </div>
                     </v-card-text>
                 </v-card><br>
 
                 <p class="font-weight-black">ข้อมูลการแจ้งซ่อม</p>
 
-                <v-card class="mx-auto" >
+                <v-card class="mx-auto">
                     <v-card-text >
                         <div class="font-weight-black" >
                             <div>
@@ -43,12 +44,21 @@
                                     <div v-else-if="repair.status ==3" class="green--text"><span class="black--text">สถานะการแจ้งซ่อม:</span> เสร็จสิ้น</div>
                                     <div v-else-if="repair.status ==4" class="red--text"><span class="black--text">สถานะการแจ้งซ่อม:</span> ยกเลิกคำร้อง</div>
                                 </template></p>
-                                <p><span class="black--text">วันที่:</span>  {{gettime(repair.created_date)}}</p>
-                                <p><span class="black--text">รูปภาพ:</span></p>
+                                <p><span class="black--text">วันที่แจ้งซ่อม:</span>  {{repair.created_date?gettime(repair.created_date): ''}}</p>
+                                <p><span class="black--text">วันที่อนุมัติการซ่อม:</span>  {{repair.approve_data?gettime(repair.approve_data): ''}}</p>
+                                <p><span class="black--text">วันที่เสร็จสิ้น:</span>  {{repair.completed_data? gettime(repair.completed_data): ''}}</p>
+                                <p><span class="black--text">ภาพก่อนการซ่อมแซม:</span></p>
                                 <v-img
                                         aspect-ratio="2"
                                         contain
                                         :src="goToPhoto()"
+                                ></v-img>
+                                <p><span class="black--text"><span class="green--text">ภาพหลังการซ่อมแซม:</span></span></p>
+                                <v-img
+                                        v-model="repair.imageAf"
+                                        aspect-ratio="2"
+                                        contain
+                                        :src="repair.imageAf ? repair.imageAf : ''"
                                 ></v-img>
                             </div>
                         </div>
@@ -57,7 +67,6 @@
             </v-card>
         </div>
     </div>
-    </v-container>
 
 
 
@@ -72,7 +81,7 @@
         components: {Repair_type, Domitory, Select_date},
         name: "Details_M",
         data: () => ({
-
+                userprofile: null,
                 repair: null,
                 room:null,
             }
@@ -80,6 +89,7 @@
         created() {
             this.loadRoom()
             this.loadRepair()
+            this.loadProfile()
         },
         methods: {
             gettime(date){
@@ -95,6 +105,11 @@
             goToPhoto(){
                 return this.repair.imageBe
             },
+            async loadProfile() {
+                let id = this.$route.params.id
+                this.userprofile = await this.$store.dispatch('getUserprofile')
+            },
+
         },
 
 

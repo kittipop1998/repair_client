@@ -34,8 +34,9 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch('user/logout')
+      localStorage.removeItem('apiToken')
       this.$router.push({
-        name: 'Logout'
+        name: 'Login'
       })
     }
   }

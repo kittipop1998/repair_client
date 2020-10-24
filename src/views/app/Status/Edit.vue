@@ -50,7 +50,7 @@
                 ></v-text-field>
 
                 <v-file-input
-                        label="รูปภาพ/ถ้ามี"
+                        label="รูปภาพ"
                         v-model="repair.imageBe"
                         outlined dense>
                 </v-file-input>
@@ -60,6 +60,7 @@
                         v-model="repair.imageBe"
                         :src="goToPhoto()"
                 ></v-img>
+
                 <br>
                 <div class="text-center">
                     <v-btn class="mr-1" color="black" dark @click="save">บันทึก</v-btn>
@@ -99,11 +100,12 @@
               return this.repair.imageBe
             },
             async save() {
-                this.$store.dispatch('updateRepair',this.repair)
-                await this.loadRepair()
-            },
+                let data = await this.$store.dispatch('updateRepair', this.repair)
+                if(data){
+                    this.$router.push({name: 'Status'})
+                }
+            }
 
         }
-        ,
     }
 </script>

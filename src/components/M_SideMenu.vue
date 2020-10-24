@@ -38,8 +38,6 @@
                 items: [
                     {title: 'สถานะการแจ้งซ่อม', icon: 'mdi-clock-fast',to : {name : 'Status_M'}},
                     {title: 'ข้อมูลส่วนตัว', icon: 'mdi-alarm-bell',to : {name : 'Profile_M'}},
-                    {title: 'จัดการช่าง', icon: 'mdi-account-hard-hat',to : {name : 'Technician'}},
-                    {title: 'สถิติของการแจ้งซ่อม', icon: 'mdi-align-vertical-bottom',to : {name : 'Statistic'}},
                 ],
                 right: null,
             }

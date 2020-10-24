@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <div class="text-center">
       <p class="display-1">
@@ -19,22 +20,23 @@
 
       <v-card width="750" elevation="0"
               v-if="userprofile"
-              :headers="headers"
-              :items="userprofile"
               sort-by="calories"
               class="elevation-1">
 
         <v-card class="mx-auto"
         >
           <v-card-text >
-            <div class="font-weight-black" >
+            <div class="font-weight-black"  >
               <div>
-                <p><span class="black--text">รูปภาพ:</span></p>
+                <v-container class="text-center">
                 <v-img
-                    aspect-ratio="2"
-                    contain
+                        class="text-center grey lighten-5 rounded-circle d-inline-flex align-center justify-center ma-5"
+                        height="250"
+                        width="250"
+                        aspect-ratio="5"
                     :src="getImageUri(userprofile.userprofile.image)"
                 ></v-img>
+                </v-container>
 <!--                <p><span class="black&#45;&#45;text">รูปภาพ:</span>  {{ userprofile.userprofile.image}}</p>-->
                 <p><span class="black--text">ชื่อ-สกุล:</span>  {{ userprofile.userprofile.nameStudent}}</p>
                 <p><span class="black--text">รหัสนิสิต:</span>  {{ userprofile.userprofile.student_id}}</p>
@@ -49,11 +51,7 @@
         </v-card><br>
       </v-card>
     </div>
-
   </div>
-
-
-
 </template>
 <script>
 

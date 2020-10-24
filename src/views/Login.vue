@@ -149,12 +149,17 @@ export default {
         let user = await this.$store.dispatch('user/getUser')
         console.log(user)
         if (user.groups[0].name === "admin") {
+          this.$store.commit('setLoginText','Logout')
+
           await this.$router.push({name: 'Repair_Admin'})
         }else if (user.groups[0].name === "student"){
+          this.$store.commit('setLoginText','Logout')
+
           await this.$router.push({name: 'Repair'})
         }else if (user.groups[0].name === "manager"){
-          await this.$router.push({name: 'Status_M'})
+          this.$store.commit('setLoginText','Logout')
 
+          await this.$router.push({name: 'Status_M'})
         }
       }
     },

@@ -6,7 +6,6 @@
         </div>
         <div class="text-center flex-grow-1">
           <p class="display-2">แจ้งซ่อมหอพัก</p>
-          <p class="display-1">สะดวกสบายรวดเร็วทันใจ</p>
           <v-btn rounded color="blue" dark href="https://www.youtube.com/watch?v=DkH6rzF4Wig" target="_blank">คลิก</v-btn>
         </div>
       </div>

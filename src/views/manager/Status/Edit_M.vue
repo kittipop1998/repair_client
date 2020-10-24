@@ -53,6 +53,7 @@
                     solo
             ></v-text-field>
 
+                <p><span class="black--text">Before</span></p>
             <v-file-input
                     label="รูปภาพ/ถ้ามี"
                     v-model="repair.imageBe"
@@ -66,18 +67,20 @@
                     :src="goToPhoto()"
             ></v-img>
 
+                <p><span class="black--text">After</span></p>
                 <v-file-input
-                        label="After"
-                        v-model="repair.image"
+                        label="รูปภาพ/ถ้ามี"
+                        v-model="repair.imageAf"
                         outlined dense>
                     ></v-file-input>
-
                 <v-img
                         v-model="repair.imageAf"
                         aspect-ratio="2"
                         contain
-                        :src="repair.imageAf"
+                        :src="repair.imageAf ? repair.imageAf : ''"
                 ></v-img>
+
+
             <br>
             <div class="text-center">
                 <v-btn class="mr-1" color="black" dark @click="save">บันทึก</v-btn>
@@ -126,8 +129,10 @@
             },
             async save(){
                 console.log(this.repair,'editM')
-                this.$store.dispatch('updateRepair', this.repair)
-                await this.loadRepair()
+                let data = await this.$store.dispatch('updateRepair', this.repair)
+                if(data){
+                    this.$router.push({name: 'Status_M'})
+                }
 
             }
         }

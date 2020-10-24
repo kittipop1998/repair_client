@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="userprofile">
     <div class="text-center">
       <p class="display-1">
         <v-icon x-large color="primary">
@@ -11,12 +11,15 @@
     <div class="d-flex justify-center">
 
       <v-card width="500" elevation="0">
-        <v-img
-            aspect-ratio="2"
-            contain
-            :src="getImageUri(userprofile.userprofile.image)"
-        ></v-img>
-
+        <v-container class="text-center">
+          <v-img
+                  class="text-center grey lighten-5 rounded-circle d-inline-flex align-center justify-center ma-5"
+                  height="250"
+                  width="250"
+                  aspect-ratio="5"
+                  :src="getImageUri(userprofile.userprofile.image)"
+          ></v-img>
+        </v-container>
         <v-file-input
             label="รูปภาพ"
             v-model="userprofile.userprofile.image"
@@ -58,32 +61,6 @@
             dense
             solo
         ></v-text-field>
-
-
-        <!--        <v-select-->
-        <!--            v-model="repair.room"-->
-        <!--            :items="room"-->
-        <!--            label="หมายเลขห้อง"-->
-        <!--            single-line-->
-        <!--            item-text="nameRo"-->
-        <!--            item-value="id"-->
-        <!--            dense-->
-        <!--            solo-->
-        <!--        >-->
-        <!--          <template slot="selection" slot-scope="data">-->
-        <!--            หอ {{data.item ? data.item.dormitory.nameDo  : ''}}  {{ data.item ? data.item.room_type.nameTy :''}}  {{ data.item ? data.item.nameRo : '' }}-->
-
-        <!--          </template>-->
-        <!--          <template slot="item" slot-scope="data">-->
-        <!--            หอ {{data.item ? data.item.dormitory.nameDo  : ''}}  {{ data.item ? data.item.room_type.nameTy :''}}  {{ data.item ? data.item.nameRo : '' }}-->
-
-        <!--          </template>-->
-        <!--        </v-select>-->
-
-        <!--        <Select_date :date_value="repair.created_date"   @change="repair.created_date = $event" disabled/>-->
-        <!--        <Repair_type :repair-type_value="repair.repair_type" @change="repair.repair_type = $event"/>-->
-
-
         <v-text-field
             v-model="userprofile.userprofile.contact"
             item-text="contact"
@@ -119,6 +96,7 @@
 import userprofile from "@/store/modules/userprofile";
 
 export default {
+  components:{userprofile},
   name: "EditProfile",
   data: () => ({
         userprofile: null,
@@ -131,14 +109,15 @@ export default {
 
     async loadProfile() {
       let id = this.$route.params.id
-      this.userprofile = await this.$store.dispatch('getUserprofile')
+      this.userprofile = await this.$store.dispatch('getUserprofile', id)
     },
-    goToPhoto() {
-      return this.image
-    },
+    // goToPhoto() {
+    //   return this.image
+    // },
 
-    save() {
+    async save() {
       this.$store.dispatch('updateUserprofile', this.userprofile)
+      await this.loadProfile()
     },
     getImageUri(image) {
       let uri = image ? image : ""

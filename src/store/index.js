@@ -9,8 +9,14 @@ import domitory from "./modules/domitory";
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    state: {},
-    mutations: {},
+    state: {
+        login_text : "Login"
+    },
+    mutations: {
+        setLoginText(state,data) {
+            state.login_text = data
+        }
+    },
     actions: {
         getDomitory: async function (context, params) {
             return await axios.get('api/Dormitorys/')
@@ -138,17 +144,18 @@ export default new Vuex.Store({
 
 
         updateUserprofile: async function (context, params) {
+            console.log('params',params)
             const config = {
                 method: 'PUT',
                 body: formData,
             }
             const formData = new FormData();
-            const uri = this.state.avatar
-            formData.append('imageBe', params.imageBe)
-            formData.append('nameUs', params.nameUs)
-            formData.append('yearUs', params.yearUs)
-            formData.append('department', params.department)
-            formData.append('branch', params.branch)
+            // const uri = this.state.avatar
+            // formData.append('imageBe', params.imageBe)
+            // formData.append('nameUs', params.nameUs)
+            // formData.append('yearUs', params.yearUs)
+            // formData.append('department', params.department)
+            // formData.append('branch', params.branch)
             formData.append('user_profile', params.user_profile)
             formData.append('repair_type', params.repair_type)
             formData.append('domitory_sel', params.domitory_sel)
@@ -165,7 +172,7 @@ export default new Vuex.Store({
             formData.append('contact', params.userprofile.contact)
             formData.append('face_book', params.userprofile.face_book)
 
-            return await axios.put(`rest-auth/user-profile/`, formData, config)
+            return await axios.put(`api/rest-auth/user-profile/${params.id}/`, formData, config)
                 .then((response) => {
                     return response.data
                 }).catch((error) => {
@@ -213,7 +220,7 @@ export default new Vuex.Store({
                 formData.append('imageBe', params.imageBe)
             }
 
-            if (typeof  (params.imageAf) === 'object') {
+            if (params.imageAf&& typeof (params.imageAf) === 'object') {
                 formData.append('imageAf', params.imageAf)
             }
 
@@ -222,7 +229,6 @@ export default new Vuex.Store({
             formData.append('created_date', params.created_date)
             if(params.approve_data){
                 formData.append('approve_data', params.approve_data)
-
             }
             if(params.completed_data){
                 formData.append('completed_data', params.completed_data)
@@ -236,7 +242,7 @@ export default new Vuex.Store({
             formData.append('room', params.room)
             formData.append('room_type', params.room_type)
 
-            console.log(FormData.completed_data,'in store')
+            // console.log(FormData.completed_data,'in store')
             return await axios.put(`api/Repairs/${params.id}/`, formData, config)
                 .then((response) => {
                     return response.data

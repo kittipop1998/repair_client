@@ -105,9 +105,9 @@
                     {text: 'หมายเลขห้อง', value: 'room_data'},
                     // {text: 'ข้อมูลนิสิต', value: ''},
                     {text: 'สถานะการแจ้งซ่อม', value: 'status'},
-                    {text: 'วันที่แจ้งซ่อม', value: 'request_date'},
-                    {text: 'วันที่อนุมัติรายการ', value: ''},
-                    {text: 'วันที่สิ้นสุด', value: ''},
+                    {text: 'วันที่แจ้งซ่อม', value: 'created_date'},
+                    {text: 'วันที่อนุมัติรายการ', value: 'approve_data'},
+                    {text: 'วันที่สิ้นสุด', value: 'completed_data'},
                     {text: 'รายละเอียด', value: 'detail'},
                     {text: 'แก้ไข/ลบ', value: 'actions', sortable: false}
 
