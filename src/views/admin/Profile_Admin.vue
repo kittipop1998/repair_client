@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <div class="text-center">
       <p class="display-1">
@@ -9,7 +10,17 @@
       </p>
     </div>
 
-    <v-btn class="font-weight-black-right" fab dark color="red" @click="$router.push({name:'EditProfile'})">
+    <!--    <v-btn class="font-weight-black-right"-->
+    <!--           fab dark color="red"-->
+    <!--           @click="$router.push({name:'CreateProfile'})">-->
+    <!--      <v-icon dark >mdi-plus</v-icon>-->
+    <!--    </v-btn>-->
+    <!--    เพิ่มข้อมูลส่วนตัว-->
+    <!--    <br/>-->
+
+    <v-btn class="font-weight-black-right"
+           fab dark color="yellow"
+           @click="$router.push({name:'EditProfile_A'})">
       <v-icon dark >mdi-plus</v-icon>
     </v-btn>
     แก้ไข
@@ -19,41 +30,35 @@
 
       <v-card width="750" elevation="0"
               v-if="userprofile"
-              :headers="headers"
-              :items="userprofile"
               sort-by="calories"
               class="elevation-1">
 
         <v-card class="mx-auto"
         >
           <v-card-text >
-            <div class="font-weight-black" >
+            <div class="font-weight-black"  >
               <div>
-                <p><span class="black--text">รูปภาพ:</span></p>
-                <v-img
-                    aspect-ratio="2"
-                    contain
-                    :src="getImageUri(userprofile.userprofile.image)"
-                ></v-img>
-                <!--                <p><span class="black&#45;&#45;text">รูปภาพ:</span>  {{ userprofile.userprofile.image}}</p>-->
+                <v-container class="text-center">
+                  <v-img
+                      class="text-center grey lighten-5 rounded-circle d-inline-flex align-center justify-center ma-5"
+                      height="250"
+                      width="250"
+                      aspect-ratio="5"
+                      :src="getImageUri(userprofile.userprofile.image)"
+                  ></v-img>
+                </v-container>
                 <p><span class="black--text">ชื่อ-สกุล:</span>  {{ userprofile.userprofile.nameStudent}}</p>
-                <p><span class="black--text">รหัสนิสิต:</span>  {{ userprofile.userprofile.student_id}}</p>
-                <p><span class="black--text">คณะ:</span>  {{ userprofile.userprofile.department}}</p>
-                <p><span class="black--text">สาขา:</span>  {{ userprofile.userprofile.branch}}</p>
+                <p><span class="black--text">ตำแหน่ง:</span>  {{ userprofile.userprofile.position}}</p>
+                <p><span class="black--text">ตึกที่รับผิดชอบ:</span>  {{ userprofile.userprofile.rebuilding}}</p>
                 <p><span class="black--text">เบอร์โทรศัพท์:</span>  {{ userprofile.userprofile.contact}}</p>
                 <p><span class="black--text">Facebook:</span>  {{ userprofile.userprofile.face_book}}</p>
-
               </div>
             </div>
           </v-card-text>
         </v-card><br>
       </v-card>
     </div>
-
   </div>
-
-
-
 </template>
 <script>
 
@@ -90,7 +95,7 @@ export default {
       let uri = image ? image : ""
       if (uri.startsWith("/media")) {
         return baseURL + uri.substring(1)
-      } else {0
+      } else {
         return uri
       }
     },
