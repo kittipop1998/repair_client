@@ -24,34 +24,25 @@
     <div class="d-flex justify-center">
 
       <v-card width="500" elevation="0">
-<<<<<<< HEAD
+
         <v-container class="text-center">
           <v-img
                   class="text-center grey lighten-5 rounded-circle d-inline-flex align-center justify-center ma-5"
                   height="250"
                   width="250"
                   aspect-ratio="5"
-                  :src="getImageUri(userprofile.userprofile.image)"
+                  :src="getImageUri(userprofile.image)"
           ></v-img>
         </v-container>
-=======
 
-        <v-img
-            aspect-ratio="2"
-            contain
-            :src="getImageUri(userprofile.userprofile.image)"
-        ></v-img>
-        <br/>
-
->>>>>>> 125cef50ef6c1a77f06d996321fb10f818c64b94
         <v-file-input
             label="รูปภาพ"
-            v-model="userprofile.userprofile.image"
+            v-model="userprofile.image"
             outlined dense>
         </v-file-input>
 
         <v-text-field
-            v-model="userprofile.userprofile.nameStudent"
+            v-model="userprofile.nameStudent"
             item-text="nameStudent"
             label="ชื่อ-สกุล"
             single-line
@@ -60,7 +51,7 @@
         ></v-text-field>
 
         <v-text-field
-            v-model="userprofile.userprofile.student_id"
+            v-model="userprofile.student_id"
             item-text="student_id"
             label="รหัสนิสิต"
             single-line
@@ -69,7 +60,7 @@
         ></v-text-field>
 
         <v-text-field
-            v-model="userprofile.userprofile.department"
+            v-model="userprofile.department"
             item-text="department"
             label="คณะ"
             single-line
@@ -78,7 +69,7 @@
         ></v-text-field>
 
         <v-text-field
-            v-model="userprofile.userprofile.branch"
+            v-model="userprofile.branch"
             item-text="department"
             label="สาขา"
             single-line
@@ -86,7 +77,7 @@
             solo
         ></v-text-field>
         <v-text-field
-            v-model="userprofile.userprofile.contact"
+            v-model="userprofile.contact"
             item-text="contact"
             label="เบอร์โทรศัพท์"
             single-line
@@ -95,7 +86,7 @@
         ></v-text-field>
 
         <v-text-field
-            v-model="userprofile.userprofile.face_book"
+            v-model="userprofile.face_book"
             item-text="face_book"
             label="Facebook"
             single-line
@@ -118,31 +109,40 @@
 <script>
 
 import userprofile from "@/store/modules/userprofile";
-
+import  {mapState} from 'vuex'
 export default {
   components:{userprofile},
   name: "EditProfile",
   data: () => ({
         userprofile: null,
+
       }
   ),
   created() {
     this.loadProfile()
+
   },
+  computed : {
+    ...mapState({
+      user : state => state.user.user
+    })
+  },
+
   methods: {
 
     async loadProfile() {
       let id = this.$route.params.id
-      this.userprofile = await this.$store.dispatch('getUserprofile', id)
+      let data = await this.$store.dispatch('getUserprofile', id)
+      console.log(
+          data.userprofile
+      )
+      this.userprofile = data.userprofile
+
 
     },
+
     goToPhoto() {
       return this.userprofile.image
-    },
-
-    async save() {
-      this.$store.dispatch('updateUserprofile', this.userprofile)
-      await this.loadProfile()
     },
     getImageUri(image) {
       let uri = image ? image : ""
@@ -152,6 +152,14 @@ export default {
         return uri
       }
     },
+    async save() {
+      let data = this.$store.dispatch('updateUserprofile', this.userprofile)
+      if(data){
+        this.$router.push({name: 'Profile'})
+      }
+      // await this.loadProfile()
+    },
+
   }
   ,
 }

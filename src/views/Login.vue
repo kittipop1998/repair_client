@@ -124,6 +124,7 @@ export default {
       form: {
         username: '60023180',
         password: 'password_user'
+
       },
 
       rules: {
@@ -136,34 +137,32 @@ export default {
           v => !!v || "Password is required",
           v => (v && v.length > 7) || "The password must be longer than 7 characters"
         ]
+
       }
     }
   },
   methods: {
     async login() {
+      let check = Number(this.form.username);
       let data = await this.$store.dispatch('user/getUserToken', this.form)
       if (data) {
         let user = await this.$store.dispatch('user/getUser')
+
         console.log(user)
         if (user.groups[0].name === "admin") {
           this.$store.commit('setLoginText','Logout')
-
           await this.$router.push({name: 'Repair_Admin'})
 
         }else if (user.groups[0].name === "student"){
           this.$store.commit('setLoginText','Logout')
-
-        } else if (user.groups[0].name === "student") {
           await this.$router.push({name: 'Repair'})
 
         }else if (user.groups[0].name === "manager"){
           this.$store.commit('setLoginText','Logout')
-
           await this.$router.push({name: 'Status_M'})
         }
+
       }
-
-
     }
   },
 

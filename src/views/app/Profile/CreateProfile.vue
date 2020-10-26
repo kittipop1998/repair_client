@@ -121,7 +121,7 @@ import Template from "../../Template";
 import {mapState} from "vuex";
 
 export default {
-  // components: {Template},
+  components: {Template},
   name: "CreateProfile",
   data: () => ({
     userprofile: null,
@@ -134,7 +134,7 @@ export default {
     face_book: null,
 
     form: {
-      "userprofile": null,
+      // "userprofile": null,
       "image": null,
       "nameStudent": "",
       "student_id": "",
@@ -161,21 +161,21 @@ export default {
       let id = this.$route.params.id
       this.userprofile = await this.$store.dispatch('getUserprofile')
     },
-    goToPhoto() {
-      return this.userprofile.image
-    },
-    getImageUri(image) {
-      let uri = image ? image : ""
-      if (uri.startsWith("/media")) {
-        return baseURL + uri.substring(1)
-      } else {
-        return uri
-      }
-    },
+    // goToPhoto() {
+    //   return this.userprofile.image
+    // },
+    // getImageUri(image) {
+    //   let uri = image ? image : ""
+    //   if (uri.startsWith("/media")) {
+    //     return baseURL + uri.substring(1)
+    //   } else {
+    //     return uri
+    //   }
+    // },
     async save() {
       console.log(this.form, 'form')
       console.log(this.user, 'user')
-      this.form.user_profile = this.user.id
+      this.form.nameStudent = this.user.id
       let data = await this.$store.dispatch('saveUserprofile', this.form)
       if(data){
         this.$router.push({name: 'Profile'})
