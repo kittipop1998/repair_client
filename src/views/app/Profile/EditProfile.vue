@@ -35,6 +35,9 @@
           ></v-img>
         </v-container>
 
+        <br/>
+
+
         <v-file-input
             label="รูปภาพ"
             v-model="userprofile.image"

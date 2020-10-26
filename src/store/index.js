@@ -63,7 +63,7 @@ export default new Vuex.Store({
             formData.append('desc', params.desc)
             formData.append('created_date', params.created_date)
             formData.append('status', params.status)
-            formData.append('user_profile', params.user_profile)
+            formData.append('user', params.user)
             formData.append('repair_type', params.repair_type)
             formData.append('domitory_sel', params.domitory_sel)
             formData.append('room_sel', params.room_sel)
@@ -184,10 +184,6 @@ export default new Vuex.Store({
 
         },
 
-
-
-
-
         getDetails: async function (context, params) {
             return await axios.get('api/Repairs/', params = {params})
 
@@ -237,7 +233,7 @@ export default new Vuex.Store({
                 formData.append('completed_data', params.completed_data)
             }
             formData.append('status', params.status)
-            formData.append('user_profile', params.user_profile)
+            formData.append('user', params.user)
             formData.append('repair_type', params.repair_type)
             formData.append('domitory_sel', params.domitory_sel)
             formData.append('room_sel', params.room_sel)
