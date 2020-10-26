@@ -12,17 +12,11 @@
 
       <v-card width="500" elevation="0">
 
-        <v-img
-            aspect-ratio="2"
-            contain
-            :src="getImageUri(form.image)"
-        ></v-img>
-
         <v-file-input
-            label="รูปภาพ"
-            v-model="form.image"
-            outlined dense>
-        </v-file-input>
+                label="เพิ่มโปรไฟล์"
+                v-model="form.image"
+                outlined dense
+        ></v-file-input>
 
         <v-text-field
             v-model="form.nameStudent"
@@ -125,7 +119,6 @@ export default {
   name: "CreateProfile",
   data: () => ({
     userprofile: null,
-    image: null,
     nameStudent: null,
     student_id: null,
     department: null,
@@ -161,17 +154,8 @@ export default {
       let id = this.$route.params.id
       this.userprofile = await this.$store.dispatch('getUserprofile')
     },
-    goToPhoto() {
-      return this.userprofile.image
-    },
-    getImageUri(image) {
-      let uri = image ? image : ""
-      if (uri.startsWith("/media")) {
-        return baseURL + uri.substring(1)
-      } else {
-        return uri
-      }
-    },
+
+
     async save() {
       console.log(this.form, 'form')
       console.log(this.user, 'user')

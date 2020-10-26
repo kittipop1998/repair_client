@@ -147,18 +147,14 @@ export default {
         console.log(user)
         if (user.groups[0].name === "admin") {
           this.$store.commit('setLoginText','Logout')
-
           await this.$router.push({name: 'Repair_Admin'})
 
         }else if (user.groups[0].name === "student"){
           this.$store.commit('setLoginText','Logout')
-
-        } else if (user.groups[0].name === "student") {
           await this.$router.push({name: 'Repair'})
 
         }else if (user.groups[0].name === "manager"){
           this.$store.commit('setLoginText','Logout')
-
           await this.$router.push({name: 'Status_M'})
         }
       }

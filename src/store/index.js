@@ -63,7 +63,7 @@ export default new Vuex.Store({
             formData.append('desc', params.desc)
             formData.append('created_date', params.created_date)
             formData.append('status', params.status)
-            formData.append('user_profile', params.user_profile)
+            formData.append('user', params.user)
             formData.append('repair_type', params.repair_type)
             formData.append('domitory_sel', params.domitory_sel)
             formData.append('room_sel', params.room_sel)
@@ -101,9 +101,6 @@ export default new Vuex.Store({
             }
             const formData = new FormData();
             const uri = this.state.avatar
-            formData.append('imageBe', params.imageBe)
-            formData.append('nameUs', params.nameUs)
-            formData.append('yearUs', params.yearUs)
             if (typeof (params.image) === 'object') {
                 formData.append('image', params.image)
             }
@@ -198,26 +195,6 @@ export default new Vuex.Store({
 
         },
 
-        // getUserprofileDetails: async function (context, params) {
-        //     return await axios.get('api/user-profile/', params = {params})
-        //
-        //         .then((response) => {
-        //             console.log(response.data)
-        //             return response.data
-        //         }).catch((error) => {
-        //             // context.dispatch("error/setError", error.response.data, {root: true});
-        //             console(error, 'error')
-        //             return error
-        //         });
-        //
-        // },
-
-
-
-
-
-
-
         getDetails: async function (context, params) {
             return await axios.get('api/Repairs/', params = {params})
 
@@ -241,9 +218,6 @@ export default new Vuex.Store({
                     console(error, 'error')
                     return error
                 });
-
-
-
         },
         updateRepair: async function (context, params) {
             console.log('params',params)
@@ -271,7 +245,7 @@ export default new Vuex.Store({
             }
 
             formData.append('status', params.status)
-            formData.append('user_profile', params.user_profile)
+            formData.append('user', params.user)
             formData.append('repair_type', params.repair_type)
             formData.append('domitory_sel', params.domitory_sel)
             formData.append('room_sel', params.room_sel)

@@ -141,7 +141,7 @@
             async save(){
                 console.log(this.form,'form')
                 console.log(this.user,'user')
-                this.form.user_profile = this.user.id
+                this.form.user = this.user.id
                 let data = await this.$store.dispatch('saveRepair', this.form)
                 if(data){
                     this.$router.push({name: 'Status'})

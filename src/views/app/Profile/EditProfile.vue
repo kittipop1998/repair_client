@@ -24,7 +24,6 @@
     <div class="d-flex justify-center">
 
       <v-card width="500" elevation="0">
-<<<<<<< HEAD
         <v-container class="text-center">
           <v-img
                   class="text-center grey lighten-5 rounded-circle d-inline-flex align-center justify-center ma-5"
@@ -34,16 +33,8 @@
                   :src="getImageUri(userprofile.userprofile.image)"
           ></v-img>
         </v-container>
-=======
-
-        <v-img
-            aspect-ratio="2"
-            contain
-            :src="getImageUri(userprofile.userprofile.image)"
-        ></v-img>
         <br/>
 
->>>>>>> 125cef50ef6c1a77f06d996321fb10f818c64b94
         <v-file-input
             label="รูปภาพ"
             v-model="userprofile.userprofile.image"
