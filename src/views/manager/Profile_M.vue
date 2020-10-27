@@ -1,29 +1,84 @@
 <template>
-    <v-container>
-        <div>
-            <div class="text-center">
-                <p class="display-1">
-                    <v-icon x-large color="primary">
-                        mdi-alarm-bell
-                    </v-icon>
-                    ข้อมูลส่วนตัว
-                </p>
-            </div>
+    <div>
+        <div class="text-center">
+            <p class="display-1">
+                <v-icon x-large color="primary">
+                    mdi-text-box-search-outline
+                </v-icon>
+                ข้อมูลส่วนตัว
+            </p>
         </div>
-        <div class="d-flex justify-center">
-            <v-card width="900" elevation="0" >
-                <v-card class="mx-auto" max-width="150" height="150" outlined></v-card><br>
 
-                <v-card class="mx-auto" height="300"></v-card><br>
+        <v-btn class="font-weight-black-right"
+               fab dark color="yellow"
+               @click="$router.push({name:'EditProfile'})">
+            <v-icon dark >mdi-plus</v-icon>
+        </v-btn>
+        แก้ไข
+        <br/>
 
+        <div class="d-flex justify-center" >
+
+            <v-card width="750" elevation="0"
+                    v-if="userprofile"
+                    sort-by="calories"
+                    class="elevation-1">
+
+                <v-card class="mx-auto"
+                >
+                    <v-card-text >
+                        <div class="font-weight-black"  >
+                            <div>
+                                <v-container class="text-center">
+                                    <v-img
+                                            class="text-center grey lighten-5 rounded-circle d-inline-flex align-center justify-center ma-5"
+                                            height="250"
+                                            width="250"
+                                            aspect-ratio="5"
+                                            :src="getImageUri(userprofile.userprofile.image)"
+                                    ></v-img>
+                                </v-container>
+                                <p><span class="black--text">ชื่อ-สกุล:</span>  {{ userprofile.nameStudent}}</p>
+                                <p><span class="black--text">คณะ:</span>  {{ userprofile.userprofile.department}}</p>
+                                <p><span class="black--text">สาขา:</span>  {{ userprofile.userprofile.branch}}</p>
+                                <p><span class="black--text">เบอร์โทรศัพท์:</span>  {{ userprofile.userprofile.contact}}</p>
+                                <p><span class="black--text">Facebook:</span>  {{ userprofile.userprofile.face_book}}</p>
+
+                            </div>
+                        </div>
+                    </v-card-text>
+                </v-card><br>
             </v-card>
         </div>
-    </v-container>
+    </div>
 </template>
 
 <script>
+    import Template from "../Template";
     export default {
-        name: "Profile_M"
+        components: { Template},
+        name: "Profile_M",
+        data: () => ({
+                userprofile:null,
+            }
+        ),
+        created() {
+            this.loadProfile()
+        },
+        methods: {
+            async loadProfile() {
+                let id = this.$route.params.id
+                this.userprofile = await this.$store.dispatch('getUserprofile')
+            },
+            getImageUri(image) {
+                let uri = image ? image : ""
+                if (uri.startsWith("/media")) {
+                    return baseURL + uri.substring(1)
+                } else {
+                    return uri
+                }
+            },
+        }
     }
 </script>
 

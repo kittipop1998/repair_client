@@ -28,6 +28,11 @@ export default {
             component: () => import('../views/app/Status/Completed')
         },
         {
+            path: 'wait',
+            name: "Wait",
+            component: () => import('../views/app/Status/Wait')
+        },
+        {
             path: 'cancel',
             name: "Cancel",
             component: () => import('../views/app/Status/Cancel')

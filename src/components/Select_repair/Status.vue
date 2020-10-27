@@ -30,9 +30,10 @@
         data: () => ({
                 status_choices: [
                         {id : 1,text:"แจ้งซ่อม"},
-                        {id : 2,text:"กำลังดำเนินการ"},
-                        {id : 3,text:"เสร็จสิ้น"},
-                        {id : 4,text:"ยกเลิกคำร้อง"},
+                        {id : 2,text:"รอการอนุมัติ"},
+                        {id : 3,text:"กำลังดำเนินการ"},
+                        {id : 4,text:"เสร็จสิ้น"},
+                        {id : 5,text:"ยกเลิกคำร้อง"},
                 ],
                 // repair_types:null,
                 repair :null,

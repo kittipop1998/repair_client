@@ -1,5 +1,4 @@
 <template>
-
   <div>
     <div class="text-center">
       <p class="display-1">
@@ -9,14 +8,6 @@
         ข้อมูลส่วนตัว
       </p>
     </div>
-
-<!--    <v-btn class="font-weight-black-right"-->
-<!--           fab dark color="red"-->
-<!--           @click="$router.push({name:'CreateProfile'})">-->
-<!--      <v-icon dark >mdi-plus</v-icon>-->
-<!--    </v-btn>-->
-<!--    เพิ่มข้อมูลส่วนตัว-->
-<!--    <br/>-->
 
     <v-btn class="font-weight-black-right"
            fab dark color="yellow"
@@ -47,7 +38,6 @@
                     :src="getImageUri(userprofile.userprofile.image)"
                 ></v-img>
                 </v-container>
-<!--                <p><span class="black&#45;&#45;text">รูปภาพ:</span>  {{ userprofile.userprofile.image}}</p>-->
                 <p><span class="black--text">ชื่อ-สกุล:</span>  {{ userprofile.userprofile.nameStudent}}</p>
                 <p><span class="black--text">รหัสนิสิต:</span>  {{ userprofile.userprofile.student_id}}</p>
                 <p><span class="black--text">คณะ:</span>  {{ userprofile.userprofile.department}}</p>
@@ -66,30 +56,17 @@
 <script>
 
 import Template from "../Template";
-// import Domitory from "@/components/Select_repair/Domitory";
-// import Repair_type from "@/components/Select_repair/Repair_type";
 export default {
   components: { Template},
   name: "Profile",
   data: () => ({
-        // repair: null,
-        // room:null,
         userprofile:null,
       }
   ),
   created() {
     this.loadProfile()
-    // this.loadRoom()
-    // this.loadRepair()
   },
   methods: {
-    // async loadRoom() {
-    //   this.room = await this.$store.dispatch('getRoom')
-    // },
-    // async loadRepair() {
-    //   let id = this.$route.params.id
-    //   this.repair = await this.$store.dispatch('getRepair', id)
-    // },
     async loadProfile() {
       let id = this.$route.params.id
       this.userprofile = await this.$store.dispatch('getUserprofile')

@@ -49,6 +49,15 @@
                         solo
                 ></v-text-field>
 
+                <v-text-field
+                        v-model="repair.note"
+                        item-text="note"
+                        label="หมายเหตุ/ช่วงวันที่ว่าง"
+                        single-line
+                        dense
+                        solo
+                ></v-text-field>
+
                 <v-file-input
                         label="รูปภาพ"
                         v-model="repair.imageBe"
@@ -81,7 +90,7 @@
         name: "Edit",
         data: () => ({
                 repair : null,
-                room : '',
+                room : null
             }
         ),
         created() {

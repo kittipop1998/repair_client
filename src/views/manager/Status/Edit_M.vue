@@ -11,6 +11,17 @@
         <div class="d-flex justify-center">
             <v-card width="500" elevation="0">
                 <Status :status_value="repair.status" @change="repair.status = $event"></Status>
+
+                <v-text-field
+                        @change="repair.technician = $event"
+                        v-model="repair.technician"
+                        items ="technician"
+                        label="ช่างที่รับผิดชอบ"
+                        single-line
+                        dense
+                        solo
+                ></v-text-field>
+
                 <v-select
                         v-model = "repair.room"
                         :items = "room"
@@ -32,6 +43,7 @@
                 </v-select>
 
             <Select_date :date_value="repair.created_date"   @change="repair.created_date = $event" disabled/>
+                <Select_date3 :date_value="repair.wait_date"   @change="repair.wait_date = $event" disabled/>
                 <Select_date1 :date_value="repair.approve_data"   @change="repair.approve_data = $event" disabled/>
                 <Select_date2 :date_value="repair.completed_data"   @change="repair.completed_data = $event" disabled/>
             <Repair_type :repair-type_value="repair.repair_type" @change="repair.repair_type = $event"/>
@@ -52,6 +64,15 @@
                     dense
                     solo
             ></v-text-field>
+
+                <v-text-field
+                        v-model="repair.note"
+                        item-text="note"
+                        label="หมายเหตุ/ช่วงวันที่ว่าง"
+                        single-line
+                        dense
+                        solo
+                ></v-text-field>
 
                 <p><span class="black--text">Before</span></p>
             <v-file-input
@@ -96,12 +117,13 @@
     import Select_date from "../../../components/Select_date";
     import Select_date1 from "../../../components/Select_date1";
     import Select_date2 from "../../../components/Select_date2";
+    import Select_date3 from "../../../components/Select_date3";
     import Domitory from "../../../components/Select_repair/Domitory";
     import Repair_type from "../../../components/Select_repair/Repair_type";
     import Status from "../../../components/Select_repair/Status";
 
     export default {
-        components: {Status, Repair_type, Domitory, Select_date, Select_date1, Select_date2},
+        components: {Status, Repair_type, Domitory, Select_date, Select_date1, Select_date2, Select_date3},
         name: "Edit_M",
         data: () => ({
             repair : null,
@@ -113,16 +135,17 @@
             this.loadRoom()
         },
         mounted() {
+
             this.loadRepair()
         },
         methods: {
+
             async loadRoom() {
                 this.room = await this.$store.dispatch('getRoom')
             },
             async loadRepair() {
                 let id = this.$route.params.id
                 this.repair = await this.$store.dispatch('getRepair', id)
-                console.log(this.repair,'นี่นะ')
             },
             goToPhoto() {
                 return this.repair.imageBe

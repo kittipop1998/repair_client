@@ -2,21 +2,20 @@
     <div>
         <div class="text-center">
             <p class="display-1">
-                <v-icon x-large color="primary" class="text-center" @click="$router.push({name : 'Edit'})">
+                <v-icon x-large color="primary">
                     mdi-clock-fast
                 </v-icon>
                 สถานะการแจ้งซ่อม
             </p>
         </div>
         <div class="text-center">
-            <v-btn rounded color="black" class="mr-1" dark>ทั้งหมด</v-btn>
+            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Status'})">ทั้งหมด</v-btn>
             <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Inform'})">แจ้งซ่อม</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Wait'})">รอการอนุมัติ</v-btn>
+            <v-btn rounded color="black" class="mr-1" dark>รอการอนุมัติ</v-btn>
             <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Progress'})">กำลังดำเนินการ</v-btn>
             <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Completed'})">เสร็จสิ้น</v-btn>
             <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Cancel'})">ยกเลิกคำร้อง</v-btn>
-        </div>
-        <br>
+        </div> <br>
         <v-data-table
                 v-if="repair"
                 :headers="headers"
@@ -43,6 +42,8 @@
                 <div v-else-if="item.status ==5" class="red--text">ยกเลิกคำร้อง</div>
             </template>
 
+
+
             <template v-slot:item.actions="{ item }">
                 <v-icon
                         small
@@ -58,7 +59,7 @@
                         color="#F44336"
                         @click="deleteItem(item)"
                 >
-                    mdi-close-circle
+                    mdi-delete-outline
                 </v-icon>
             </template>
             <template v-slot:item.detail="{ item }">
@@ -89,10 +90,10 @@
 <script>
 
     export default {
-        name: "Status",
+        name: "Wait",
         data: () => ({
                 form_params:{
-                  status:null
+                    status:2
                 },
                 repair: null,
                 headers: [
@@ -107,7 +108,6 @@
                     // {text: 'ข้อมูลนิสิต', value: ''},
                     {text: 'สถานะการแจ้งซ่อม', value: 'status'},
                     {text: 'วันที่แจ้งซ่อม', value: 'created_date'},
-                    {text: 'วันที่อนุมัติ', value: 'wait_date'},
                     {text: 'วันที่อนุมัติรายการ', value: 'approve_data'},
                     {text: 'วันที่สิ้นสุด', value: 'completed_data'},
                     {text: 'รายละเอียด', value: 'detail'},
@@ -127,9 +127,17 @@
         methods: {
             async loadRoom() {
                 this.room = await this.$store.dispatch('getRoom')
+                if (this.room) {
+                    console.log(this.room)
+                }
+                console.log(this.repair, 'rest')
             },
             async loadRepair() {
-                this.repair = await this.$store.dispatch('getRepairs')
+                this.repair = await this.$store.dispatch('getRepairs', this.form_params)
+                if (this.repair) {
+                    console.log(this.repair)
+                }
+                console.log(this.repair, 'rest')
             },
             async deleteItem(item) {
                 this.$swal({
@@ -159,4 +167,3 @@
         },
     }
 </script>
-
