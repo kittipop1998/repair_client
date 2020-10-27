@@ -73,6 +73,7 @@ export default new Vuex.Store({
             formData.append('room_type', params.room_type)
 
 
+
             return await axios.post(`api/Repairs/`, formData, config)
                 .then((response) => {
                     return response.data
@@ -224,8 +225,13 @@ export default new Vuex.Store({
                 formData.append('imageAf', params.imageAf)
             }
             formData.append('contact', params.contact)
+            formData.append('note', params.note)
             formData.append('desc', params.desc)
+            formData.append('technician', params.technician)
             formData.append('created_date', params.created_date)
+            if(params.wait_date){
+                formData.append('wait_date', params.wait_date)
+            }
             if(params.approve_data){
                 formData.append('approve_data', params.approve_data)
             }
@@ -239,10 +245,7 @@ export default new Vuex.Store({
             formData.append('room_sel', params.room_sel)
             formData.append('room', params.room)
             formData.append('room_type', params.room_type)
-            formData.append('note', params.note)
-            formData.append('technician', params.technician)
 
-            // console.log(FormData.completed_data,'in store')
             return await axios.put(`api/Repairs/${params.id}/`, formData, config)
                 .then((response) => {
                     return response.data

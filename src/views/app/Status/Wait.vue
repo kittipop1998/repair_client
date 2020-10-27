@@ -2,21 +2,20 @@
     <div>
         <div class="text-center">
             <p class="display-1">
-                <v-icon x-large color="primary" class="text-center">
+                <v-icon x-large color="primary">
                     mdi-clock-fast
                 </v-icon>
                 สถานะการแจ้งซ่อม
             </p>
         </div>
         <div class="text-center">
-            <v-btn rounded color="black" class="mr-1" dark>ทั้งหมด</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Inform_M'})">แจ้งซ่อม</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Wait_M'})">รอการอนุมัติ</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Progress_M'})">กำลังดำเนินการ</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Completed_M'})">เสร็จสิ้น</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Cancel_M'})">ยกเลิกคำร้อง</v-btn>
-        </div>
-        <br>
+            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Status'})">ทั้งหมด</v-btn>
+            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Inform'})">แจ้งซ่อม</v-btn>
+            <v-btn rounded color="black" class="mr-1" dark>รอการอนุมัติ</v-btn>
+            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Progress'})">กำลังดำเนินการ</v-btn>
+            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Completed'})">เสร็จสิ้น</v-btn>
+            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Cancel'})">ยกเลิกคำร้อง</v-btn>
+        </div> <br>
         <v-data-table
                 v-if="repair"
                 :headers="headers"
@@ -37,11 +36,13 @@
             </template>
             <template v-slot:item.status="{ item }">
                 <div v-if="item.status ==1" class="yellow--text" >แจ้งซ่อม</div>
-                <div v-else-if="item.status ==2" class="pink--text">รออนุมัติ</div>
+                <div v-else-if="item.status ==2" class="pink--text">รอการอนุมัติ</div>
                 <div v-else-if="item.status ==3" class="orange--text">กำลังดำเนินงาน</div>
                 <div v-else-if="item.status ==4" class="green--text">เสร็จสิ้น</div>
                 <div v-else-if="item.status ==5" class="red--text">ยกเลิกคำร้อง</div>
             </template>
+
+
 
             <template v-slot:item.actions="{ item }">
                 <v-icon
@@ -49,7 +50,7 @@
                         class="mr-2"
                         v-icon x-large
                         color="#FFEB3B"
-                        @click="$router.push({name : 'Edit_M',params : {id :item.id}})"
+                        @click="$router.push({name : 'Edit',params : {id :item.id}})"
                 >
                     mdi-pencil
                 </v-icon>
@@ -66,7 +67,7 @@
                         x-large
                         color="cyan accent-3"
                         class="mr-2"
-                        @click="$router.push({name : 'Details_M',params : {id :item.id}})"
+                        @click="$router.push({name : 'Details',params : {id :item.id}})"
                 >
                     mdi-calendar-edit
 
@@ -89,28 +90,28 @@
 <script>
 
     export default {
-        name: "Status_M",
+        name: "Wait",
         data: () => ({
                 form_params:{
-                    status:null
+                    status:2
                 },
                 repair: null,
                 headers: [
-                    {text: 'รหัสนิสิต', value: 'userprofile.userprofile.student_id'},
-                    {text: 'หมายเลขห้อง', value: 'room_data'},
+                    {text: 'ลำดับที่', value: 'id'},
                     {
-                        text: 'ประเภท',
+                        text: 'ประเภทของการแจ้งซ่อม',
                         align: 'start',
                         sortable: false,
                         value: 'repairType_data',
                     },
-                    {text: 'สถานะ', value: 'status'},
+                    {text: 'หมายเลขห้อง', value: 'room_data'},
+                    // {text: 'ข้อมูลนิสิต', value: ''},
+                    {text: 'สถานะการแจ้งซ่อม', value: 'status'},
                     {text: 'วันที่แจ้งซ่อม', value: 'created_date'},
-                    {text: 'วันที่รออนุมัติ', value: 'wait_date'},
                     {text: 'วันที่อนุมัติรายการ', value: 'approve_data'},
                     {text: 'วันที่สิ้นสุด', value: 'completed_data'},
                     {text: 'รายละเอียด', value: 'detail'},
-                    {text: 'อัพเดท/ลบ', value: 'actions', sortable: false}
+                    {text: 'แก้ไข/ลบ', value: 'actions', sortable: false}
 
                 ],
             }
@@ -132,7 +133,7 @@
                 console.log(this.repair, 'rest')
             },
             async loadRepair() {
-                this.repair = await this.$store.dispatch('getRepairs')
+                this.repair = await this.$store.dispatch('getRepairs', this.form_params)
                 if (this.repair) {
                     console.log(this.repair)
                 }

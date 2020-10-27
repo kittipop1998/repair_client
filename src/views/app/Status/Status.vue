@@ -11,6 +11,7 @@
         <div class="text-center">
             <v-btn rounded color="black" class="mr-1" dark>ทั้งหมด</v-btn>
             <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Inform'})">แจ้งซ่อม</v-btn>
+            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Wait'})">รอการอนุมัติ</v-btn>
             <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Progress'})">กำลังดำเนินการ</v-btn>
             <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Completed'})">เสร็จสิ้น</v-btn>
             <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Cancel'})">ยกเลิกคำร้อง</v-btn>
@@ -36,9 +37,10 @@
             </template>
             <template v-slot:item.status="{ item }">
                 <div v-if="item.status ==1" class="yellow--text" >แจ้งซ่อม</div>
-                <div v-else-if="item.status ==2" class="orange--text">กำลังดำเนินงาน</div>
-                <div v-else-if="item.status ==3" class="green--text">เสร็จสิ้น</div>
-                <div v-else-if="item.status ==4" class="red--text">ยกเลิกคำร้อง</div>
+                <div v-else-if="item.status ==2" class="pink--text">รอการอนุมัติ</div>
+                <div v-else-if="item.status ==3" class="orange--text">กำลังดำเนินงาน</div>
+                <div v-else-if="item.status ==4" class="green--text">เสร็จสิ้น</div>
+                <div v-else-if="item.status ==5" class="red--text">ยกเลิกคำร้อง</div>
             </template>
 
             <template v-slot:item.actions="{ item }">
@@ -56,7 +58,7 @@
                         color="#F44336"
                         @click="deleteItem(item)"
                 >
-                    mdi-delete-outline
+                    mdi-close-circle
                 </v-icon>
             </template>
             <template v-slot:item.detail="{ item }">
@@ -105,6 +107,7 @@
                     // {text: 'ข้อมูลนิสิต', value: ''},
                     {text: 'สถานะการแจ้งซ่อม', value: 'status'},
                     {text: 'วันที่แจ้งซ่อม', value: 'created_date'},
+                    {text: 'วันที่อนุมัติ', value: 'wait_date'},
                     {text: 'วันที่อนุมัติรายการ', value: 'approve_data'},
                     {text: 'วันที่สิ้นสุด', value: 'completed_data'},
                     {text: 'รายละเอียด', value: 'detail'},

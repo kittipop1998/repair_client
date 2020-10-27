@@ -18,10 +18,10 @@
                     <v-card class="mx-auto">
                         <v-card-text >
                             <div class="font-weight-black">
-                                <p><span class="black--text">รหัสนิสิต:</span> {{repair.userprofile.student_id}}</p>
-                                <p><span class="black--text">ชื่อ-สกุล:</span> {{repair.userprofile.nameStudent}}</p>
-                                <p><span class="black--text">คณะ: </span> {{repair.userprofile.department}}</p>
-                                <p><span class="black--text">สาขา:</span> {{repair.userprofile.branch}} </p>
+                                <p><span class="black--text">รหัสนิสิต:</span> {{repair.userprofile.userprofile.student_id}}</p>
+                                <p><span class="black--text">ชื่อ-สกุล:</span> {{repair.userprofile.userprofile.nameStudent}}</p>
+                                <p><span class="black--text">คณะ: </span> {{repair.userprofile.userprofile.department}}</p>
+                                <p><span class="black--text">สาขา:</span> {{repair.userprofile.userprofile.branch}} </p>
                                 <p><span class="black--text">เบอร์โทร:</span>  {{repair.contact}}</p>
                             </div>
                         </v-card-text>
@@ -37,14 +37,18 @@
                                 <p><span class="black--text">หอพัก:</span>  {{repair.room_data.dormitory.nameDo}} {{repair.room_data.nameRo}} {{repair.room_data.room_type.nameTy}}</p>
                                 <p><span class="black--text">ประเภทการแจ้งซ่อม:</span>  {{repair.repairType_data.nameRe}}</p>
                                 <p><span class="black--text">รายละเอียดการซ่อม/ปัญหา:</span>  {{ repair.desc}}</p>
+                                    <p><span class="black--text">หมายเหตุ/วันที่สะดวก:</span>  {{ repair.note}}</p>
                                 <p><template>
                                     <div v-if="repair.status ==1" class="yellow--text"><span class="black--text">สถานะการแจ้งซ่อม:</span> แจ้งซ่อม</div>
-                                    <div v-else-if="repair.status ==2" class="orange--text"><span class="black--text">สถานะการแจ้งซ่อม:</span> กำลังดำเนินงาน</div>
-                                    <div v-else-if="repair.status ==3" class="green--text"><span class="black--text">สถานะการแจ้งซ่อม:</span> เสร็จสิ้น</div>
-                                    <div v-else-if="repair.status ==4" class="red--text"><span class="black--text">สถานะการแจ้งซ่อม:</span> ยกเลิกคำร้อง</div>
+                                    <div v-else-if="repair.status ==2" class="pink--text"><span class="black--text">สถานะการแจ้งซ่อม:</span> รออนุมัติ</div>
+                                    <div v-else-if="repair.status ==3" class="orange--text"><span class="black--text">สถานะการแจ้งซ่อม:</span> กำลังดำเนินงาน</div>
+                                    <div v-else-if="repair.status ==4" class="green--text"><span class="black--text">สถานะการแจ้งซ่อม:</span> เสร็จสิ้น</div>
+                                    <div v-else-if="repair.status ==5" class="red--text"><span class="black--text">สถานะการแจ้งซ่อม:</span> ยกเลิกคำร้อง</div>
                                 </template></p>
+                                    <p class="purple--text"><span class="black--text">ช่าง:</span>{{ repair.technician}}</p>
                                     <p><span class="black--text">วันที่แจ้งซ่อม:</span>  {{repair.created_date?gettime(repair.created_date): ''}}</p>
-                                    <p><span class="black--text">วันที่อนุมัติการซ่อม:</span>  {{repair.approve_data?gettime(repair.approve_data): ''}}</p>
+                                    <p><span class="black--text">วันที่รออนุมัติ:</span>  {{repair.wait_date?gettime(repair.wait_date): ''}}</p>
+                                    <p><span class="black--text">วันที่อนุมัติ/ดำเนินการแจ้งซ่อม:</span>  {{repair.approve_data?gettime(repair.approve_data): ''}}</p>
                                     <p><span class="black--text">วันที่เสร็จสิ้น:</span>  {{repair.completed_data? gettime(repair.completed_data): ''}}</p>
                                     <p><span class="black--text">ภาพก่อนการซ่อมแซม:</span></p>
                                 <v-img

@@ -11,7 +11,7 @@
                 <v-text-field
                         v-model="date"
                         dense
-                        label="วันที่ดำเนินรายการ"
+                        label="วันที่รออนุมัติ"
                         prepend-icon="mdi-calendar"
                         readonly
                         solo
@@ -39,7 +39,7 @@
                 <v-btn
                         text
                         color="black"
-                        @click="save()"
+                        @click="save(date)"
                 >
                     OK
                 </v-btn>
@@ -50,7 +50,7 @@
 
 <script>
     export default {
-        name: "Select_date1",
+        name: "Select_date3",
         props: {
             label: {
                 type: String,
@@ -75,11 +75,10 @@
             switchDialog() {
                 this.dailog = !this.dialog;
             },
-            save() {
-                // this.time = date;
-                console.log(this.date,'date')
-                this.$refs.dialog.save(this.date);
-                this.$emit('change', this.date);
+            save(date) {
+                this.time = date;
+                this.$refs.dialog.save(date);
+                this.$emit('change', date);
                 this.switchDialog();
 
             }

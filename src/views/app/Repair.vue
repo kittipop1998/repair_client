@@ -63,6 +63,15 @@
                         solo
                 ></v-text-field>
 
+                <v-text-field
+                        v-model="form.note"
+                        item-text="note"
+                        label="หมายเหตุ/ช่วงวันสะดวก"
+                        single-line
+                        dense
+                        solo
+                ></v-text-field>
+
                 <v-file-input
                         label="รูปภาพ/ถ้ามี"
                         v-model="form.imageBe"
@@ -107,6 +116,8 @@
                 "repair_type": null,
                 "room": null,
                 "room_type":null,
+                "note": "",
+                "technician": ""
 
             }
         }),

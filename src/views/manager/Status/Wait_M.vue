@@ -9,9 +9,9 @@
             </p>
         </div>
         <div class="text-center">
-            <v-btn rounded color="black" class="mr-1" dark>ทั้งหมด</v-btn>
+            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Status_M'})">ทั้งหมด</v-btn>
             <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Inform_M'})">แจ้งซ่อม</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Wait_M'})">รอการอนุมัติ</v-btn>
+            <v-btn rounded color="black" class="mr-1" dark >รอการอนุมัติ</v-btn>
             <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Progress_M'})">กำลังดำเนินการ</v-btn>
             <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Completed_M'})">เสร็จสิ้น</v-btn>
             <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Cancel_M'})">ยกเลิกคำร้อง</v-btn>
@@ -89,10 +89,10 @@
 <script>
 
     export default {
-        name: "Status_M",
+        name: "Wait_M",
         data: () => ({
                 form_params:{
-                    status:null
+                    status:2
                 },
                 repair: null,
                 headers: [
@@ -132,7 +132,7 @@
                 console.log(this.repair, 'rest')
             },
             async loadRepair() {
-                this.repair = await this.$store.dispatch('getRepairs')
+                this.repair = await this.$store.dispatch('getRepairs', this.form_params)
                 if (this.repair) {
                     console.log(this.repair)
                 }
