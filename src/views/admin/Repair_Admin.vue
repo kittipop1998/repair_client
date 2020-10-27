@@ -10,58 +10,34 @@
     </div>
     <div class="d-flex justify-center">
       <v-card width="500" elevation="0">
-
-
         <v-select
-            v-model="domitory_sel"
-            :items="domitory"
-            label="หอพัก"
-            placeholder="กรุณาเลือกหอพัก"
-            item-text="nameDo"
-            solo
-        ></v-select>
-
-        <v-select
-            v-model="room_sel"
+            v-model="form.room"
             :items="room"
             label="หมายเลขห้อง"
             single-line
             item-text="nameRo"
+            item-value="id"
             dense
             solo
         >
           <template slot="selection" slot-scope="data">
-            {{ data.item ?  data.item.room_type.nameTy : '' }} {{data.item ?  data.item.nameRo : '' }}
+            หอ {{data.item ? data.item.dormitory.nameDo  : ''}}  {{ data.item ?  data.item.room_type.nameTy : '' }} {{data.item ?  data.item.nameRo : '' }}
           </template>
           <template slot="item" slot-scope="data">
-            {{ data.item ? data.item.room_type.nameTy :''}}  {{ data.item ? data.item.nameRo : '' }}
+            หอ {{data.item ? data.item.dormitory.nameDo  : ''}}  {{ data.item ? data.item.room_type.nameTy :''}}  {{ data.item ? data.item.nameRo : '' }}
           </template>
         </v-select>
         <Select_date
             @change="form.created_date = $event" >
-
         </Select_date>
-        <!--                <v-select-->
-        <!--                        v-model="form.repair_type"-->
-        <!--                        :items="form.repair_type_sel"-->
-        <!--                        label="ประเภท"-->
-        <!--                        placeholder="ระบุประเภท"-->
-        <!--                        item-text="nameRe"-->
-        <!--                        solo-->
-        <!--                >-->
-        <!--                    <template slot="selection" slot-scope="data">-->
-        <!--                        {{ data.item ?  data.item.repair_type : '' }} {{data.item ?  data.item.nameRe : '' }}-->
-        <!--                    </template>-->
-        <!--                    <template slot="item" slot-scope="data">-->
-        <!--                        {{ data.item ? data.item.repair_type :''}}  {{ data.item ? data.item.nameRo : '' }}-->
-        <!--                    </template>-->
-        <!--                </v-select>-->
+
         <v-select
-            v-model="nameRe"
+            v-model="form.repair_type"
             :items="repair"
             label="ประเภท"
             single-line
             item-text="nameRe"
+            item-value="id"
             dense
             solo
         >
@@ -83,14 +59,13 @@
             item-text="contact"
             label="หมายเลขโทรศัพท์ที่สามารถติดต่อได้"
             single-line
-
             dense
             solo
         ></v-text-field>
 
         <v-file-input
             label="รูปภาพ/ถ้ามี"
-            v-model="form.image"
+            v-model="form.imageBe"
             outlined dense>
         </v-file-input>
 
@@ -105,54 +80,54 @@
 </template>
 
 <script>
+import Template from "../Template";
 import Select_date from "../../components/Select_date";
-import AdminTemplate from "@/views/admin/AdminTemplate";
+import  {mapState} from 'vuex'
 export default {
   name: "Repair_Admin",
-  components: {Select_date, AdminTemplate},
+  components: {Select_date, Template},
   data: () => ({
     menu:null,
     date:null,
     domitory: null,
-    domitory_sel: null,
     room_sel:null,
     room: null,
     nameRe: null,
     repair: null,
-    // items:[
-    //     {
-    //         items: 'repair_type'
-    //     }
-    // ],
+    user_profile: null,
+
     form: {
       "contact": "",
       "desc": "",
       "created_date": null,
       "status": 1,
-      "image": null,
+      "imageBe": null,
+      "imageAf": null,
       "user_profile": null,
-      // "repair_type": null,
-      // "repair_type_sel":null,
+      "repair_type": null,
+      "room": null,
+      "room_type":null,
+
     }
   }),
-  mounted() {
-    this.loadDormitory()
-    this.loadRoom()
-    this.loadRepair()
+  async mounted() {
+    await this.loadRoom()
+    await this.loadRepair()
+    if(!this.user){
+      await this.$store.dispatch('user/getUser')
+    }
 
   },
+  computed : {
+    ...mapState({
+      user : state => state.user.user
+    })
+  },
   methods: {
-    async loadDormitory() {
-      this.domitory = await this.$store.dispatch('getDomitory')
-      if (this.domitory) {
-        // console.log(this.domitory)
-      }
-
-    },
     async loadRoom() {
       this.room = await this.$store.dispatch('getRoom')
       if (this.room) {
-        // console.log(this.room)
+        console.log(this.room)
       }
     },
     async loadRepair() {
@@ -164,8 +139,13 @@ export default {
 
     },
     async save(){
-
-      console.log(this.form)
+      console.log(this.form,'form')
+      console.log(this.user,'user')
+      this.form.user = this.user.id
+      let data = await this.$store.dispatch('saveRepair', this.form)
+      if(data){
+        this.$router.push({name: 'Status_A'})
+      }
 
     }
 

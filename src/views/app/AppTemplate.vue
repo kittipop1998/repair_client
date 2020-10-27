@@ -1,19 +1,19 @@
 <template>
-    <div class="d-flex" style="width: 100%">
-        <SideMenu></SideMenu>
-        <v-container>
-            <router-view></router-view>
-        </v-container>
-    </div>
+  <div class="d-flex" style="width: 100%">
+    <SideMenu></SideMenu>
+    <v-container>
+      <router-view></router-view>
+    </v-container>
+  </div>
 </template>
 
 <script>
-    import SideMenu from "../../components/SideMenu";
+import SideMenu from "../../components/SideMenu";
 
-    export default {
-        name: "AppTemplate",
-        components: {SideMenu}
-    }
+export default {
+  name: "AppTemplate",
+  components: {SideMenu}
+}
 </script>
 
 <style scoped>

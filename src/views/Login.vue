@@ -143,12 +143,12 @@ export default {
   },
   methods: {
     async login() {
-      let check = Number(this.form.username);
       let data = await this.$store.dispatch('user/getUserToken', this.form)
       if (data) {
         let user = await this.$store.dispatch('user/getUser')
-
         console.log(user)
+        console.log('test',user.groups[0].name,user.groups[0].name === "student")
+
         if (user.groups[0].name === "admin") {
           this.$store.commit('setLoginText','Logout')
           await this.$router.push({name: 'Repair_Admin'})

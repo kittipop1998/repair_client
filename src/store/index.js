@@ -111,6 +111,8 @@ export default new Vuex.Store({
             formData.append('student_id', params.student_id)
             formData.append('department', params.department)
             formData.append('branch', params.branch)
+            formData.append('position', params.position)
+            formData.append('rebuilding', params.rebuilding)
             formData.append('nameRo', params.nameRo)
             formData.append('room_type', params.room_type)
             formData.append('domitory', params.domitory)
@@ -169,6 +171,8 @@ export default new Vuex.Store({
             }
             formData.append('nameStudent', params.nameStudent)
             formData.append('student_id', params.student_id)
+            formData.append('position', params.position)
+            formData.append('rebuilding', params.rebuilding)
             formData.append('department', params.department)
             formData.append('branch', params.branch)
             formData.append('contact', params.contact)

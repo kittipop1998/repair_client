@@ -22,7 +22,7 @@
 
 <script>
 export default {
-name: "Statistic"
+name: "Statistic_A"
 }
 </script>
 

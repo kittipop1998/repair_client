@@ -3,14 +3,11 @@ export default {
     component: () => import('../views/admin/AdminTemplate'),
     children: [
         {
-
-
             path: 'repair_admin',
             name: "Repair_Admin",
             component:  () => import('../views/admin/Repair_Admin')
         },
         {
-
             path: 'status_a',
             name: "Status_A",
             component:  () => import('../views/admin/Status/Status_A')
@@ -25,11 +22,7 @@ export default {
             name: "Progress_A",
             component:  () => import('../views/admin/Status/Progress_A')
         },
-        {
-            path: 'wait_a',
-            name: "Wait_A",
-            component:  () => import('../views/admin/Status/Wait_A')
-        },
+
         {
             path: 'completed_a',
             name: "Complated_A",
@@ -46,14 +39,49 @@ export default {
             component:  () => import('../views/admin/Profile_Admin')
         },
         {
-            path: 'details_a',
+            path: 'user_admin',
+            name: "User_Admin",
+            component:  () => import('../views/admin/User_Admin')
+        },
+        {
+            path: 'student_admin',
+            name: "Student_Admin",
+            component:  () => import('../views/admin/Student_Admin')
+        },
+        {
+            path: 'manager_admin',
+            name: "Manager_Admin",
+            component:  () => import('../views/admin/Manager_Admin')
+        },
+        {
+            path: 'user_admin',
+            name: "User_Admin",
+            component:  () => import('../views/admin/User_Admin')
+        },
+        {
+            path: 'statistic_a',
+            name: "Statistic_A",
+            component:  () => import('../views/admin/Statistic_A')
+        },
+        {
+            path: 'id/details_a',
             name: "Details_A",
             component:  () => import('../views/admin/Status/Details_A')
         },
         {
-            path: 'notification_a',
-            name: "Notification_A",
-            component:  () => import('../views/admin/Status/Notification_A')
+            path: 'id/editProfile_a',
+            name: "EditProfile_A",
+            component:  () => import('../views/admin/Profile_A/EditProfile_A')
+        },
+        {
+            path: 'id/createProfile_a',
+            name: "CreateProfile_A",
+            component:  () => import('../views/admin/Profile_A/CreateProfile_A')
+        },
+        {
+            path: 'id/edit_a',
+            name: "Edit_A",
+            component:  () => import('../views/admin/Status/Edit_A')
         },
     ]
 }

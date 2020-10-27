@@ -16,7 +16,7 @@
             exact
             :to="item.to"
         >
-          <v-list-item-icon >
+          <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
 
@@ -36,13 +36,14 @@ export default {
   data() {
     return {
       items: [
-        {title: 'แจ้งซ่อม', icon: 'mdi-file-document-edit-outline',to : {name : 'Repair_Admin'}},
-        {title: 'สถานะการแจ้งซ่อม', icon: 'mdi-clock-fast',to : {name : 'Status_A'}},
-        {title: 'นิสิต', icon: 'mdi-account-hard-hat',to : {name : 'Student_Admin'}},
-        {title: 'ผู้จัดการหอพัก', icon: 'mdi-account-hard-hat',to : {name : 'Manager_Admin'}},
-        {title: 'จัดการช่าง', icon: 'mdi-account-hard-hat',to : {name : 'Technician_Admin'}},
-        {title: 'สถิติของการแจ้งซ่อม', icon: 'mdi-align-vertical-bottom',to : {name : 'Statistic_A'}},
-        {title: 'ข้อมูลส่วนตัว', icon: 'mdi-alarm-bell',to : {name : 'Profile_Admin'}},
+        {title: 'แจ้งซ่อม', icon: 'mdi-file-document-edit-outline', to: {name: 'Repair_Admin'}},
+        {title: 'สถานะการแจ้งซ่อม', icon: 'mdi-clock-fast', to: {name: 'Status_A'}},
+        {title: 'สิทธิ์ผู้ใช้', icon: 'mdi-account-hard-hat', to: {name: 'User_Admin'}},
+        {title: 'นิสิต', icon: 'mdi-account-hard-hat', to: {name: 'Student_Admin'}},
+        {title: 'ผู้จัดการหอพัก', icon: 'mdi-account-hard-hat', to: {name: 'Manager_Admin'}},
+        {title: 'จัดการช่าง', icon: 'mdi-account-hard-hat', to: {name: 'Technician_Admin'}},
+        {title: 'สถิติของการแจ้งซ่อม', icon: 'mdi-align-vertical-bottom', to: {name: 'Statistic_A'}},
+        {title: 'ข้อมูลส่วนตัว', icon: 'mdi-alarm-bell', to: {name: 'Profile_Admin'}},
 
       ],
       right: null,

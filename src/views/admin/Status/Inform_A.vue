@@ -12,87 +12,52 @@
       <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Status'})">ทั้งหมด</v-btn>
       <v-btn rounded color="black" class="mr-1" dark >แจ้งซ่อม</v-btn>
       <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Progress'})">กำลังดำเนินการ</v-btn>
-      <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Wait'})">รอวัสดุ</v-btn>
       <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Completed'})">เสร็จสิ้น</v-btn>
       <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Cancel'})">ยกเลิกคำร้อง</v-btn>
     </div> <br>
     <v-data-table
+        v-if="repair"
         :headers="headers"
-        :items="desserts"
+        :items="repair"
         sort-by="calories"
         class="elevation-1"
     >
       <template v-slot:top>
         <v-toolbar flat color="white">
-          <v-toolbar-title>รายการแจ้งซ่อม</v-toolbar-title>
+          <v-toolbar-title class="font-weight-black">รายการแจ้งซ่อม</v-toolbar-title>
           <v-divider
               class="mx-4"
               inset
               vertical
           ></v-divider>
           <v-spacer></v-spacer>
-          <v-dialog v-model="dialog" max-width="500px">
-            <v-card>
-              <v-card-title>
-                <span class="headline">{{ formTitle }}</span>
-              </v-card-title>
-
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="editedItem.name" label="ใบคำร้อง"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="editedItem.id" label="เลขที่คำร้อง"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="editedItem.data" label="ข้อมูลนิสิต"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="editedItem.status" label="สถานะการแจ้งซ่อม"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="editedItem.date" label="วันที่แจ้งซ่อม"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="editedItem.date1" label="วันที่อนุมัติรายการ"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field label="รายละเอียด">
-                        <v-btn class="font-weight-black-right">
-                          <v-icon dark >mdi-calendar-edit</v-icon>
-                        </v-btn> </v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="editedItem.date2" label="วันที่สิ้นสุด"></v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-card-text>
-
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="save">Save</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
         </v-toolbar>
       </template>
+      <template v-slot:item.status="{ item }">
+        <div v-if="item.status ==1" class="yellow--text" >แจ้งซ่อม</div>
+        <div v-else-if="item.status ==2" class="orange--text">กำลังดำเนินงาน</div>
+        <div v-else-if="item.status ==3" class="green--text">เสร็จสิ้น</div>
+        <div v-else-if="item.status ==4" class="red--text">ยกเลิกคำร้อง</div>
+      </template>
+
+
+
       <template v-slot:item.actions="{ item }">
         <v-icon
             small
             class="mr-2"
-            @click="editItem(item)"
+            v-icon x-large
+            color="#FFEB3B"
+            @click="$router.push({name : 'Edit',params : {id :item.id}})"
         >
           mdi-pencil
         </v-icon>
         <v-icon
             small
+            color="#F44336"
             @click="deleteItem(item)"
         >
-          mdi-delete
+          mdi-delete-outline
         </v-icon>
       </template>
       <template v-slot:item.detail="{ item }">
@@ -100,7 +65,7 @@
             x-large
             color="cyan accent-3"
             class="mr-2"
-            @click="detailItem(item)"
+            @click="$router.push({name : 'Details',params : {id :item.id}})"
         >
           mdi-calendar-edit
 
@@ -108,110 +73,94 @@
 
 
       </template>
+      <template v-slot:item.room_data="{ item }">
+        {{item.room_data.dormitory.nameDo}}
+        {{ item.room_data.nameRo}}
+      </template>
+
+      <template v-slot:item.repairType_data="{ item }">
+        {{item.repairType_data.nameRe}}
+      </template>
     </v-data-table>
   </div>
 </template>
+
 <script>
+
 export default {
+  name: "Inform_A",
   data: () => ({
-    dialog: false,
-    headers: [
-      {
-        text: 'ใบคำร้อง',
-        align: 'start',
-        sortable: false,
-        value: 'name',
-      },
-      { text: 'เลขที่คำร้อง', value: 'id' },
-      { text: 'ข้อมูลนิสิต', value: 'data' },
-      { text: 'สถานะการแจ้งซ่อม', value: 'status' },
-      { text: 'วันที่แจ้งซ่อม', value: 'date' },
-      { text: 'วันที่อนุมัติรายการ', value: 'date1' },
-      { text: 'วันที่สิ้นสุด', value: 'date2' },
-      { text: 'รายละเอียด', value: 'detail', sortable: false},
-      { text: 'แก้ไข/ลบ', value: 'actions', sortable: false },
-    ],
-    desserts: [],
-    editedIndex: -1,
-    editedItem: {
-      name: '',
-      id: 0,
-      data: 0,
-      status: 0,
-      date: 0,
-      date1: 0,
-      date2: 0,
-    },
-    defaultItem: {
-      name: '',
-      id: 0,
-      data: 0,
-      status: 0,
-      date: 0,
-      date1: 0,
-      date2: 0,
-    },
-  }),
-
-  computed: {
-    formTitle () {
-      return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
-    },
-  },
-
-  watch: {
-    dialog (val) {
-      val || this.close()
-    },
-  },
-
-  created () {
-    this.initialize()
-  },
-
-  methods: {
-    initialize () {
-      this.desserts = [
-        {
-          name: 'แจ้งซ่อมไฟฟ้า',
-          id: 56554,
-          data: 'กิตติภพ มาตรศาลา',
-          status: 'แจ้งซ่อม',
-          date: '05/01/2563',
-          date1: '',
-          date2: '',
+        form_params:{
+          status:1
         },
+        repair: null,
+        headers: [
+          {text: 'ลำดับที่', value: 'id'},
+          {
+            text: 'ประเภทของการแจ้งซ่อม',
+            align: 'start',
+            sortable: false,
+            value: 'repairType_data',
+          },
+          {text: 'หมายเลขห้อง', value: 'room_data'},
+          // {text: 'ข้อมูลนิสิต', value: ''},
+          {text: 'สถานะการแจ้งซ่อม', value: 'status'},
+          {text: 'วันที่แจ้งซ่อม', value: 'created_date'},
+          {text: 'วันที่อนุมัติรายการ', value: 'approve_data'},
+          {text: 'วันที่สิ้นสุด', value: 'completed_data'},
+          {text: 'รายละเอียด', value: 'detail'},
+          {text: 'แก้ไข/ลบ', value: 'actions', sortable: false}
 
-
-      ]
-    },
-
-    editItem (item) {
-      this.editedIndex = this.desserts.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      this.dialog = true
-    },
-
-    deleteItem (item) {
-      const index = this.desserts.indexOf(item)
-      confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
-    },
-
-    close () {
-      this.dialog = false
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
-      })
-    },
-
-    save () {
-      if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem)
-      } else {
-        this.desserts.push(this.editedItem)
+        ],
       }
-      this.close()
+  ),
+
+  created() {
+    this.loadRoom()
+    // this.initialize()
+  },
+  mounted() {
+    this.loadRepair()
+  },
+  methods: {
+    async loadRoom() {
+      this.room = await this.$store.dispatch('getRoom')
+      if (this.room) {
+        console.log(this.room)
+      }
+      console.log(this.repair, 'rest')
+    },
+    async loadRepair() {
+      this.repair = await this.$store.dispatch('getRepairs', this.form_params)
+      if (this.repair) {
+        console.log(this.repair)
+      }
+      console.log(this.repair, 'rest')
+    },
+    async deleteItem(item) {
+      this.$swal({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+        closeOnCancel: true
+      }).then(async (result) => {
+        //send request to server
+        if (result.value) {
+          let data = await this.$store.dispatch('deleteRepair', item.id)
+          if (data != null) {
+            await this.loadRepair()
+            this.$swal(
+                'Deleted!',
+                'Your post has been deleted!',
+                'success'
+            )
+          }
+        }
+      })
     },
   },
 }
