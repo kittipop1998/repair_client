@@ -55,7 +55,7 @@
 </template>
 <script>
 
-import Template from "../Template";
+import Template from "../../Template";
 export default {
   components: { Template},
   name: "Profile",

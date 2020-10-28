@@ -123,6 +123,7 @@
         },
         mounted() {
             this.loadRepair()
+            this.loadmyrepair()
         },
         methods: {
             async loadRoom() {
@@ -131,6 +132,7 @@
             async loadRepair() {
                 this.repair = await this.$store.dispatch('getRepairs')
             },
+
             async deleteItem(item) {
                 this.$swal({
                     title: 'Are you sure?',

@@ -104,6 +104,7 @@
             async loadRepair() {
                 let id = this.$route.params.id
                 this.repair = await this.$store.dispatch('getRepair', id)
+                this.repair.technician = (this.repair.technician != 'null')?this.repair.technician:"";
             },
             goToPhoto(){
                 return this.repair.imageBe

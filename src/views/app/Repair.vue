@@ -117,7 +117,10 @@
                 "room": null,
                 "room_type":null,
                 "note": "",
-                "technician": ""
+                "technician": null,
+                "domitory_sel": null,
+                "room_sel": null,
+
 
             }
         }),
@@ -140,14 +143,13 @@
                 if (this.room) {
                     console.log(this.room)
                 }
+
             },
             async loadRepair() {
                 this.repair = await this.$store.dispatch('getRepairType')
                 if (this.repair) {
                     console.log(this.repair)
                 }
-
-
             },
             async save(){
                 console.log(this.form,'form')

@@ -10,11 +10,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        login_text : "Login"
+        login_text : "Login",
+        user_profile: null
     },
     mutations: {
         setLoginText(state,data) {
             state.login_text = data
+        },
+        setUser(state, data) {
+            state.user_profile = data
         }
     },
     actions: {
@@ -86,7 +90,7 @@ export default new Vuex.Store({
         },
 
         getRepairs: async function (context, params) {
-            return await axios.get('api/Repairs/', params={params})
+            return await axios.get('myrepair/2', params={params})
                 .then((response) => {
                     return response.data
                 }).catch((error) => {
@@ -94,8 +98,8 @@ export default new Vuex.Store({
                     console(error, 'error')
                     return error
                 });
-
         },
+
 
         getUserprofiles: async function (context, params) {
             const config = {
@@ -121,6 +125,7 @@ export default new Vuex.Store({
 
             return await axios.get('rest-auth/user-profile/', formData, config)
                 .then((response) => {
+                    context.commit('setUser', response.data)
                     return response.data
                 }).catch((error) => {
                     // context.dispatch("error/setError", error.response.data, {root: true});
@@ -142,22 +147,6 @@ export default new Vuex.Store({
                 });
 
         },
-
-        // getUser: async function (context) {
-        //     return await axios.get('rest-auth/user-profile/')
-        //         .then((response) => {
-        //             return response.data
-        //         }).catch((error) => {
-        //             // context.dispatch("error/setError", error.response.data, {root: true});
-        //             console(error, 'error')
-        //             return error
-        //         });
-        //
-        // },
-
-
-
-
         updateUserprofile: async function (context, params) {
             console.log('params',params)
             const config = {
@@ -259,7 +248,6 @@ export default new Vuex.Store({
                 });
 
         },
-
         deleteRepair: async function (context, id) {
             return await axios.delete(`api/Repairs/${id}/`)
                 .then((response) => {
@@ -270,7 +258,6 @@ export default new Vuex.Store({
                     return error
                 });
         },
-
         getStatus: async function (context,) {
             return await axios.get(`api/Status/`)
                 .then((response) => {

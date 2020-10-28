@@ -212,7 +212,7 @@ export default {
   },
   methods: {
     registerUser() {
-      // let check = Number(this.form.username);
+      let check = Number(this.form.username);
        this.$store.dispatch('user/registerUser', {
         username: this.form.username,
         email: this.form.email,
@@ -220,7 +220,7 @@ export default {
         last_name: this.form.last_name,
         password1: this.form.password1,
         password2: this.form.password2,
-        // is_staff : isNaN(check)
+        is_staff : isNaN(check)
 
       })
       this.$router.push({name: 'Login'})

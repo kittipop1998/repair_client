@@ -10,6 +10,7 @@
         </div>
         <div class="d-flex justify-center">
             <v-card width="500" elevation="0">
+
                 <Status :status_value="repair.status" @change="repair.status = $event"></Status>
 
                 <v-text-field
@@ -146,6 +147,7 @@
             async loadRepair() {
                 let id = this.$route.params.id
                 this.repair = await this.$store.dispatch('getRepair', id)
+                this.repair.technician = (this.repair.technician != 'null')?this.repair.technician:"";
             },
             goToPhoto() {
                 return this.repair.imageBe

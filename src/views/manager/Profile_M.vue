@@ -11,7 +11,7 @@
 
         <v-btn class="font-weight-black-right"
                fab dark color="yellow"
-               @click="$router.push({name:'EditProfile'})">
+               @click="$router.push({name:''})">
             <v-icon dark >mdi-plus</v-icon>
         </v-btn>
         แก้ไข
@@ -29,18 +29,9 @@
                     <v-card-text >
                         <div class="font-weight-black"  >
                             <div>
-                                <v-container class="text-center">
-                                    <v-img
-                                            class="text-center grey lighten-5 rounded-circle d-inline-flex align-center justify-center ma-5"
-                                            height="250"
-                                            width="250"
-                                            aspect-ratio="5"
-                                            :src="getImageUri(userprofile.userprofile.image)"
-                                    ></v-img>
-                                </v-container>
-                                <p><span class="black--text">ชื่อ-สกุล:</span>  {{ userprofile.nameStudent}}</p>
-                                <p><span class="black--text">คณะ:</span>  {{ userprofile.userprofile.department}}</p>
-                                <p><span class="black--text">สาขา:</span>  {{ userprofile.userprofile.branch}}</p>
+                                <p><span class="black--text">ชื่อ-สกุล(ผู้คุมหอพัก):</span>  {{ userprofile.userprofile.nameStudent}}</p>
+                                <p><span class="black--text">ตำแหน่ง:</span>  {{ userprofile.userprofile.position}}</p>
+                                <p><span class="black--text">หอที่คุม:</span>  {{ userprofile.userprofile.rebuilding}}</p>
                                 <p><span class="black--text">เบอร์โทรศัพท์:</span>  {{ userprofile.userprofile.contact}}</p>
                                 <p><span class="black--text">Facebook:</span>  {{ userprofile.userprofile.face_book}}</p>
 
@@ -69,14 +60,6 @@
             async loadProfile() {
                 let id = this.$route.params.id
                 this.userprofile = await this.$store.dispatch('getUserprofile')
-            },
-            getImageUri(image) {
-                let uri = image ? image : ""
-                if (uri.startsWith("/media")) {
-                    return baseURL + uri.substring(1)
-                } else {
-                    return uri
-                }
             },
         }
     }
