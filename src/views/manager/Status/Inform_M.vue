@@ -1,20 +1,20 @@
 <template>
     <div>
         <div class="text-center">
-            <p class="display-1">
-                <v-icon x-large color="primary" class="text-center">
+            <p class="display-1 font-weight-black">
+                <v-icon x-large color="brown" class="text-center">
                     mdi-clock-fast
                 </v-icon>
                 สถานะการแจ้งซ่อม
             </p>
         </div>
         <div class="text-center">
-            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Status_M'})">ทั้งหมด</v-btn>
-            <v-btn rounded color="black" class="mr-1" dark >แจ้งซ่อม</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Wait_M'})">รอการอนุมัติ</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Progress_M'})">กำลังดำเนินการ</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Completed_M'})">เสร็จสิ้น</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Cancel_M'})">ยกเลิกคำร้อง</v-btn>
+            <v-btn rounded color="amber lighten-2" class="mr-1" dark @click="$router.push({name : 'Status_M'})">ทั้งหมด</v-btn>
+            <v-btn rounded color="purple lighten-2" class="mr-1" dark >แจ้งซ่อม</v-btn>
+            <v-btn rounded color="amber lighten-2" class="mr-1" dark @click="$router.push({name : 'Wait_M'})">รอการอนุมัติ</v-btn>
+            <v-btn rounded color="amber lighten-2" class="mr-1" dark @click="$router.push({name : 'Progress_M'})">กำลังดำเนินการ</v-btn>
+            <v-btn rounded color="amber lighten-2" class="mr-1" dark @click="$router.push({name : 'Completed_M'})">เสร็จสิ้น</v-btn>
+            <v-btn rounded color="amber lighten-2" class="mr-1" dark @click="$router.push({name : 'Cancel_M'})">ยกเลิกคำร้อง</v-btn>
         </div>
         <br>
         <v-data-table
@@ -22,10 +22,10 @@
                 :headers="headers"
                 :items="repair"
                 sort-by="calories"
-                class="elevation-1"
+                class="elevation-1 purple lighten-5"
         >
             <template v-slot:top>
-                <v-toolbar flat color="white">
+                <v-toolbar flat color="purple lighten-4">
                     <v-toolbar-title class="font-weight-black">รายการแจ้งซ่อม</v-toolbar-title>
                     <v-divider
                             class="mx-4"
@@ -36,7 +36,7 @@
                 </v-toolbar>
             </template>
             <template v-slot:item.status="{ item }">
-                <div v-if="item.status ==1" class="yellow--text" >แจ้งซ่อม</div>
+                <div v-if="item.status ==1" class="amber--text" >แจ้งซ่อม</div>
                 <div v-else-if="item.status ==2" class="pink--text">รออนุมัติ</div>
                 <div v-else-if="item.status ==3" class="orange--text">กำลังดำเนินงาน</div>
                 <div v-else-if="item.status ==4" class="green--text">เสร็จสิ้น</div>
@@ -109,7 +109,7 @@
                     {text: 'วันที่รออนุมัติ', value: 'wait_date'},
                     {text: 'วันที่อนุมัติรายการ', value: 'approve_data'},
                     {text: 'วันที่สิ้นสุด', value: 'completed_data'},
-                    {text: 'รายละเอียด', value: 'detail'},
+                    {text: 'รายละเอียด', value: 'detail', align: 'center'},
                     {text: 'อัพเดท/ลบ', value: 'actions', sortable: false}
 
                 ],
@@ -118,7 +118,7 @@
 
         created() {
             this.loadRoom()
-            // this.initialize()
+
         },
         mounted() {
             this.loadRepair()

@@ -11,56 +11,16 @@
       >
         <v-card class="elevation-12">
           <v-toolbar
-              color="black"
+              color="purple"
               dark
               flat
           >
-            <v-toolbar-title>Register</v-toolbar-title>
+            <v-toolbar-title class="font-weight-black">Register</v-toolbar-title>
             <v-spacer></v-spacer>
           </v-toolbar>
           <v-card-text>
 
             <v-form>
-
-              <!--              <v-text-field-->
-              <!--                  outlined-->
-              <!--                  rounded-->
-              <!--                  label="Name"-->
-              <!--                  prepend-icon="mdi-account"-->
-              <!--                  type="text"-->
-              <!--                  v-model="form.name"-->
-              <!--                  :rules="[rules.required]"-->
-              <!--                  :error-messages="error.name"-->
-
-
-              <!--              ></v-text-field>-->
-
-
-
-<!--              <v-select-->
-<!--                  v-model="form.group"-->
-<!--                  :items="group"-->
-<!--                  label="ประเภท"-->
-<!--                  single-line-->
-<!--                  item-text="nameRe"-->
-<!--                  item-value="id"-->
-<!--                  dense-->
-<!--                  solo-->
-<!--              >-->
-<!--                <template slot="selection" slot-scope="data">-->
-<!--                  {{ data.item ? data.item.repair_type : '' }} {{ data.item ? data.item.nameRe : '' }}-->
-<!--                </template>-->
-<!--                <template slot="item" slot-scope="data">-->
-<!--                  {{ data.item ? data.item.repair_type : '' }} {{ data.item ? data.item.nameRe : '' }}-->
-<!--                </template>-->
-<!--              </v-select>-->
-
-<!--              <optgroup v-for="(group, name) in optionGroups" :label="name">-->
-<!--                <option v-for="option in group" :value="option.value">-->
-<!--                  {{ option.text }}-->
-<!--                </option>-->
-<!--              </optgroup>-->
-
 
               <v-text-field
                   outlined
@@ -71,8 +31,6 @@
                   v-model="form.username"
                   :rules="[rules.required]"
                   :error-messages="error.username"
-
-
               ></v-text-field>
 
 
@@ -80,7 +38,7 @@
                   outlined
                   rounded
                   label="Email"
-                  prepend-icon="mdi-account"
+                  prepend-icon="mdi-email"
                   type="text"
                   v-model="form.email"
                   :rules="[rules.required]"
@@ -123,7 +81,7 @@
                   rounded
                   label="Password"
                   :type="show_password ? 'text' : 'password1'"
-                  prepend-inner-icon="mdi-lock"
+                  prepend-icon="mdi-lock"
                   :append-icon="show_password ? 'mdi-eye': 'mdi-eye-off'"
                   @click:append="show_password = !show_password"
                   @keypress.13="login"
@@ -137,7 +95,7 @@
                   rounded
                   label="ConfirmPassword"
                   :type="show_password ? 'text' : 'password2'"
-                  prepend-inner-icon="mdi-lock"
+                  prepend-icon="mdi-lock"
                   :append-icon="show_password ? 'mdi-eye': 'mdi-eye-off'"
                   @click:append="show_password = !show_password"
                   @keypress.13="login"
@@ -145,39 +103,20 @@
                   :rules="[rules.required]"
                   :error-messages="error.password2"
               ></v-text-field>
-
-
             </v-form>
           </v-card-text>
-
           <v-card-actions class="container">
             <v-btn
-                color="black"
+                color="purple"
                 x-large
                 rounded
                 block
                 dark
                 @click="registerUser"
-
             >
               Register
             </v-btn>
           </v-card-actions>
-
-          <!--          <v-card-actions class="container">-->
-          <!--            <v-btn-->
-          <!--                color="black"-->
-          <!--                x-large-->
-          <!--                rounded-->
-          <!--                block-->
-          <!--                dark-->
-          <!--                @click="signup"-->
-          <!--            >-->
-          <!--              Register-->
-          <!--            </v-btn>-->
-          <!--          </v-card-actions>-->
-
-
         </v-card>
       </v-col>
     </v-row>
@@ -198,12 +137,12 @@ export default {
     return {
       show_password: false,
       form: {
-        username: '6543210',
-        email: '6543210@up.ac.th',
-        first_name: 'Pongnarin',
-        last_name: 'Lamethea',
-        password1: 'password_user',
-        password2: 'password_user',
+        username: '',
+        email: '@up.ac.th',
+        first_name: '',
+        last_name: '',
+        password1: '',
+        password2: '',
       },
       rules: {
         required: value => !!value || 'Required'

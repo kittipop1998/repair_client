@@ -89,8 +89,18 @@ export default new Vuex.Store({
 
         },
 
+        getRepairsM: async function (context, params) {
+            return await axios.get(`/myrepair/${params.user_id}`, params={params})
+                .then((response) => {
+                    return response.data
+                }).catch((error) => {
+                    // context.dispatch("error/setError", error.response.data, {root: true});
+                    console(error, 'error')
+                    return error
+                });
+        },
         getRepairs: async function (context, params) {
-            return await axios.get('myrepair/2', params={params})
+            return await axios.get('api/Repairs/', params = {params})
                 .then((response) => {
                     return response.data
                 }).catch((error) => {
@@ -148,7 +158,7 @@ export default new Vuex.Store({
 
         },
         updateUserprofile: async function (context, params) {
-            console.log('params',params)
+            console.log('params',params.position)
             const config = {
                 method: 'PUT',
                 body: formData,
@@ -250,6 +260,58 @@ export default new Vuex.Store({
         },
         deleteRepair: async function (context, id) {
             return await axios.delete(`api/Repairs/${id}/`)
+                .then((response) => {
+                    return response.data
+                }).catch((error) => {
+                    // context.dispatch("error/setError", error.response.data, {root: true});
+                    console(error, 'error')
+                    return error
+                });
+        },
+        changestatus: async function (context, params) {
+            const config = {
+                method: 'PUT',
+                body: formData,
+            }
+            const formData = new FormData();
+            if (typeof (params.imageBe) === 'object') {
+                formData.append('imageBe', params.imageBe)
+            }
+            if (params.imageAf&& typeof (params.imageAf) === 'object') {
+                formData.append('imageAf', params.imageAf)
+            }
+            formData.append('contact', params.contact)
+            formData.append('note', params.note)
+            formData.append('desc', params.desc)
+            formData.append('technician', params.technician)
+            formData.append('created_date', params.created_date)
+            if(params.wait_date){
+                formData.append('wait_date', params.wait_date)
+            }
+            if(params.approve_data){
+                formData.append('approve_data', params.approve_data)
+            }
+            if(params.completed_data){
+                formData.append('completed_data', params.completed_data)
+            }
+            formData.append('user', params.user)
+            formData.append('repair_type', params.repair_type)
+            formData.append('domitory_sel', params.domitory_sel)
+            formData.append('room_sel', params.room_sel)
+            formData.append('room', params.room)
+            formData.append('room_type', params.room_type)
+            formData.append('status', 5)
+            return await axios.put(`api/Repairs/${params.id}/`, formData, config)
+                .then((response) => {
+                    return response.data
+                }).catch((error) => {
+                    // context.dispatch("error/setError", error.response.data, {root: true});
+                    console(error, 'error')
+                    return error
+                });
+        },
+        calcelRepair: async function (context, id) {
+            return await axios.put(`api/Repairs/${id}/`)
                 .then((response) => {
                     return response.data
                 }).catch((error) => {

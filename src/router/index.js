@@ -2,8 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/views/Home'
 import Login from '@/views/Login'
-import Recommend from '@/views/Recommend'
-import Contact from '@/views/Contact'
 import Template from "../views/Template";
 import app from "./app";
 import admin from "./admin"
@@ -21,17 +19,6 @@ export default new Router({
                     path: '',
                     name: "Home",
                     component: Home,
-                },
-
-                {
-                    path: '/recommend',
-                    name: "Recommend",
-                    component: Recommend
-                },
-                {
-                    path: '/contact',
-                    name: "Contact",
-                    component: Contact
                 },
                 {
                     path: '/login',

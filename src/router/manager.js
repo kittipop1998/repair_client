@@ -45,6 +45,11 @@ export default {
                 component:  () => import('../views/manager/Profile_M')
             },
             {
+                path: "id/editprofilem",
+                name: "EditProfileM",
+                component: () => import('../views/manager/Profile/EditProfileM')
+            },
+            {
                 path: ":id/edit_m",
                 name: "Edit_M",
                 component:  () => import('../views/manager/Status/Edit_M')

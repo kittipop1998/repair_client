@@ -15,9 +15,10 @@
                         link
                         exact
                         :to="item.to"
+                        color="purple darken-1 purple lighten-5"
                 >
                     <v-list-item-icon >
-                        <v-icon>{{ item.icon }}</v-icon>
+                        <v-icon  color="purple darken-1">{{ item.icon }}</v-icon>
                     </v-list-item-icon>
 
                     <v-list-item-content>

@@ -11,11 +11,11 @@
       >
         <v-card class="elevation-12">
           <v-toolbar
-              color="black"
+              color="purple"
               dark
               flat
           >
-            <v-toolbar-title>Login</v-toolbar-title>
+            <v-toolbar-title class="font-weight-black">Login</v-toolbar-title>
             <v-spacer></v-spacer>
           </v-toolbar>
           <v-card-text>
@@ -25,8 +25,8 @@
                   outlined
                   rounded
                   label="Username"
-                  prepend-icon="mdi-account"
                   type="text"
+                  prepend-icon="mdi-account"
                   v-model="form.username"
                   :rules="[rules.required]"
                   :error-messages="error.username"
@@ -41,7 +41,7 @@
                   rounded
                   label="Password"
                   :type="show_password ? 'text' : 'password'"
-                  prepend-inner-icon="mdi-lock"
+                  prepend-icon="mdi-lock"
                   :append-icon="show_password ? 'mdi-eye': 'mdi-eye-off'"
                   @click:append="show_password = !show_password"
                   @keypress.13="login"
@@ -60,7 +60,7 @@
 
           <v-card-actions class="container">
             <v-btn
-                color="black"
+                color="purple"
                 x-large
                 rounded
                 block
@@ -73,7 +73,7 @@
 
           <v-card-actions class="container">
             <v-btn
-                color="black"
+                color="purple"
                 x-large
                 rounded
                 block
@@ -83,25 +83,6 @@
               Register
             </v-btn>
           </v-card-actions>
-
-          <!--          <v-card-actions class="container">-->
-          <!--            <v-btn-->
-          <!--                color="black"-->
-          <!--                x-large-->
-          <!--                rounded-->
-          <!--                block-->
-          <!--                dark-->
-          <!--                @click="register"-->
-          <!--            >-->
-          <!--              Register-->
-          <!--            </v-btn>-->
-          <!--          </v-card-actions>-->
-
-
-          <!--                    <v-card-actions>-->
-          <!--                        <v-spacer></v-spacer>-->
-          <!--                        <v-btn class="container" color="black" dark @click="$router.push({name : 'Repair'})">Login</v-btn>-->
-          <!--                    </v-card-actions>-->
         </v-card>
       </v-col>
     </v-row>
@@ -168,20 +149,8 @@ export default {
 
   async signup() {
     let user = await this.$store.dispatch('user/registerUser', this.form)
-    // let user = await this.$router.push({name: 'Register'})
+
   }
-  // login() {
-  //     if(this.input.username !== "username" && this.input.password !== "password") {
-  //         if(this.input.username === this.$parent.mockAccount.username && this.input.password === this.$parent.mockAccount.password) {
-  //             this.$emit("authenticated", true);
-  //             this.$router.replace({ name: "secure" });
-  //         } else {
-  //             console.log("The username and / or password is incorrect");
-  //         }
-  //     } else {
-  //         console.log("A username and password must be present");
-  //     }
-  // }
 }
 
 </script>

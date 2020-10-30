@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="text-center">
-      <p class="display-1">
-        <v-icon x-large color="primary">
+      <p class="display-1 font-weight-black">
+        <v-icon x-large color="deep-orange">
           mdi-text-box-search-outline
         </v-icon>
         รายละเอียดการแจ้งซ่อม
@@ -15,7 +15,7 @@
                         v-if="repair">
 
 
-                    <v-card class="mx-auto">
+                    <v-card class="mx-auto purple lighten-5">
                         <v-card-text >
                             <div class="font-weight-black">
                                 <p><span class="black--text">รหัสนิสิต:</span> {{repair.userprofile.userprofile.student_id}}</p>
@@ -29,7 +29,7 @@
 
                     <p class="font-weight-black">ข้อมูลการแจ้งซ่อม</p>
 
-                    <v-card class="mx-auto">
+                    <v-card class="mx-auto purple lighten-5">
 
                         <v-card-text >
                             <div class="font-weight-black" >
@@ -39,7 +39,7 @@
                                 <p><span class="black--text">รายละเอียดการซ่อม/ปัญหา:</span>  {{ repair.desc}}</p>
                                     <p><span class="black--text">หมายเหตุ/วันที่สะดวก:</span>  {{ repair.note}}</p>
                                 <p><template>
-                                    <div v-if="repair.status ==1" class="yellow--text"><span class="black--text">สถานะการแจ้งซ่อม:</span> แจ้งซ่อม</div>
+                                    <div v-if="repair.status ==1" class="amber--text"><span class="black--text">สถานะการแจ้งซ่อม:</span> แจ้งซ่อม</div>
                                     <div v-else-if="repair.status ==2" class="pink--text"><span class="black--text">สถานะการแจ้งซ่อม:</span> รออนุมัติ</div>
                                     <div v-else-if="repair.status ==3" class="orange--text"><span class="black--text">สถานะการแจ้งซ่อม:</span> กำลังดำเนินงาน</div>
                                     <div v-else-if="repair.status ==4" class="green--text"><span class="black--text">สถานะการแจ้งซ่อม:</span> เสร็จสิ้น</div>

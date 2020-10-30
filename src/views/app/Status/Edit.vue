@@ -1,16 +1,23 @@
 <template>
     <div v-if="repair">
         <div class="text-center">
-            <p class="display-1">
-                <v-icon x-large color="primary">
+            <p class="display-1 font-weight-black">
+                <v-icon x-large color="red">
                     mdi-file-document-edit-outline
                 </v-icon>
                 แก้ไขแจ้งซ่อม
             </p>
         </div>
         <div class="d-flex justify-center">
-            <v-card width="500" elevation="0">
-                <v-select
+            <v-card width="600" elevation="0">
+                <v-list-item>
+                    <p >
+                        <v-icon class="ma-0"
+                                color="indigo"
+                                x-large>mdi-domain
+                        </v-icon>
+                    </p>
+                <v-autocomplete
                         v-model="repair.room"
                         :items="room"
                         label="หมายเลขห้อง"
@@ -21,25 +28,47 @@
                         solo
                 >
                     <template slot="selection" slot-scope="data">
-                        หอ {{data.item ? data.item.dormitory.nameDo  : ''}}  {{ data.item ? data.item.room_type.nameTy :''}}  {{ data.item ? data.item.nameRo : '' }}
+                        {{data.item ? data.item.dormitory.nameDo  : ''}} {{ data.item ? data.item.nameRo : '' }} {{ data.item ? data.item.room_type.nameTy :''}}
 
                     </template>
                     <template slot="item" slot-scope="data">
-                        หอ {{data.item ? data.item.dormitory.nameDo  : ''}}  {{ data.item ? data.item.room_type.nameTy :''}}  {{ data.item ? data.item.nameRo : '' }}
-
+                        {{data.item ? data.item.dormitory.nameDo  : ''}} {{ data.item ? data.item.nameRo : '' }} {{ data.item ? data.item.room_type.nameTy :''}}
                     </template>
-                </v-select>
+                </v-autocomplete>
+                    </v-list-item>
 
-                <Select_date :date_value="repair.created_date"   @change="repair.created_date = $event" disabled/>
+                <v-list-item>
+                    <p>
+                        <v-icon class="ma-0"
+                                color="teal"
+                                x-large>mdi-hammer-wrench
+                        </v-icon>
+                    </p>
                 <Repair_type :repair-type_value="repair.repair_type" @change="repair.repair_type = $event"/>
+                    </v-list-item>
 
+                <v-list-item>
+                    <p>
+                        <v-icon class="ma-0"
+                                color="purple"
+                                x-large>mdi-file-chart-outline
+                        </v-icon>
+                    </p>
                 <v-textarea
                         v-model="repair.desc"
                         solo
                         name="input-7-4"
                         label="รายละเอียดการซ่อม/ปัญหา"
                 ></v-textarea>
+                    </v-list-item>
 
+                <v-list-item>
+                    <p >
+                        <v-icon class="ma-0"
+                                color="blue"
+                                x-large>mdi-phone-outline
+                        </v-icon>
+                    </p>
                 <v-text-field
                         v-model="repair.contact"
                         item-text="contact"
@@ -48,7 +77,15 @@
                         dense
                         solo
                 ></v-text-field>
+                    </v-list-item>
 
+                <v-list-item>
+                    <p>
+                        <v-icon class="ma-0"
+                                color="amber"
+                                x-large>mdi-calendar-range
+                        </v-icon>
+                    </p>
                 <v-text-field
                         v-model="repair.note"
                         item-text="note"
@@ -57,13 +94,24 @@
                         dense
                         solo
                 ></v-text-field>
+                    </v-list-item>
 
+
+                <v-list-item>
+                    <p >
+                        <v-icon class="ma-1"
+                                color="indigo"
+                                x-large>
+                        </v-icon>
+                    </p>
                 <v-file-input
                         label="รูปภาพ"
                         v-model="repair.imageBe"
                         outlined dense>
                 </v-file-input>
+                    </v-list-item>
                 <v-img
+
                         aspect-ratio="2"
                         contain
                         v-model="repair.imageBe"
@@ -72,8 +120,16 @@
 
                 <br>
                 <div class="text-center">
-                    <v-btn class="mr-1" color="black" dark @click="save">บันทึก</v-btn>
-
+                <v-chip
+                        class="ma-2"
+                        color="deep-purple accent-4"
+                        dark @click="save"
+                >
+                    <v-icon left>
+                        mdi-wrench
+                    </v-icon>
+                    Update
+                </v-chip>
                 </div>
 
 
@@ -109,9 +165,12 @@
               return this.repair.imageBe
             },
             async save() {
+                console.log()
                 let data = await this.$store.dispatch('updateRepair', this.repair)
                 if(data){
-                    this.$router.push({name: 'Status'})
+
+                    await this.loadRepair()
+                    // this.$router.push({name: 'Status'})
                 }
             }
 

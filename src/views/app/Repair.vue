@@ -1,16 +1,24 @@
 <template>
     <div>
         <div class="text-center">
-            <p class="display-1">
-                <v-icon x-large color="primary">
+            <p class="display-1 font-weight-black">
+                <v-icon x-large color="red darken-1">
                     mdi-file-document-edit-outline
                 </v-icon>
                 แจ้งซ่อม
             </p>
         </div>
-        <div class="d-flex justify-center">
-            <v-card width="500" elevation="0">
-                <v-select
+        <div class="d-flex justify-center text-center">
+            <v-card width="600" elevation="0">
+                <v-list-item>
+                    <p >
+                    <v-icon class="ma-0"
+                            color="indigo"
+                            x-large>mdi-domain
+                    </v-icon>
+                    </p>
+                <v-autocomplete
+
                         v-model="form.room"
                         :items="room"
                         label="หมายเลขห้อง"
@@ -21,16 +29,24 @@
                         solo
                 >
                     <template slot="selection" slot-scope="data">
-                       หอ {{data.item ? data.item.dormitory.nameDo  : ''}}  {{ data.item ?  data.item.room_type.nameTy : '' }} {{data.item ?  data.item.nameRo : '' }}
+                        {{data.item ? data.item.dormitory.nameDo  : ''}} {{data.item ?  data.item.nameRo : '' }} {{ data.item ?  data.item.room_type.nameTy : '' }}
                     </template>
                     <template slot="item" slot-scope="data">
-                        หอ {{data.item ? data.item.dormitory.nameDo  : ''}}  {{ data.item ? data.item.room_type.nameTy :''}}  {{ data.item ? data.item.nameRo : '' }}
+                         {{data.item ? data.item.dormitory.nameDo  : ''}} {{ data.item ? data.item.nameRo : '' }} {{ data.item ? data.item.room_type.nameTy :''}}
                     </template>
-                </v-select>
-                <Select_date
-                        @change="form.created_date = $event" >
-                </Select_date>
+                </v-autocomplete >
+                    </v-list-item>
 
+<!--                <Select_date-->
+<!--                        @change="form.created_date = $event" >-->
+<!--                </Select_date>-->
+                <v-list-item>
+                    <p>
+                        <v-icon class="ma-0"
+                                color="teal"
+                                x-large>mdi-hammer-wrench
+                        </v-icon>
+                    </p>
                 <v-select
                         v-model="form.repair_type"
                         :items="repair"
@@ -48,12 +64,30 @@
                         {{ data.item ? data.item.repair_type :''}}  {{ data.item ? data.item.nameRe : '' }}
                     </template>
                 </v-select>
+                    </v-list-item>
+
+                <v-list-item>
+                    <p>
+                        <v-icon class="ma-0"
+                                color="purple"
+                                x-large>mdi-file-chart-outline
+                        </v-icon>
+                    </p>
                 <v-textarea
                         v-model="form.desc"
                         solo
                         name="input-7-4"
                         label="รายละเอียดการซ่อม/ปัญหา"
                 ></v-textarea>
+                    </v-list-item>
+
+                <v-list-item>
+                    <p >
+                        <v-icon class="ma-0"
+                                color="blue"
+                                x-large>mdi-phone-outline
+                        </v-icon>
+                    </p>
                 <v-text-field
                         v-model="form.contact"
                         item-text="contact"
@@ -62,7 +96,15 @@
                         dense
                         solo
                 ></v-text-field>
+                    </v-list-item>
 
+                <v-list-item>
+                    <p>
+                        <v-icon class="ma-0"
+                                color="amber"
+                                x-large>mdi-calendar-range
+                        </v-icon>
+                    </p>
                 <v-text-field
                         v-model="form.note"
                         item-text="note"
@@ -71,15 +113,24 @@
                         dense
                         solo
                 ></v-text-field>
+                    </v-list-item>
 
+                <v-list-item>
+                    <p>
+                        <v-icon class="ma-1"
+                                color="indigo"
+                                x-large>
+                        </v-icon>
+                    </p>
                 <v-file-input
                         label="รูปภาพ/ถ้ามี"
                         v-model="form.imageBe"
                         outlined dense>
                 </v-file-input>
+                    </v-list-item>
 
                 <div class="text-center">
-                    <v-btn color="black" dark @click="save">ส่งคำร้องการแจ้งซ่อม</v-btn>
+                    <v-btn   rounded class="font-weight-black" color="purple" dark @click="save">ส่งคำร้องการแจ้งซ่อม</v-btn>
                 </div>
 
 
@@ -92,6 +143,7 @@
     import Template from "../Template";
     import Select_date from "../../components/Select_date";
     import  {mapState} from 'vuex'
+
     export default {
         name: "Repair",
         components: {Select_date, Template},

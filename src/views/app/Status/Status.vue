@@ -1,20 +1,20 @@
 <template>
     <div>
-        <div class="text-center">
-            <p class="display-1">
-                <v-icon x-large color="primary" class="text-center" @click="$router.push({name : 'Edit'})">
+        <div class="text-center ">
+            <p class="display-1 font-weight-black">
+                <v-icon x-large color="error" class="my-2" fab>
                     mdi-clock-fast
                 </v-icon>
                 สถานะการแจ้งซ่อม
             </p>
         </div>
         <div class="text-center">
-            <v-btn rounded color="black" class="mr-1" dark>ทั้งหมด</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Inform'})">แจ้งซ่อม</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Wait'})">รอการอนุมัติ</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Progress'})">กำลังดำเนินการ</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Completed'})">เสร็จสิ้น</v-btn>
-            <v-btn rounded color="orange darken-2" class="mr-1" dark @click="$router.push({name : 'Cancel'})">ยกเลิกคำร้อง</v-btn>
+            <v-btn rounded color="purple lighten-2" class="mr-1" dark>ทั้งหมด</v-btn>
+            <v-btn rounded color="amber lighten-2" class="mr-1" dark @click="$router.push({name : 'Inform'})">แจ้งซ่อม</v-btn>
+            <v-btn rounded color="amber lighten-2" class="mr-1" dark @click="$router.push({name : 'Wait'})">รอการอนุมัติ</v-btn>
+            <v-btn rounded color="amber lighten-2" class="mr-1" dark @click="$router.push({name : 'Progress'})">กำลังดำเนินการ</v-btn>
+            <v-btn rounded color="amber lighten-2" class="mr-1" dark @click="$router.push({name : 'Completed'})">เสร็จสิ้น</v-btn>
+            <v-btn rounded color="amber lighten-2" class="mr-1" dark @click="$router.push({name : 'Cancel'})">ยกเลิกคำร้อง</v-btn>
         </div>
         <br>
         <v-data-table
@@ -22,10 +22,10 @@
                 :headers="headers"
                 :items="repair"
                 sort-by="calories"
-                class="elevation-1"
+                class="elevation-1 purple lighten-5"
         >
             <template v-slot:top>
-                <v-toolbar flat color="white">
+                <v-toolbar flat color="purple lighten-4">
                     <v-toolbar-title class="font-weight-black">รายการแจ้งซ่อม</v-toolbar-title>
                     <v-divider
                             class="mx-4"
@@ -36,7 +36,7 @@
                 </v-toolbar>
             </template>
             <template v-slot:item.status="{ item }">
-                <div v-if="item.status ==1" class="yellow--text" >แจ้งซ่อม</div>
+                <div v-if="item.status ==1" class="amber--text" >แจ้งซ่อม</div>
                 <div v-else-if="item.status ==2" class="pink--text">รอการอนุมัติ</div>
                 <div v-else-if="item.status ==3" class="orange--text">กำลังดำเนินงาน</div>
                 <div v-else-if="item.status ==4" class="green--text">เสร็จสิ้น</div>
@@ -45,6 +45,7 @@
 
             <template v-slot:item.actions="{ item }">
                 <v-icon
+                        v-if="!(item.status ==3 || item.status ==4 || item.status ==5)"
                         small
                         class="mr-2"
                         v-icon x-large
@@ -54,6 +55,7 @@
                     mdi-pencil
                 </v-icon>
                 <v-icon
+                        v-if="!(item.status ==3 || item.status ==4 || item.status ==5)"
                         small
                         color="#F44336"
                         @click="deleteItem(item)"
@@ -87,18 +89,19 @@
 </template>
 
 <script>
-
+    import  {mapState} from 'vuex'
     export default {
         name: "Status",
         data: () => ({
                 form_params:{
-                  status:null
+                  status:null,
+                    user_id: null
                 },
                 repair: null,
                 headers: [
-                    {text: 'ลำดับที่', value: 'id'},
+                    {text: 'หมายเลขคำร้อง', value: 'id', align: 'center'},
                     {
-                        text: 'ประเภทของการแจ้งซ่อม',
+                        text: 'ประเภท',
                         align: 'start',
                         sortable: false,
                         value: 'repairType_data',
@@ -107,30 +110,43 @@
                     // {text: 'ข้อมูลนิสิต', value: ''},
                     {text: 'สถานะการแจ้งซ่อม', value: 'status'},
                     {text: 'วันที่แจ้งซ่อม', value: 'created_date'},
-                    {text: 'วันที่อนุมัติ', value: 'wait_date'},
+                    {text: 'วันที่รออนุมัติ', value: 'wait_date'},
                     {text: 'วันที่อนุมัติรายการ', value: 'approve_data'},
                     {text: 'วันที่สิ้นสุด', value: 'completed_data'},
-                    {text: 'รายละเอียด', value: 'detail'},
+                    {text: 'รายละเอียด', value: 'detail', align: 'center'},
                     {text: 'แก้ไข/ลบ', value: 'actions', sortable: false}
 
                 ],
             }
         ),
+        computed : {
+            ...mapState({
+                user : state => state.user.user
+            })
+        },
 
-        created() {
+        async created() {
             this.loadRoom()
+
+
+            console.log(this.user)
+            this.loadRepair()
+
+
             // this.initialize()
         },
         mounted() {
-            this.loadRepair()
-            this.loadmyrepair()
         },
         methods: {
             async loadRoom() {
                 this.room = await this.$store.dispatch('getRoom')
             },
             async loadRepair() {
-                this.repair = await this.$store.dispatch('getRepairs')
+                let user = await this.$store.dispatch('getUserprofile')
+
+                this.form_params.user_id = user.id
+                this.form_params.status = null
+                this.repair = await this.$store.dispatch('getRepairsM',this.form_params)
             },
 
             async deleteItem(item) {
@@ -141,17 +157,19 @@
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!',
+                    confirmButtonText: 'Yes',
                     closeOnCancel: true
                 }).then(async (result) => {
                     //send request to server
                     if (result.value) {
-                        let data = await this.$store.dispatch('deleteRepair', item.id)
+                        console.log(item)
+                        let data = await this.$store.dispatch('changestatus', item)
+
                         if (data != null) {
                             await this.loadRepair()
                             this.$swal(
-                                'Deleted!',
-                                'Your post has been deleted!',
+                                'Cancel Request!',
+                                'success!',
                                 'success'
                             )
                         }

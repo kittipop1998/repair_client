@@ -3,18 +3,23 @@
     <template>
       <div>
         <v-app-bar
-            color="black"
+            color="purple"
             dense
             dark
         >
-          <v-toolbar-title>แจ้งซ่อมพัสดุ/อุปกรณ์หอพัก</v-toolbar-title>
+          <v-list-item  class="display-1 font-weight-black text-center">
+            <v-icon class="ma-1"
+                    x-large
+                    color="amber"
+                    x-large>mdi-hammer-wrench
+            </v-icon>
+            Dorm Fix
+          </v-list-item>
 
           <v-spacer></v-spacer>
 
-          <v-btn text @click="$router.push({name : 'Home'})">หน้าแรก</v-btn>
-          <v-btn text @click="$router.push({name : 'Recommend'})">แนะนำ</v-btn>
-          <v-btn text @click="$router.push({name : 'Contact'})">ติดต่อ</v-btn>
-          <v-btn text @click="$router.push({name : 'Logout'})">ออกจากระบบ</v-btn>
+          <v-btn text class="font-weight-black" @click="$router.push({name : 'Home'})">หน้าแรก</v-btn>
+          <v-btn text class="font-weight-black" @click="$router.push({name : 'Logout'})">ออกจากระบบ</v-btn>
 
         </v-app-bar>
       </div>

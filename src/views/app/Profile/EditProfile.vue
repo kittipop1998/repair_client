@@ -1,26 +1,14 @@
 <template>
   <div v-if="userprofile">
     <div class="text-center">
-      <p class="display-1">
-        <v-icon x-large color="primary">
-          mdi-file-document-edit-outline
+      <p class="display-1 font-weight-black">
+        <v-icon x-large color="pink">
+          mdi-text-box-search-outline
         </v-icon>
         แก้ไขข้อมูลส่วนตัว
       </p>
     </div>
-    <v-btn
-        class="ma-2"
-        color="black darken-2"
-        dark
-        @click="$router.push({name:'Profile'})"
-    >
-      <v-icon
-          dark
-          left
-      >
-        mdi-arrow-left
-      </v-icon>Back
-    </v-btn>
+
     <div class="d-flex justify-center">
 
       <v-card width="500" elevation="0">
@@ -34,16 +22,29 @@
                   :src="getImageUri(userprofile.image)"
           ></v-img>
         </v-container>
-
         <br/>
-
-
+        <v-list-item>
+          <p>
+            <v-icon class="ma-2"
+                    color="indigo"
+                    x-large>
+            </v-icon>
+          </p>
         <v-file-input
             label="รูปภาพ"
             v-model="userprofile.image"
             outlined dense>
         </v-file-input>
+          </v-list-item>
 
+
+        <v-list-item>
+          <p >
+            <v-icon class="ma-1"
+                    color="purple"
+                    x-large>mdi-face-outline
+            </v-icon>
+          </p>
         <v-text-field
             v-model="userprofile.nameStudent"
             item-text="nameStudent"
@@ -52,7 +53,15 @@
             dense
             solo
         ></v-text-field>
+          </v-list-item>
 
+            <v-list-item>
+              <p >
+                <v-icon class="ma-1"
+                        color="amber"
+                        x-large>mdi-card-account-details-outline
+                </v-icon>
+              </p>
         <v-text-field
             v-model="userprofile.student_id"
             item-text="student_id"
@@ -61,7 +70,15 @@
             dense
             solo
         ></v-text-field>
+              </v-list-item>
 
+        <v-list-item>
+          <p >
+            <v-icon class="ma-1"
+                    color="brown"
+                    x-large>mdi-school-outline
+            </v-icon>
+          </p>
         <v-text-field
             v-model="userprofile.department"
             item-text="department"
@@ -70,7 +87,15 @@
             dense
             solo
         ></v-text-field>
+          </v-list-item>
 
+        <v-list-item>
+          <p >
+            <v-icon class="ma-1"
+                    color="deep-orange"
+                    x-large>mdi-source-branch
+            </v-icon>
+          </p>
         <v-text-field
             v-model="userprofile.branch"
             item-text="department"
@@ -79,6 +104,15 @@
             dense
             solo
         ></v-text-field>
+          </v-list-item>
+
+        <v-list-item>
+          <p >
+            <v-icon class="ma-1"
+                    color="blue"
+                    x-large>mdi-phone-outline
+            </v-icon>
+          </p>
         <v-text-field
             v-model="userprofile.contact"
             item-text="contact"
@@ -87,7 +121,15 @@
             dense
             solo
         ></v-text-field>
+          </v-list-item>
 
+        <v-list-item>
+          <p >
+            <v-icon class="ma-1"
+                    color="blue"
+                    x-large>mdi-facebook
+            </v-icon>
+          </p>
         <v-text-field
             v-model="userprofile.face_book"
             item-text="face_book"
@@ -96,12 +138,26 @@
             dense
             solo
         ></v-text-field>
+          </v-list-item>
 
 
-        <br>
+
+
+
+
+
         <div class="text-center">
-          <v-btn class="mr-1" color="black" dark @click="save">บันทึก</v-btn>
-
+        <v-chip
+                rounded
+                dark @click="save"
+                class="ma-2"
+                color="purple"
+        >
+          <v-icon left>
+            mdi-account-circle-outline
+          </v-icon>
+          Save
+        </v-chip>
         </div>
 
 

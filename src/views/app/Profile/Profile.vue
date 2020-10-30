@@ -1,32 +1,35 @@
 <template>
   <div>
-    <div class="text-center">
-      <p class="display-1">
-        <v-icon x-large color="primary">
+    <div class="text-center ">
+      <p class="display-1 font-weight-black">
+        <v-icon x-large color="pink">
           mdi-text-box-search-outline
         </v-icon>
         ข้อมูลส่วนตัว
       </p>
     </div>
+    <v-chip
+            class="ma-2"
+            color="amber"
+            text-color="white"
+            @click="$router.push({name:'EditProfile'})"
+    >
+      Edit
+      <v-icon right>
+        mdi-pencil-outline
+      </v-icon>
+    </v-chip>
 
-    <v-btn class="font-weight-black-right"
-           fab dark color="yellow"
-           @click="$router.push({name:'EditProfile'})">
-      <v-icon dark >mdi-plus</v-icon>
-    </v-btn>
-    แก้ไข
-    <br/>
-
-    <div class="d-flex justify-center" >
+    <div class="d-flex justify-center " >
 
       <v-card width="750" elevation="0"
               v-if="userprofile"
               sort-by="calories"
-              class="elevation-1">
+              class="elevation-1 ">
 
-        <v-card class="mx-auto"
+        <v-card class="mx-auto "
         >
-          <v-card-text >
+          <v-card-text class="purple lighten-5" >
             <div class="font-weight-black"  >
               <div>
                 <v-container class="text-center">

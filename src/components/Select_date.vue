@@ -9,6 +9,7 @@
         >
             <template v-slot:activator="{ on, attrs }">
                 <v-text-field
+                        readonly
                         v-model="date"
                         dense
                         label="ระบุวันที่แจ้งซ่อม"
@@ -26,7 +27,7 @@
                     v-if="dialog"
                     v-model="date"
                     scrollable
-                    color="black"
+                    color="purple"
             >
                 <v-spacer></v-spacer>
                 <v-btn
@@ -38,7 +39,7 @@
                 </v-btn>
                 <v-btn
                         text
-                        color="black"
+                        color="purple"
                         @click="save(date)"
                 >
                     OK
@@ -49,6 +50,7 @@
 </template>
 
 <script>
+    import moment from 'moment';
     export default {
         name: "select_date",
         props: {
@@ -67,6 +69,9 @@
             date: null,
             dialog: false
         }),
+        created() {
+            this.date = moment(new Date())
+        },
         mounted() {
             this.date = this.date_value;
             this.$refs.dialog.save(this.date_value);

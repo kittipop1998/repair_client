@@ -26,7 +26,7 @@
                     v-if="dialog"
                     v-model="date"
                     scrollable
-                    color="black"
+                    color="purple"
             >
                 <v-spacer></v-spacer>
                 <v-btn
@@ -38,7 +38,7 @@
                 </v-btn>
                 <v-btn
                         text
-                        color="black"
+                        color="purple"
                         @click="save()"
                 >
                     OK
